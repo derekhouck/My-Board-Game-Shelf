@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
+import HeaderBar from './components/header-bar';
+import RegistrationPage from './components/registration-page';
+import Users from './components/users';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <h1>My Board Game Shelf</h1>
-        </header>
+        <HeaderBar />
+        <RegistrationPage />
+        <Users />
       </div>
     );
   }
