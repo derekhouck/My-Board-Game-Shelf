@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { API_BASE_URL } from '../config';
 
 import { fetchUsers } from '../actions/users';
 
@@ -49,9 +48,9 @@ class Users extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  users: state.users,
-  loading: state.loading,
-  error: state.error
+  users: state.users.users,
+  loading: state.users.loading,
+  error: state.users.error
 });
 
 export default connect(mapStateToProps)(Users);
