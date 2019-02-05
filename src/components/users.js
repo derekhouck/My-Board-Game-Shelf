@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { fetchUsers } from '../actions/users';
-import { login } from '../actions/auth';
 
 class Users extends React.Component {
   componentDidMount() {

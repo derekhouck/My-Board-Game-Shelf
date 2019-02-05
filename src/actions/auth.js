@@ -62,11 +62,11 @@ export const login = (username, password) => dispatch => {
               dispatch(authError(err));
               // Could not authenticate, so return a SubmissionError for Redux
               // Form
-              // return Promise.reject(
-              //     new SubmissionError({
-              //         _error: message
-              //     })
-              // );
+              return Promise.reject(
+                  new SubmissionError({
+                      _error: message
+                  })
+              );
           })
   );
 };

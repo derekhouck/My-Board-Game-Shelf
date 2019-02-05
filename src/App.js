@@ -5,7 +5,7 @@ import './App.css';
 import HeaderBar from './components/header-bar';
 import LandingPage from './components/landing-page';
 import RegistrationPage from './components/registration-page';
-import Users from './components/users';
+import Dashboard from './components/dashboard';
 
 class App extends Component {
   render() {
@@ -14,7 +14,7 @@ class App extends Component {
         <HeaderBar />
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/register" component={RegistrationPage} />
-        <Route exact path="/users" component={Users} />
+        <Route exact path="/dashboard" component={Dashboard} />
       </div>
     );
   }
