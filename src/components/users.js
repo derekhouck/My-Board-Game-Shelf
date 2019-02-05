@@ -6,8 +6,8 @@ import { login } from '../actions/auth';
 
 class Users extends React.Component {
   componentDidMount() {
-    this.props.dispatch(login())
-    this.props.dispatch(fetchUsers());
+    this.props.dispatch(login('derek', 'passw0rd'))
+      .then(() => this.props.dispatch(fetchUsers()));
   }
 
   renderUsers() {
@@ -15,11 +15,11 @@ class Users extends React.Component {
 
     if (this.props.error) {
       body = (
-        <div className="message message-error">{this.props.error}</div>
+        <div className="message message-error">{this.props.error.message}</div>
       );
     } else if (this.props.loading) {
       body = (
-        <div className="message message-default">Loading board...</div>
+        <div className="message message-default">Loading users...</div>
       );
     } else {
       const users = this.props.users.map(user => (

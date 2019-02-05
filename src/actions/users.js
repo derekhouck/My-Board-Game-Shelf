@@ -20,9 +20,15 @@ export const usersError = error => ({
   error
 });
 
-export const fetchUsers = () => dispatch => {
+export const fetchUsers = () => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
   dispatch(fetchUsersRequest());
-  return fetch(`${API_BASE_URL}/users`)
+  return fetch(`${API_BASE_URL}/users`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${authToken}`
+    }
+  })
     .then(res => normalizeResponseErrors(res))
     .then(res => res.json())
     .then(users => dispatch(fetchUsersSuccess(users)))
