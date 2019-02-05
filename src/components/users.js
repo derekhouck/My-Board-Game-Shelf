@@ -6,8 +6,7 @@ import { login } from '../actions/auth';
 
 class Users extends React.Component {
   componentDidMount() {
-    this.props.dispatch(login('derek', 'passw0rd'))
-      .then(() => this.props.dispatch(fetchUsers()));
+    this.props.dispatch(fetchUsers());
   }
 
   renderUsers() {
