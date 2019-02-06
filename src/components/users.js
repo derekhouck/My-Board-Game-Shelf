@@ -1,4 +1,5 @@
 import React from 'react';
+import requiresLogin from './requires-login';
 import { connect } from 'react-redux';
 
 import { fetchUsers } from '../actions/users';
@@ -53,4 +54,4 @@ const mapStateToProps = state => ({
   error: state.users.error
 });
 
-export default connect(mapStateToProps)(Users);
+export default requiresLogin()(connect(mapStateToProps)(Users));

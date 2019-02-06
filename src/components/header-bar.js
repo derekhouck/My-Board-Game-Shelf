@@ -20,7 +20,7 @@ export class HeaderBar extends React.Component {
 
     return (
       <header className="App-header">
-        <h1>My Board Game Shelf</h1>
+        <div class="App-title">My Board Game Shelf</div>
         { logOutButton }
       </header>
     );

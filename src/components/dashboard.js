@@ -1,13 +1,13 @@
 import React from 'react';
 import requiresLogin from './requires-login';
 
-import Users from './users';
+import Games from './games';
 
 export function Dashboard(props) {
   return (
     <section className="dashboard">
-      <h2>Your Shelf</h2>
-      <Users />
+      <h1>Your Shelf</h1>
+      <Games />
     </section>
   );
 }

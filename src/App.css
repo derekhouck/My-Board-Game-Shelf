@@ -1,5 +1,5 @@
-.App {
-  text-align: center;
+.App-main {
+  padding: 1rem;
 }
 
 .App-header {
@@ -10,6 +10,11 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding: 1rem;
+}
+
+.App-title {
+  font-family: 'Luckiest Guy', cursive;
 }
 
 .App-link {
