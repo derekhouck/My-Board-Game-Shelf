@@ -18,10 +18,18 @@ export const gamesError = error => ({
   error
 });
 
-export const fetchGames = () => (dispatch, getState) => {
+export const fetchGames = (params) => (dispatch, getState) => {
+  let url = new URL(`${API_BASE_URL}/games`);
+  if (params) {
+    Object.keys(params).forEach(key => {
+      return url.searchParams.append(key, params[key])
+    });
+  }
   const authToken = getState().auth.authToken;
+
   dispatch(fetchGamesRequest());
-  return fetch(`${API_BASE_URL}/games`, {
+
+  return fetch(url, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${authToken}`

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { fetchGames } from '../actions/games';
+import GamesSearchFrom from './games-search-form';
 
 export class Games extends React.Component {
   componentDidMount() {
@@ -29,9 +30,12 @@ export class Games extends React.Component {
         </li>
       ));
       body = (
-        <ul className="games">
-          {games}
-        </ul>
+        <section className="games">
+          <GamesSearchFrom />
+          <ul className="games__list">
+            {games}
+          </ul>
+        </section>
       );
     }
     return body;
