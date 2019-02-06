@@ -21,6 +21,13 @@ export class GamesSearchForm extends React.Component {
           id="searchTerm"
           label="Search for game title"
         />
+        <Field 
+          component={Input}
+          type="number"
+          name="players"
+          id="players"
+          label="Number of players"
+        />
         <button type="submit">Search</button>
       </form>
     );
