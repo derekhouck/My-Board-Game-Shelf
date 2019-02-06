@@ -1,90 +1,40 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-export default class Games extends React.Component {
+import { fetchGames } from '../actions/games';
+
+export class Games extends React.Component {
+  componentDidMount() {
+    this.props.dispatch(fetchGames());
+  }
+
   renderGames() {
-    const gamesData = [
-      {
-        "players": {
-          "min": 5,
-          "max": 10
-        },
-        "tags": [],
-        "title": "Game created by Postman",
-        "userId": "000000000000000000000001",
-        "createdAt": "2019-02-06T19:41:28.366Z",
-        "updatedAt": "2019-02-06T19:41:28.366Z",
-        "id": "5c5b38683f9c4713d828bf58"
-      },
-      {
-        "players": {
-          "min": 2,
-          "max": 8
-        },
-        "tags": [
-          "222222222222222222222205",
-          "222222222222222222222207"
-        ],
-        "title": "King of New York",
-        "userId": "000000000000000000000001",
-        "createdAt": "2019-02-06T19:37:02.780Z",
-        "updatedAt": "2019-02-06T19:37:02.780Z",
-        "id": "111111111111111111111105"
-      },
-      {
-        "players": {
-          "min": 2,
-          "max": 8
-        },
-        "tags": [
-          "222222222222222222222201",
-          "222222222222222222222203",
-          "222222222222222222222205"
-        ],
-        "title": "King of Tokyo",
-        "userId": "000000000000000000000001",
-        "createdAt": "2019-02-06T19:37:02.780Z",
-        "updatedAt": "2019-02-06T19:37:02.780Z",
-        "id": "111111111111111111111107"
-      },
-      {
-        "players": {
-          "min": 2,
-          "max": 6
-        },
-        "tags": [],
-        "title": "Monopoly",
-        "userId": "000000000000000000000001",
-        "createdAt": "2019-02-06T19:37:02.780Z",
-        "updatedAt": "2019-02-06T19:37:02.780Z",
-        "id": "111111111111111111111103"
-      },
-      {
-        "players": {
-          "min": null,
-          "max": null
-        },
-        "tags": [],
-        "title": "Updated Game",
-        "userId": "000000000000000000000001",
-        "createdAt": "2019-02-06T19:37:02.780Z",
-        "updatedAt": "2019-02-06T19:43:06.639Z",
-        "id": "111111111111111111111109"
-      }
-    ];
+    let body;
 
-    const games = gamesData.map(game => (
+    if (this.props.error) {
+      body = (
+        <div className="message message-error">{this.props.error.message}</div>
+      );
+    } else if (this.props.loading) {
+      body = (
+        <div className="message message-default">Loading users...</div>
+      );
+    } else {
+      const games = this.props.games.map(game => (
         <li className="game" key={game.id} id={game.id}>
           <h3 className="game__title">{game.title}</h3>
           <ul>
             <li>Players: {game.players.min} - {game.players.max}</li>
           </ul>
         </li>
-    ));
-    return (
-      <ul className="games">
-        {games}
-      </ul>
-    );
+      ));
+      body = (
+        <ul className="games">
+          {games}
+        </ul>
+      );
+    }
+    return body;
   }
 
   render() {
@@ -96,3 +46,11 @@ export default class Games extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  games: state.games.games,
+  loading: state.games.loading,
+  error: state.games.error
+});
+
+export default connect(mapStateToProps)(Games);
