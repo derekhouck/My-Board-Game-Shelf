@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { fetchGames } from '../actions/games';
@@ -45,6 +46,7 @@ export class Games extends React.Component {
     return (
       <section>
         <h2>Your Games</h2>
+        <Link to="/games/add">Add a game</Link>
         {this.renderGames()}
       </section>
     );

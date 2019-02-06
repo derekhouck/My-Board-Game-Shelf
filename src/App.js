@@ -8,6 +8,7 @@ import LandingPage from './components/landing-page';
 import RegistrationPage from './components/registration-page';
 import Dashboard from './components/dashboard';
 import Users from './components/users';
+import GameForm from './components/game-form';
 import { refreshAuthToken } from './actions/auth';
 
 class App extends Component {
@@ -49,6 +50,7 @@ class App extends Component {
           <Route exact path="/register" component={RegistrationPage} />
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/users" component={Users} />
+          <Route exact path="/games/add" component={GameForm} />
         </main>
       </div>
     );
