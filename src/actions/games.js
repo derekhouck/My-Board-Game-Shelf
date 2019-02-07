@@ -14,6 +14,12 @@ export const fetchGamesSuccess = games => ({
   games
 });
 
+export const REMOVE_GAME = 'REMOVE_GAME';
+export const removeGame = game => ({
+  type: REMOVE_GAME,
+  game
+});
+
 export const GAMES_ERROR = 'GAMES_ERROR';
 export const gamesError = error => ({
   type: GAMES_ERROR,
@@ -97,7 +103,7 @@ export const editGame = game => (dispatch, getState) => {
     });
 };
 
-export const removeGame = game => (dispatch, getState) => {
+export const deleteGame = game => (dispatch, getState) => {
   const authToken = getState().auth.authToken;
 
   return fetch(`${API_BASE_URL}/games/${game.id}`, {
@@ -107,16 +113,8 @@ export const removeGame = game => (dispatch, getState) => {
     }
   })
     .then(res => normalizeResponseErrors(res))
-    .then(res => res.json())
+    .then(() => dispatch(removeGame(game)))
     .catch(err => {
-      const { reason, message, location } = err;
-      if (reason === 'ValidationError') {
-        // Convert ValidationErrors into SubmissionErrors for Redux Form
-        return Promise.reject(
-          new SubmissionError({
-            [location]: message
-          })
-        );
-      }
+      dispatch(gamesError(err));
     });
 };

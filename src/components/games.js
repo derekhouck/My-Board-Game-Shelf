@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { fetchGames, removeGame } from '../actions/games';
+import { fetchGames, deleteGame } from '../actions/games';
 import GamesSearchFrom from './games-search-form';
 
 export class Games extends React.Component {
@@ -28,7 +28,7 @@ export class Games extends React.Component {
           <ul>
             <li>Players: {game.players.min} - {game.players.max}</li>
             <li><Link to={`/games/${game.id}/edit`}>Edit</Link></li>
-            <li><button onClick={() => this.props.dispatch(removeGame(game))}>Remove</button></li>
+            <li><button onClick={() => this.props.dispatch(deleteGame(game))}>Remove</button></li>
           </ul>
         </li>
       ));

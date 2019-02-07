@@ -1,6 +1,7 @@
 import { 
   FETCH_GAMES_REQUEST, 
   FETCH_GAMES_SUCCESS, 
+  REMOVE_GAME,
   GAMES_ERROR } from '../actions/games';
 
 const initialState = {
@@ -20,6 +21,11 @@ export default function reducer(state = initialState, action) {
       return Object.assign({}, state, {
         loading: false,
         games: action.games
+      });
+      case REMOVE_GAME:
+      return Object.assign({}, state, {
+        loading: false,
+        games: state.games.filter(game => game.id !== action.game.id)
       });
     case GAMES_ERROR:
       return Object.assign({}, state, {
