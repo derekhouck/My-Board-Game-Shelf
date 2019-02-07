@@ -27,6 +27,7 @@ export class Games extends React.Component {
           <h3 className="game__title">{game.title}</h3>
           <ul>
             <li>Players: {game.players.min} - {game.players.max}</li>
+            <li><Link to={`/games/${game.id}/edit`}>Edit</Link></li>
           </ul>
         </li>
       ));
