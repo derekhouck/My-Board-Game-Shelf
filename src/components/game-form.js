@@ -1,5 +1,7 @@
 import React from 'react';
 import { reduxForm, Field, focus } from 'redux-form';
+import { Redirect } from 'react-router-dom';
+import { addGame } from '../actions/games';
 import Input from './input';
 import { required, nonEmpty, minNum, maxNum, notLessThanField } from '../validators';
 
@@ -11,7 +13,8 @@ export class GameForm extends React.Component {
   onSubmit (values) {
     const { title, minPlayers, maxPlayers } = values;
     const game = { title, minPlayers, maxPlayers };
-    console.log(game);
+    return this.props.dispatch(addGame(game))
+      .then(() => (this.props.history.push('/dashboard')));
   }
 
   render() {

@@ -1,3 +1,5 @@
+import { SubmissionError } from 'redux-form';
+
 import { API_BASE_URL } from '../config';
 import { normalizeResponseErrors } from './utils';
 
@@ -42,3 +44,29 @@ export const fetchGames = (params) => (dispatch, getState) => {
       dispatch(gamesError(err));
     });
 }
+
+export const addGame = game => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
+
+  return fetch(`${API_BASE_URL}/games`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      Authorization: `Bearer ${authToken}`
+    },
+    body: JSON.stringify(game)
+  })
+    .then(res => normalizeResponseErrors(res))
+    .then(res => res.json())
+    .catch(err => {
+      const { reason, message, location } = err;
+      if (reason === 'ValidationError') {
+        // Convert ValidationErrors into SubmissionErrors for Redux Form
+        return Promise.reject(
+          new SubmissionError({
+            [location]: message
+          })
+        );
+      }
+    });
+};
