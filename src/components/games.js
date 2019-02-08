@@ -22,16 +22,25 @@ export class Games extends React.Component {
         <div className="message message-default">Loading users...</div>
       );
     } else {
-      const games = this.props.games.map(game => (
-        <li className="game" key={game.id} id={game.id}>
-          <h3 className="game__title">{game.title}</h3>
-          <ul>
-            <li>Players: {game.players.min} - {game.players.max}</li>
-            <li><Link to={`/games/${game.id}/edit`}>Edit</Link></li>
-            <li><button onClick={() => this.props.dispatch(deleteGame(game))}>Remove</button></li>
-          </ul>
-        </li>
-      ));
+      const games = this.props.games.map(game => {
+        const tags = game.tags.map(tag => (<li>{tag.name}</li>));
+        return (
+          <li className="game" key={game.id} id={game.id}>
+            <h3 className="game__title">{game.title}</h3>
+            <ul>
+              <li>Players: {game.players.min} - {game.players.max}</li>
+              <li>
+                Tags: 
+                <ul>
+                {tags}
+                </ul>
+                </li>
+              <li><Link to={`/games/${game.id}/edit`}>Edit</Link></li>
+              <li><button onClick={() => this.props.dispatch(deleteGame(game))}>Remove</button></li>
+            </ul>
+          </li>
+        );
+      });
       body = (
         <section className="games">
           <GamesSearchFrom />
