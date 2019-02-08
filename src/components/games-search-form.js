@@ -2,41 +2,47 @@ import React from 'react';
 import { reduxForm, Field, focus } from 'redux-form';
 import { fetchGames } from '../actions/games';
 import Input from './input';
+import './games-search-form.css';
 
 export class GamesSearchForm extends React.Component {
-  onSubmit (values) {
+  onSubmit(values) {
     return this.props.dispatch(fetchGames(values));
   }
 
-  render () {
+  render() {
     return (
-      <form 
-        className="games__search-form"
-        onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
-      >
-        <Field 
-          component={Input}
-          type="text"
-          name="searchTerm"
-          id="searchTerm"
-          label="Search for game title"
-        />
-        <Field 
-          component={Input}
-          type="number"
-          name="players"
-          id="players"
-          label="Number of players"
-        />
-        <Field 
-          component={Input}
-          type="text"
-          name="tagId"
-          id="tagId"
-          label="Tag ID"
-        />
-        <button type="submit">Search</button>
-      </form>
+      <section className="games__search">
+        <h3>Filter List</h3>
+        <form
+          className="games__search-form"
+          onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
+        >
+        <div className="games__search-fields">
+          <Field
+            component={Input}
+            type="text"
+            name="searchTerm"
+            id="searchTerm"
+            label="Game title"
+          />
+          <Field
+            component={Input}
+            type="number"
+            name="players"
+            id="players"
+            label="Number of players"
+          />
+          <Field
+            component={Input}
+            type="text"
+            name="tagId"
+            id="tagId"
+            label="Tag ID"
+          />
+        </div>
+          <button type="submit">Search</button>
+        </form>
+      </section>
     );
   }
 }
