@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { reduxForm, Field, focus } from 'redux-form';
 import { fetchGames } from '../actions/games';
 import Input from './input';
@@ -10,6 +11,8 @@ export class GamesSearchForm extends React.Component {
   }
 
   render() {
+    const tags = this.props.tags.map(tag => (<option key={tag.id} id={tag.id}>{tag.name}</option>) + `${tag.name}, ${tag.id}`);
+    console.log(tags);
     return (
       <section className="games__search">
         <h3>Filter List</h3>
@@ -39,6 +42,15 @@ export class GamesSearchForm extends React.Component {
             id="tagId"
             label="Tag ID"
           />
+          <label htmlFor="tagId">Tag</label>
+          <Field 
+            component="select"
+            name="tagId"
+            id="tagId"
+          >
+            <option value="test">Hard-coded option 1</option>
+            <option value="test2">Hard-coded option 2</option>
+          </Field>
         </div>
           <button type="submit">Search</button>
         </form>
@@ -47,10 +59,36 @@ export class GamesSearchForm extends React.Component {
   }
 }
 
+function getUnique(arr, comp) {
+
+  const unique = arr
+       .map(e => e[comp])
+
+     // store the keys of the unique objects
+    .map((e, i, final) => final.indexOf(e) === i && i)
+
+    // eliminate the dead keys & store unique objects
+    .filter(e => arr[e]).map(e => arr[e]);
+
+   return unique;
+}
+
+const getTags = (games) => {
+  const tagArrays = games.games.map(game => game.tags);
+  const mergedArray = [].concat.apply([], tagArrays);
+  const tags = getUnique(mergedArray, 'id');
+
+  return tags;
+};
+
+const mapStateToProps = state => ({
+  tags: getTags(state.games)
+});
+
 export default reduxForm({
   form: 'games-search-form',
   destroyOnUnmount: false,
   // keepDirtyOnReinitialize: true,
   // enableReinitialize: true,
   onSubmitFail: (errors, dispatch) => dispatch(focus('registration', Object.keys(errors)[0]))
-})(GamesSearchForm);
+})(connect(mapStateToProps)(GamesSearchForm));

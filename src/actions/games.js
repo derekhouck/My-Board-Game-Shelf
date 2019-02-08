@@ -26,11 +26,11 @@ export const gamesError = error => ({
   error
 });
 
-export const fetchGames = (params) => (dispatch, getState) => {
+export const fetchGames = filters => (dispatch, getState) => {
   let url = new URL(`${API_BASE_URL}/games`);
-  if (params) {
-    Object.keys(params).forEach(key => {
-      return url.searchParams.append(key, params[key])
+  if (filters) {
+    Object.keys(filters).forEach(key => {
+      return url.searchParams.append(key, filters[key])
     });
   }
   const authToken = getState().auth.authToken;
