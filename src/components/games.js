@@ -23,7 +23,7 @@ export class Games extends React.Component {
       );
     } else {
       const games = this.props.games.map(game => {
-        const tags = game.tags.map(tag => (<li>{tag.name}, {tag.id}</li>));
+        const tags = game.tags.map(tag => (<li key={tag.id} id={tag.id}>{tag.name}</li>));
         return (
           <li className="game" key={game.id} id={game.id}>
             <h3 className="game__title">{game.title}</h3>

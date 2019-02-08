@@ -11,8 +11,7 @@ export class GamesSearchForm extends React.Component {
   }
 
   render() {
-    const tags = this.props.tags.map(tag => (<option key={tag.id} id={tag.id}>{tag.name}</option>) + `${tag.name}, ${tag.id}`);
-    console.log(tags);
+    const tags = this.props.tags.map(tag => (<option key={tag.id} value={tag.id}>{tag.name}</option>));
     return (
       <section className="games__search">
         <h3>Filter List</h3>
@@ -20,38 +19,33 @@ export class GamesSearchForm extends React.Component {
           className="games__search-form"
           onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
         >
-        <div className="games__search-fields">
-          <Field
-            component={Input}
-            type="text"
-            name="searchTerm"
-            id="searchTerm"
-            label="Game title"
-          />
-          <Field
-            component={Input}
-            type="number"
-            name="players"
-            id="players"
-            label="Number of players"
-          />
-          <Field
-            component={Input}
-            type="text"
-            name="tagId"
-            id="tagId"
-            label="Tag ID"
-          />
-          <label htmlFor="tagId">Tag</label>
-          <Field 
-            component="select"
-            name="tagId"
-            id="tagId"
-          >
-            <option value="test">Hard-coded option 1</option>
-            <option value="test2">Hard-coded option 2</option>
-          </Field>
-        </div>
+          <div className="games__search-fields">
+            <Field
+              component={Input}
+              type="text"
+              name="searchTerm"
+              id="searchTerm"
+              label="Game title"
+            />
+            <Field
+              component={Input}
+              type="number"
+              name="players"
+              id="players"
+              label="Number of players"
+            />
+            <div className="form-input">
+              <label htmlFor="tagId">Tag</label>
+              <Field
+                component="select"
+                name="tagId"
+                id="tagId"
+              >
+                <option value="" defaultValue>Select tag</option>
+                {tags}
+              </Field>
+            </div>
+          </div>
           <button type="submit">Search</button>
         </form>
       </section>
@@ -62,15 +56,15 @@ export class GamesSearchForm extends React.Component {
 function getUnique(arr, comp) {
 
   const unique = arr
-       .map(e => e[comp])
+    .map(e => e[comp])
 
-     // store the keys of the unique objects
+    // store the keys of the unique objects
     .map((e, i, final) => final.indexOf(e) === i && i)
 
     // eliminate the dead keys & store unique objects
     .filter(e => arr[e]).map(e => arr[e]);
 
-   return unique;
+  return unique;
 }
 
 const getTags = (games) => {

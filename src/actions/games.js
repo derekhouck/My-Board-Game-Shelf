@@ -14,6 +14,12 @@ export const fetchGamesSuccess = games => ({
   games
 });
 
+export const FETCH_TAGS_SUCCESS = 'FETCH_TAGS_SUCCESS';
+export const fetchTagsSuccess = tags => ({
+  type: FETCH_TAGS_SUCCESS,
+  tags
+});
+
 export const REMOVE_GAME = 'REMOVE_GAME';
 export const removeGame = game => ({
   type: REMOVE_GAME,
@@ -46,6 +52,31 @@ export const fetchGames = filters => (dispatch, getState) => {
     .then(res => normalizeResponseErrors(res))
     .then(res => res.json())
     .then(games => dispatch(fetchGamesSuccess(games)))
+    .catch(err => {
+      dispatch(gamesError(err));
+    });
+}
+
+export const fetchTags = filters => (dispatch, getState) => {
+  let url = new URL(`${API_BASE_URL}/tags`);
+  if (filters) {
+    Object.keys(filters).forEach(key => {
+      return url.searchParams.append(key, filters[key])
+    });
+  }
+  const authToken = getState().auth.authToken;
+
+  dispatch(fetchGamesRequest());
+
+  return fetch(url, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${authToken}`
+    }
+  })
+    .then(res => normalizeResponseErrors(res))
+    .then(res => res.json())
+    .then(tags => dispatch(fetchTagsSuccess(tags)))
     .catch(err => {
       dispatch(gamesError(err));
     });

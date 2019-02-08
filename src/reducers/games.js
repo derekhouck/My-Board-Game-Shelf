@@ -1,11 +1,14 @@
-import { 
-  FETCH_GAMES_REQUEST, 
-  FETCH_GAMES_SUCCESS, 
+import {
+  FETCH_GAMES_REQUEST,
+  FETCH_GAMES_SUCCESS,
+  FETCH_TAGS_SUCCESS,
   REMOVE_GAME,
-  GAMES_ERROR } from '../actions/games';
+  GAMES_ERROR
+} from '../actions/games';
 
 const initialState = {
   games: [],
+  tags: [],
   loading: false,
   error: null
 }
@@ -22,7 +25,12 @@ export default function reducer(state = initialState, action) {
         loading: false,
         games: action.games
       });
-      case REMOVE_GAME:
+    case FETCH_TAGS_SUCCESS:
+      return Object.assign({}, state, {
+        loading: false,
+        tags: action.tags
+      });
+    case REMOVE_GAME:
       return Object.assign({}, state, {
         loading: false,
         games: state.games.filter(game => game.id !== action.game.id)

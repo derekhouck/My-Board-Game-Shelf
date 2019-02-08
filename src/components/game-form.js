@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field, focus } from 'redux-form';
-import { fetchGames, addGame, editGame } from '../actions/games';
+import { fetchGames, fetchTags, addGame, editGame } from '../actions/games';
 import Input from './input';
 import { required, nonEmpty, minNum, maxNum, notLessThanField } from '../validators';
 
@@ -11,30 +11,34 @@ const notLessThanMinPlayers = notLessThanField('minPlayers');
 
 export class GameForm extends React.Component {
   componentDidMount() {
-    if (this.props.editing) {
-      if (this.props.games.length === 0) {
-        this.props.dispatch(fetchGames())
-          .then(() => this.handleInitialize());
-      } else {
-        this.handleInitialize();
-      }
-    }
+    this.props.dispatch(fetchTags())
+      .then(() => {
+        if (this.props.editing) {
+          if (this.props.games.length === 0) {
+            this.props.dispatch(fetchGames())
+              .then(() => this.handleInitialize());
+          } else {
+            this.handleInitialize();
+          }
+        }
+      });
   }
 
   handleInitialize() {
-    const currentGame = this.props.games.find(game => game.id === this.props.match.params.id);
+    const currentGame = this.props.currentGame;
     const initData = {
       "title": currentGame.title,
       "minPlayers": currentGame.players.min,
-      "maxPlayers": currentGame.players.max
+      "maxPlayers": currentGame.players.max,
+      "tags": currentGame.tags.map(tag => tag.id)
     };
 
     this.props.initialize(initData);
   }
 
   onSubmit(values) {
-    const { title, minPlayers, maxPlayers } = values;
-    const game = { title, minPlayers, maxPlayers };
+    const { title, minPlayers, maxPlayers, tags } = values;
+    const game = { title, minPlayers, maxPlayers, tags };
     const whichAction = (game) => {
       if (this.props.editing) {
         game.id = this.props.match.params.id
@@ -48,6 +52,8 @@ export class GameForm extends React.Component {
   }
 
   render() {
+    const tags = this.props.tags.map(tag => (<option key={tag.id} value={tag.id}>{tag.name}</option>));
+
     return (
       <form
         className="game-form"
@@ -78,6 +84,18 @@ export class GameForm extends React.Component {
           label="Maximum number of players"
           validate={[playersMin, playersMax, notLessThanMinPlayers]}
         />
+        <div className="form-input">
+          <label htmlFor="tags">Tags</label>
+          <Field
+            component="select"
+            name="tags"
+            id="tags"
+            multiple
+            type="select-multiple"
+          >
+            {tags}
+          </Field>
+        </div>
         <button type="submit">{this.props.editing ? 'Edit' : 'Add'} Game</button>
       </form>
     );
@@ -86,7 +104,9 @@ export class GameForm extends React.Component {
 
 const mapStateToProps = (state, props) => ({
   games: state.games.games,
-  editing: !!props.match.params.id
+  tags: state.games.tags,
+  currentGame: state.games.games.find(game => game.id === props.match.params.id),
+  editing: !!props.match.params.id,
 });
 
 export default reduxForm({
