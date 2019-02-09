@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {clearAuth} from '../actions/auth';
-import {clearAuthToken} from '../local-storage';
+import { clearAuth } from '../actions/auth';
+import { clearAuthToken } from '../local-storage';
 
 export class HeaderBar extends React.Component {
   logOut() {
@@ -10,18 +10,27 @@ export class HeaderBar extends React.Component {
     clearAuthToken();
   }
 
-  render () {
+  render() {
     // Only render the log out button if we are logged in
-    let logOutButton, appTitle;
+    let appTitle, headerNav;
     if (this.props.loggedIn) {
-        appTitle = (
-          <Link to="/dashboard" className="App-title">
-            My Board Game Shelf
+      appTitle = (
+        <Link to="/dashboard" className="App-title">
+          My Board Game Shelf
           </Link>
-        );
-        logOutButton = (
-            <button onClick={() => this.logOut()}>Log out</button>
-        );
+      );
+      headerNav = (
+        <nav>
+          <ul>
+            <li>
+              <button onClick={() => this.logOut()}>Log out</button>
+            </li>
+            <li>
+              <Link to="/account">Your Account</Link>
+            </li>
+          </ul>
+        </nav>
+      );
     } else {
       appTitle = (
         <div className="App-title">My Board Game Shelf</div>
@@ -30,8 +39,8 @@ export class HeaderBar extends React.Component {
 
     return (
       <header className="App-header">
-        { appTitle }
-        { logOutButton }
+        {appTitle}
+        {headerNav}
       </header>
     );
   }

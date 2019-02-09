@@ -7,8 +7,9 @@ import HeaderBar from './components/header-bar';
 import LandingPage from './components/landing-page';
 import RegistrationPage from './components/registration-page';
 import Dashboard from './components/dashboard';
-import Users from './components/users';
 import GameForm from './components/game-form';
+import Users from './components/users';
+import Account from './components/account';
 import { refreshAuthToken } from './actions/auth';
 
 class App extends Component {
@@ -49,9 +50,10 @@ class App extends Component {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/register" component={RegistrationPage} />
           <Route exact path="/dashboard" component={Dashboard} />
-          <Route exact path="/users" component={Users} />
           <Route exact path="/games/add" component={GameForm} />
           <Route exact path="/games/:id/edit" component={GameForm} />
+          <Route exact path="/account" component={Account} />
+          <Route exact path="/users" component={Users} />
         </main>
       </div>
     );
