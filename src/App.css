@@ -22,6 +22,15 @@
   text-decoration: none;
 }
 
+.App-nav__list {
+  display: flex;
+  list-style: none;
+}
+
+.App-nav__list li {
+  margin-left: 1em;
+}
+
 .App-link {
   color: #61dafb;
 }

@@ -20,8 +20,8 @@ export class HeaderBar extends React.Component {
           </Link>
       );
       headerNav = (
-        <nav class="App-nav">
-          <ul>
+        <nav className="App-nav">
+          <ul className="App-nav__list">
             <li>
               <button onClick={() => this.logOut()}>Log out</button>
             </li>

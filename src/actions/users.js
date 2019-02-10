@@ -2,6 +2,8 @@ import { SubmissionError } from 'redux-form';
 
 import { API_BASE_URL } from '../config';
 import { normalizeResponseErrors } from './utils';
+import { clearAuth } from './auth'
+import { clearAuthToken } from '../local-storage';
 
 export const FETCH_USERS_REQUEST = 'FETCH_USERS_REQUEST';
 export const fetchUsersRequest = () => ({
@@ -12,6 +14,11 @@ export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
 export const fetchUsersSuccess = users => ({
   type: FETCH_USERS_SUCCESS,
   users
+});
+
+export const TOGGLE_DELETING = 'TOGGLE_DELETING';
+export const toggleDeleting = () => ({
+  type: TOGGLE_DELETING
 });
 
 export const USERS_ERROR = 'USERS_ERROR';
@@ -59,3 +66,28 @@ export const registerUser = user => dispatch => {
       }
     });
 };
+
+export const deleteUser = user => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
+  return fetch(`${API_BASE_URL}/users/${user.id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${authToken}`
+    }
+  })
+    .then(() => {
+      dispatch(clearAuth());
+      clearAuthToken();
+    })
+    .catch(err => {
+      const { reason, message, location } = err;
+      if (reason === 'ValidationError') {
+        // Convert ValidationErrors into SubmissionErrors for Redux Form
+        return Promise.reject(
+          new SubmissionError({
+            [location]: message
+          })
+        );
+      }
+    });
+}
