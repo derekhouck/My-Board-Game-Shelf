@@ -135,6 +135,7 @@ export const editGame = game => (dispatch, getState) => {
 };
 
 export const deleteGame = game => (dispatch, getState) => {
+  console.log(game);
   const authToken = getState().auth.authToken;
 
   return fetch(`${API_BASE_URL}/games/${game.id}`, {

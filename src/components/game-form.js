@@ -2,8 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field, focus } from 'redux-form';
 import { fetchGames, fetchTags, addGame, editGame } from '../actions/games';
-import Input from './input';
 import { required, nonEmpty, minNum, maxNum, notLessThanField } from '../validators';
+import '../styles/game-form.css';
+
+import Button from './button';
+import Input from './input';
 
 const playersMin = minNum(1);
 const playersMax = maxNum(99);
@@ -96,7 +99,13 @@ export class GameForm extends React.Component {
             {tags}
           </Field>
         </div>
-        <button type="submit">{this.props.editing ? 'Edit' : 'Add'} Game</button>
+        <div className="form-actions">
+          <Button
+            primary
+            type="submit"
+            label={(this.props.editing ? 'Edit' : 'Add') + ' Game'}
+          />
+        </div>
       </form>
     );
   }
