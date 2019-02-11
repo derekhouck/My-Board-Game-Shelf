@@ -3,7 +3,8 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #4f2119;
+  box-shadow: 0 2px 2px black;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -17,9 +18,23 @@
 }
 
 .App-title {
-  color: white;
+  color: #e18258;
   font-family: 'Luckiest Guy', cursive;
+  font-size: 1.5em;
+  line-height: 1em;
   text-decoration: none;
+  text-shadow: 0 -2px 2px #000000;
+  /* text-shadow:
+   -2px -2px 0 hsl(6, 66%, 27%),  
+    2px -2px 0 hsl(6, 66%, 27%),
+    -2px 2px 0 hsl(6, 66%, 27%),
+     2px 2px 0 hsl(6, 66%, 27%); */
+}
+
+@media only screen and (min-width: 768px) {
+  .App-title {
+    font-size: 2em;
+  }
 }
 
 .App-nav__list {

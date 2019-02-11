@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Field, focus } from 'redux-form';
 import { fetchGames } from '../actions/games';
 import Input from './input';
-import './games-search-form.css';
+import '../styles/games-search-form.css';
 
 export class GamesSearchForm extends React.Component {
   onSubmit(values) {

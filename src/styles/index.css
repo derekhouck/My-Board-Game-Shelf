@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Luckiest+Guy|Raleway');
 
 body {
+  background: #f9fafa;
   margin: 0;
   padding: 0;
   font-family: 'Raleway', sans-serif;
@@ -13,5 +14,6 @@ code {
 }
 
 h1, h2 {
+  color: #4f2119;
   font-family: 'Luckiest Guy', cursive;
 }

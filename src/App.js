@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, withRouter } from 'react-router-dom';
-import './App.css';
+import './styles/App.css';
 
 import HeaderBar from './components/header-bar';
 import LandingPage from './components/landing-page';
