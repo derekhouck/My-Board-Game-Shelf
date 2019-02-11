@@ -1,9 +1,11 @@
 import React from 'react';
 import { Field, reduxForm, focus } from 'redux-form';
 import { connect } from 'react-redux';
-import Input from './input';
 import { login } from '../actions/auth';
 import { required, nonEmpty } from '../validators';
+
+import Input from './input';
+import Button from './button';
 
 export class LoginForm extends React.Component {
     onSubmit(values) {
@@ -11,6 +13,7 @@ export class LoginForm extends React.Component {
     }
 
     render() {
+        const isDisabled = () => this.props.pristine || this.props.submitting;
         let error, body;
         if (this.props.error) {
             error = (
@@ -49,9 +52,11 @@ export class LoginForm extends React.Component {
                         id="password"
                         validate={[required, nonEmpty]}
                     />
-                    <button disabled={this.props.pristine || this.props.submitting}>
-                        Log in
-                </button>
+                    <Button 
+                        label="Log In"
+                        disabled={isDisabled()} 
+                        primary
+                    />
                 </form>
             );
         }

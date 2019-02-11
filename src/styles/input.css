@@ -5,3 +5,19 @@
 .form-input label {
   display: block;
 }
+
+.form-input input {
+  background-color: #f9fafa;
+  border: 1px solid #4f2119;
+  padding: 0.5em 1em;
+}
+
+.form-input input:focus {
+  border-width: 2px;
+  outline: 0;
+}
+
+.form-error, .form-warning {
+  color: #d74a39;
+  font-weight: 700;
+}

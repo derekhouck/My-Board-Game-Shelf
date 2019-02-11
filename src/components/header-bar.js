@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { clearAuth } from '../actions/auth';
 import { clearAuthToken } from '../local-storage';
+import { toggleNavList } from '../actions/header-bar';
 
 export class HeaderBar extends React.Component {
   logOut() {
@@ -21,6 +22,15 @@ export class HeaderBar extends React.Component {
       );
       headerNav = (
         <nav className="App-nav">
+          <button 
+            class="App-nav__button"
+            onClick={() => this.props.dispatch(toggleNavList())}
+          >
+            <div class="App-nav__button--line"></div>
+            <div class="App-nav__button--line"></div>
+            <div class="App-nav__button--line"></div>
+          </button>
+          <small>Menu</small>
           <ul className="App-nav__list">
             <li>
               <button onClick={() => this.logOut()}>Log out</button>
@@ -47,7 +57,8 @@ export class HeaderBar extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: state.auth.currentUser !== null
+  loggedIn: state.auth.currentUser !== null,
+  expanded: state.headerBar.expanded
 });
 
 export default connect(mapStateToProps)(HeaderBar);

@@ -5,6 +5,7 @@ import { loadAuthToken } from './local-storage';
 import usersReducer from './reducers/users';
 import authReducer from './reducers/auth';
 import gamesReducer from './reducers/games';
+import headerBarReducer from './reducers/header-bar';
 import { setAuthToken, refreshAuthToken } from './actions/auth';
 
 const store = createStore(
@@ -12,7 +13,8 @@ const store = createStore(
     form: formReducer,
     users: usersReducer,
     auth: authReducer,
-    games: gamesReducer
+    games: gamesReducer,
+    headerBar: headerBarReducer
   }), 
   applyMiddleware(thunk)
 );

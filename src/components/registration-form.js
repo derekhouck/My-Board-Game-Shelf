@@ -2,10 +2,14 @@ import React from 'react';
 import { reduxForm, Field, focus } from 'redux-form';
 import { registerUser } from '../actions/users';
 import { login } from '../actions/auth';
-import Input from './input';
 import { required, nonEmpty, matches, length, isTrimmed } from '../validators';
+
+import Input from './input';
+import Button from './button';
+
 const passwordLength = length({ min: 8, max: 72 });
 const matchesPassword = matches('password');
+
 
 export class RegistrationForm extends React.Component {
   onSubmit(values) {
@@ -49,7 +53,11 @@ export class RegistrationForm extends React.Component {
           label="Confirm password"
           validate={[required, matchesPassword, nonEmpty]}
         />
-        <button type="submit">Create Account</button>
+        <Button 
+          type="submit" 
+          label="Create Account"
+          primary
+        />
       </form>
     );
   }
