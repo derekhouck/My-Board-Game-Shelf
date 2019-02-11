@@ -22,6 +22,7 @@ h1, h2 {
   color: #4f2119;
   font-family: 'Raleway', sans-serif;
   font-weight: 700;
+  text-align: center;
 }
 
 h1 strong, h2 strong {

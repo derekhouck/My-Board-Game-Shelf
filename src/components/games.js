@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
 import { fetchGames, deleteGame } from '../actions/games';
+import '../styles/games.css';
+
+import Button from './button';
 import GamesSearchFrom from './games-search-form';
 
 export class Games extends React.Component {
@@ -27,17 +29,24 @@ export class Games extends React.Component {
         return (
           <li className="game" key={game.id} id={game.id}>
             <h3 className="game__title">{game.title}</h3>
-            <ul>
-              <li>Players: {game.players.min} - {game.players.max}</li>
+            <ul className="game__details">
+              <li><strong>Players:</strong> {game.players.min} - {game.players.max}</li>
               <li>
-                Tags: 
-                <ul>
-                {tags}
+                <strong>Tags</strong>
+                <ul className="game__tag-list">
+                  {tags}
                 </ul>
-                </li>
-              <li><Link to={`/games/${game.id}/edit`}>Edit</Link></li>
-              <li><button onClick={() => this.props.dispatch(deleteGame(game))}>Remove</button></li>
+              </li>
             </ul>
+            <section className="game__buttons">
+              <Link to={`/games/${game.id}/edit`}>
+                <Button label="Edit" />
+              </Link>
+              <Button 
+                onClick={() => this.props.dispatch(deleteGame(game))}
+                label="Remove"
+              />
+            </section>
           </li>
         );
       });
@@ -56,8 +65,10 @@ export class Games extends React.Component {
   render() {
     return (
       <section>
-        <h2>Your Games</h2>
-        <Link to="/games/add">Add a game</Link>
+        <header className="games-header">
+          <Link to="/games/add" className="centered"><Button primary label="Add a game" /></Link>
+          <h2>Your Games</h2>
+        </header>
         {this.renderGames()}
       </section>
     );

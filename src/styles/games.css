@@ -1,0 +1,52 @@
+.games-header {
+  text-align: center;
+}
+
+.games__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.game {
+  background-color: hsla(18, 70%, 75%, 1);
+  border: 2px solid #4f2119;
+  margin: 1em 0;
+  padding: 1em;
+}
+
+.game__title {
+  font-size: 1.5em;
+  font-variant: small-caps;
+  margin: 0 0 0.5em;
+  text-align: center;
+}
+
+.game__details {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.game__details li {
+  margin: 0.5em 0;
+}
+
+.game__tag-list {
+  margin: 0;
+  padding: 0;
+}
+
+.game__tag-list li {
+  background-color: #e18258;
+  border: 1px solid #4f2119;
+  display: inline-block;
+  margin: 0.25em;
+  padding: 0.5em;
+}
+
+.game__buttons {
+  display: flex;
+  justify-content: space-between;
+}

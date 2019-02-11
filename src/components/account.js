@@ -11,7 +11,7 @@ export function Account(props) {
   } else {
     return (
       <section>
-        <h2>Your Account</h2>
+        <h1>Your Account</h1>
         <ul>
           <li>
             Name: {props.currentUser.name}
@@ -21,7 +21,7 @@ export function Account(props) {
           </li>
         </ul>
         <div>
-          <h3>Delete Your Account</h3>
+          <h2>Delete Your Account</h2>
           <p><strong>Warning: This action cannot be undone!</strong></p>
           <button onClick={() => props.dispatch(toggleDeleting())}>Delete Account</button>
         </div>

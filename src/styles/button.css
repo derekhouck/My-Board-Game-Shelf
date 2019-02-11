@@ -1,5 +1,6 @@
 .btn {
   background-color: #4f2119;
+  border: none;
   color: #f9fafa;
   cursor: pointer;
   font-size: 1em;
@@ -7,6 +8,7 @@
   margin: 1em;
   padding: 1em 2em;
   text-align: center;
+  text-decoration: none;
   transition-duration: 0.4s;
 }
 

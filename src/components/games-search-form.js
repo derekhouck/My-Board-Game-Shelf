@@ -2,8 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field, focus } from 'redux-form';
 import { fetchGames } from '../actions/games';
-import Input from './input';
 import '../styles/games-search-form.css';
+
+import Button from './button';
+import Input from './input';
 
 export class GamesSearchForm extends React.Component {
   onSubmit(values) {
@@ -14,7 +16,7 @@ export class GamesSearchForm extends React.Component {
     const tags = this.props.tags.map(tag => (<option key={tag.id} value={tag.id}>{tag.name}</option>));
     return (
       <section className="games__search">
-        <h3>Filter List</h3>
+        <h3>Filter your games</h3>
         <form
           className="games__search-form"
           onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
@@ -46,7 +48,7 @@ export class GamesSearchForm extends React.Component {
               </Field>
             </div>
           </div>
-          <button type="submit">Search</button>
+          <Button label="Search" type="submit" />
         </form>
       </section>
     );
