@@ -1,6 +1,10 @@
 /* Google Fonts */
 @import url('https://fonts.googleapis.com/css?family=Luckiest+Guy|Raleway:400,700,900');
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   background: #f9fafa;
   color: #4f2119;

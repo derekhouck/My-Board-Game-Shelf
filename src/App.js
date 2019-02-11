@@ -44,9 +44,9 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App" id="App">
         <HeaderBar />
-        <main className="App-main">
+        <main className="App-main" id="AppMain">
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/register" component={RegistrationPage} />
           <Route exact path="/dashboard" component={Dashboard} />

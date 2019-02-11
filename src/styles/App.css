@@ -13,10 +13,6 @@
   padding: 1rem;
 }
 
-.App-header a {
-  color: #f9fafa;
-}
-
 .App-title, a.App-title {
   color: #e18258;
   font-family: 'Luckiest Guy', cursive;
@@ -35,38 +31,4 @@
   .App-title {
     font-size: 2em;
   }
-}
-
-.App-nav small {
-  color: #e18258;
-  display: block;
-  text-align: center;
-  width: auto;
-}
-
-.App-nav__button {
-  background-color: #4f2119;
-  color: #f9fafa;
-  border: 4px solid #e18258;
-  padding: 0 4px;
-}
-
-.App-nav__button--line {
-  width: 24px;
-  height: 4px;
-  background-color: #e18258;
-  margin: 6px auto;
-}
-
-.App-nav__list {
-  display: none;
-  list-style: none;
-}
-
-.App-nav__list li {
-  margin-left: 1em;
-}
-
-.App-link {
-  color: #61dafb;
 }

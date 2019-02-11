@@ -1,11 +1,11 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
+import { reducer as burgerMenu } from 'redux-burger-menu';
 import thunk from 'redux-thunk';
 import { loadAuthToken } from './local-storage';
 import usersReducer from './reducers/users';
 import authReducer from './reducers/auth';
 import gamesReducer from './reducers/games';
-import headerBarReducer from './reducers/header-bar';
 import { setAuthToken, refreshAuthToken } from './actions/auth';
 
 const store = createStore(
@@ -14,7 +14,7 @@ const store = createStore(
     users: usersReducer,
     auth: authReducer,
     games: gamesReducer,
-    headerBar: headerBarReducer
+    burgerMenu
   }), 
   applyMiddleware(thunk)
 );

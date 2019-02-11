@@ -3,10 +3,14 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { clearAuth } from '../actions/auth';
 import { clearAuthToken } from '../local-storage';
-import { toggleNavList } from '../actions/header-bar';
+import { action as toggleMenu } from 'redux-burger-menu';
+
+import Menu from './Menu';
+import MenuButton from './menu-button';
 
 export class HeaderBar extends React.Component {
   logOut() {
+    this.props.dispatch(toggleMenu(false));
     this.props.dispatch(clearAuth());
     clearAuthToken();
   }
@@ -21,25 +25,15 @@ export class HeaderBar extends React.Component {
           </Link>
       );
       headerNav = (
-        <nav className="App-nav">
-          <button 
-            class="App-nav__button"
-            onClick={() => this.props.dispatch(toggleNavList())}
-          >
-            <div class="App-nav__button--line"></div>
-            <div class="App-nav__button--line"></div>
-            <div class="App-nav__button--line"></div>
-          </button>
-          <small>Menu</small>
-          <ul className="App-nav__list">
-            <li>
-              <button onClick={() => this.logOut()}>Log out</button>
-            </li>
-            <li>
-              <Link to="/account">Your Account</Link>
-            </li>
-          </ul>
-        </nav>
+        <Menu
+          right
+          pageWrapId={"AppMain"}
+          outerContainerId={"App"}
+          customBurgerIcon={<MenuButton />}
+        >
+          <Link to="/account" onClick={() => this.props.dispatch(toggleMenu(false))}>Your Account</Link>
+          <button onClick={() => this.logOut()}>Log out</button>
+        </Menu>
       );
     } else {
       appTitle = (
@@ -57,8 +51,7 @@ export class HeaderBar extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: state.auth.currentUser !== null,
-  expanded: state.headerBar.expanded
+  loggedIn: state.auth.currentUser !== null
 });
 
 export default connect(mapStateToProps)(HeaderBar);
