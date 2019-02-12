@@ -1,4 +1,5 @@
 import React from 'react';
+//TODO: Replace with 'react-responsive-select' to support mobile devices
 import Select from 'react-select';
 
 export default class RenderSelectInput extends React.Component {

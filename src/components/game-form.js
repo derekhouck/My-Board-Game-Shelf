@@ -1,4 +1,5 @@
 import React from 'react';
+import requiresLogin from './requires-login';
 import { connect } from 'react-redux';
 import { reduxForm, Field, focus } from 'redux-form';
 import { fetchGames, fetchTags, addGame, editGame } from '../actions/games';
@@ -122,8 +123,7 @@ const mapStateToProps = (state, props) => ({
   editing: !!props.match.params.id,
 });
 
-// TODO: Add requiresLogin component
 export default reduxForm({
   form: 'game-form',
   onSubmitFail: (errors, dispatch) => dispatch(focus('registration', Object.keys(errors)[0]))
-})(connect(mapStateToProps)(GameForm));
+})(connect(mapStateToProps)(requiresLogin()(GameForm)));
