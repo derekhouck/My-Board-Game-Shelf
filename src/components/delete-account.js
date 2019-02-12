@@ -4,6 +4,8 @@ import { reduxForm, Field, focus } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { toggleDeleting, deleteUser } from '../actions/users';
 import { required, nonEmpty, matches } from '../validators';
+
+import Button from './button';
 import Input from './input';
 
 const matchesUsername = matches('username');
@@ -49,9 +51,17 @@ export class DeleteAccount extends React.Component {
             id="confirmUsername"
             validate={[required, nonEmpty, matchesUsername]}
           />
-          <button type="submit">Delete My Account</button>
+          <Button 
+            primary
+            type="submit" 
+            label="Delete My Account"
+          />
         </form>
-        <Link to="/dashboard">I've changed my mind</Link>
+        <Link to="/dashboard">
+          <Button 
+            label="I've changed my mind"
+          />
+        </Link>
       </section>
     );
   }

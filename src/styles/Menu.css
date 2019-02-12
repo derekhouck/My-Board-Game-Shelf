@@ -41,7 +41,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
 /* Wrapper for item list */
 .bm-item-list {
   color: #b8b7ad;
-  padding: 0.8em;
 }
 
 /* Individual item */
@@ -68,4 +67,24 @@ Note: Beware of modifying this element as it can break the animations - you shou
 /* Styling of overlay */
 .bm-overlay {
   background: rgba(0, 0, 0, 0.3);
+}
+
+@media only screen and (min-width: 768px) {
+  .bm-burger-button {
+    width: 54px;
+  }
+}
+
+@media only screen  and (min-width : 1224px) {
+  .bm-burger-button {
+    width: 57px;
+  }
+
+  .bm-menu {
+    font-size: 1em;
+  }
+
+  .bm-item {
+    margin: 0.5em 0;
+  }
 }

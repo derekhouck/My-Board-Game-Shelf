@@ -4,6 +4,7 @@ import requiresLogin from './requires-login';
 import { toggleDeleting } from '../actions/users';
 
 import DeleteAccount from './delete-account';
+import Button from './button';
 
 export function Account(props) {
   if (props.deleting) {
@@ -23,7 +24,10 @@ export function Account(props) {
         <div>
           <h2>Delete Your Account</h2>
           <p><strong>Warning: This action cannot be undone!</strong></p>
-          <button onClick={() => props.dispatch(toggleDeleting())}>Delete Account</button>
+          <Button 
+            onClick={() => props.dispatch(toggleDeleting())}
+            label="Delete Account"
+          />
         </div>
       </section>
     );

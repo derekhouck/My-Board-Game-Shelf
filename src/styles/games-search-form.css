@@ -10,8 +10,30 @@
 @media only screen and (min-width: 768px) {
   .games__search-fields {
     display: flex;
+    justify-content: center;
   }
   .games__search-fields .form-input {
     margin-right: 1em;
+  }
+}
+
+@media only screen  and (min-width : 1224px) {
+  .games__search-fields {
+    display: grid;
+    grid-template-areas:
+      "title title"
+      "input tags";
+  }
+
+  .games__search-fields .form-input {
+    margin: 0.5em;
+  }
+
+  .games__search-title {
+    grid-area: title;
+  }
+  
+  .games__search-tags {
+    grid-area: tags;
   }
 }

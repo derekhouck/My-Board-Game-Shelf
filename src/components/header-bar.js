@@ -31,7 +31,13 @@ export class HeaderBar extends React.Component {
           outerContainerId={"App"}
           customBurgerIcon={<MenuButton />}
         >
-          <Link to="/account" onClick={() => this.props.dispatch(toggleMenu(false))}>Your Account</Link>
+          <Link 
+            to="/games/add"
+            onClick={() => this.props.dispatch(toggleMenu(false))}
+          >
+            Add a game
+          </Link>
+          <Link to="/account" onClick={() => this.props.dispatch(toggleMenu(false))}>Your account</Link>
           <button onClick={() => this.logOut()}>Log out</button>
         </Menu>
       );

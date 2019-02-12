@@ -28,6 +28,7 @@ export class GamesSearchForm extends React.Component {
               name="searchTerm"
               id="searchTerm"
               label="Game title"
+              className="games__search-title"
             />
             <Field
               component={Input}
@@ -36,7 +37,7 @@ export class GamesSearchForm extends React.Component {
               id="players"
               label="Number of players"
             />
-            <div className="form-input">
+            <div className="form-input games__search-tags">
               <label htmlFor="tagId">Tag</label>
               <Field
                 component="select"

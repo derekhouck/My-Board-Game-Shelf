@@ -52,7 +52,7 @@ export class Games extends React.Component {
       });
       body = (
         <section className="games">
-          <GamesSearchFrom />
+          <h2>Your Games</h2>
           <ul className="games__list">
             {games}
           </ul>
@@ -61,13 +61,13 @@ export class Games extends React.Component {
     }
     return body;
   }
-
+  
   render() {
     return (
       <section>
         <header className="games-header">
           <Link to="/games/add" className="centered"><Button primary label="Add a game" /></Link>
-          <h2>Your Games</h2>
+          <GamesSearchFrom />
         </header>
         {this.renderGames()}
       </section>
