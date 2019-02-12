@@ -6,6 +6,10 @@
   text-align: center;
 }
 
+.games__no-games {
+  text-align: center;
+}
+
 .games__list {
   list-style: none;
   margin: 0;
@@ -68,10 +72,13 @@
 }
 
 @media only screen  and (min-width : 1224px) {
+  .games__wrapper {
+    display:grid;
+    grid-template-areas: "games search-form";
+  }
   .games-header {
-    align-items: center;
-    display: flex;
-    justify-content: center;
+    grid-area: search-form;
+    padding-top: 4em;
   }
 
   .games-header > * {
