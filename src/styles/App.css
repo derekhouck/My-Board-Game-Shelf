@@ -13,6 +13,11 @@
   padding: 1rem;
 }
 
+.App-header a {
+  color: #e18258;
+  text-decoration: none;
+}
+
 .App-title, a.App-title {
   color: #e18258;
   font-family: 'Luckiest Guy', cursive;

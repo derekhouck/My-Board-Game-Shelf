@@ -53,7 +53,7 @@ export class LoginForm extends React.Component {
                         validate={[required, nonEmpty]}
                     />
                     <Button 
-                        label="Log In"
+                        label="Sign in"
                         disabled={isDisabled()} 
                         primary
                     />

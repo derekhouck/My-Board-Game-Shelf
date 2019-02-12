@@ -43,8 +43,9 @@ export class HeaderBar extends React.Component {
       );
     } else {
       appTitle = (
-        <div className="App-title">My Board Game Shelf</div>
+        <Link to="/" className="App-title">My Board Game Shelf</Link>
       );
+      headerNav = (<Link to="/sign-in">Sign in</Link>);
     }
 
     return (

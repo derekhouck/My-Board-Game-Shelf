@@ -12,11 +12,11 @@ export function RegistrationPage(props) {
   }
   return (
     <section className="registration-page">
-      <h2>Create an Account</h2>
+      <h1>Create an Account</h1>
       <RegistrationForm />
       <div>
-      <h3>Already have an account?</h3>
-      <Link to="/">
+      <h2>Already have an account?</h2>
+      <Link to="/sign-in">
         <Button 
           label="Log In"
         />

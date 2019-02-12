@@ -1,3 +1,9 @@
 .landing-page {
+  margin: 0 auto;
+  max-width: 55em;
   text-align: center;
+}
+
+.landing-page__actions > * {
+  margin: 1em;
 }

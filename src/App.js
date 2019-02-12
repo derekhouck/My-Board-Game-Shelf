@@ -5,6 +5,7 @@ import './styles/App.css';
 
 import HeaderBar from './components/header-bar';
 import LandingPage from './components/landing-page';
+import SignInPage from './components/sign-in-page';
 import RegistrationPage from './components/registration-page';
 import Dashboard from './components/dashboard';
 import GameForm from './components/game-form';
@@ -48,6 +49,7 @@ class App extends Component {
         <HeaderBar />
         <main className="App-main" id="AppMain">
           <Route exact path="/" component={LandingPage} />
+          <Route exact path="/sign-in" component={SignInPage} />
           <Route exact path="/register" component={RegistrationPage} />
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/games/add" component={GameForm} />
