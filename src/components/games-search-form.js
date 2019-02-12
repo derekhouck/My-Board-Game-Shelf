@@ -6,14 +6,19 @@ import '../styles/games-search-form.css';
 
 import Button from './button';
 import Input from './input';
+import RenderSelectInput from './render-select-input';
 
 export class GamesSearchForm extends React.Component {
   onSubmit(values) {
+    const { tagId } = values;
+    if (tagId) {
+      values.tagId = tagId.value;
+    }
     return this.props.dispatch(fetchGames(values));
   }
 
   render() {
-    const tags = this.props.tags.map(tag => (<option key={tag.id} value={tag.id}>{tag.name}</option>));
+    const tags = this.props.tags.map(tag => ({ value: tag.id, label: tag.name }));
     return (
       <section className="games__search">
         <h2>Filter your games</h2>
@@ -40,16 +45,17 @@ export class GamesSearchForm extends React.Component {
             <div className="form-input games__search-tags">
               <label htmlFor="tagId">Tag</label>
               <Field
-                component="select"
+                component={RenderSelectInput}
                 name="tagId"
                 id="tagId"
-              >
-                <option value="" defaultValue>Select tag</option>
-                {tags}
-              </Field>
+                options={tags}
+              />
             </div>
           </div>
-          <Button label="Search" type="submit" />
+          <div className="games__search-buttons">
+            <Button label="Search" type="submit" />
+            <Button secondary label="Clear filters" type="reset" onClick={() => this.props.dispatch(fetchGames())} />
+          </div>
         </form>
       </section>
     );

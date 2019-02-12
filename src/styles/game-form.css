@@ -1,9 +1,9 @@
-.form-actions {
+.game-form {
   text-align: center;
 }
 
 @media only screen and (min-width: 768px) {
-  .form-actions {
+  .game-form {
     text-align: left;
   }
 }

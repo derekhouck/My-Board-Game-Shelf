@@ -7,13 +7,29 @@
   padding: 0;
 }
 
+.games__search-buttons > * {
+  margin: 1em;
+}
+
 @media only screen and (min-width: 768px) {
   .games__search-fields {
-    display: flex;
+    display: grid;
+    grid-template-areas: 
+      "title input"
+      "tags tags";
     justify-content: center;
   }
+
   .games__search-fields .form-input {
     margin-right: 1em;
+  }
+
+  .games__search-title {
+    grid-area: title;
+  }
+  
+  .games__search-tags {
+    grid-area: tags;
   }
 }
 
@@ -26,11 +42,8 @@
     margin: 0.5em;
   }
 
-  .games__search-title {
-    grid-area: title;
-  }
-  
-  .games__search-tags {
-    grid-area: tags;
+  .games__search-buttons > * {
+    display: block;
+    margin: 1em auto;
   }
 }

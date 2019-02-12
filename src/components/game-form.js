@@ -7,6 +7,7 @@ import '../styles/game-form.css';
 
 import Button from './button';
 import Input from './input';
+import RenderSelectInput from './render-select-input';
 
 const playersMin = minNum(1);
 const playersMax = maxNum(99);
@@ -33,7 +34,7 @@ export class GameForm extends React.Component {
       "title": currentGame.title,
       "minPlayers": currentGame.players.min,
       "maxPlayers": currentGame.players.max,
-      "tags": currentGame.tags.map(tag => tag.id)
+      "tags": currentGame.tags.map(tag => ({value: tag.id, label: tag.name}))
     };
 
     this.props.initialize(initData);
@@ -41,7 +42,11 @@ export class GameForm extends React.Component {
 
   onSubmit(values) {
     const { title, minPlayers, maxPlayers, tags } = values;
-    const game = { title, minPlayers, maxPlayers, tags };
+    let tagValues;
+    if (tags) {
+      tagValues = tags.map(tag => tag.value);
+    }
+    const game = { title, minPlayers, maxPlayers, tags: tagValues };
     const whichAction = (game) => {
       if (this.props.editing) {
         game.id = this.props.match.params.id
@@ -55,7 +60,7 @@ export class GameForm extends React.Component {
   }
 
   render() {
-    const tags = this.props.tags.map(tag => (<option key={tag.id} value={tag.id}>{tag.name}</option>));
+    const tags = this.props.tags.map(tag => ({value: tag.id, label: tag.name}));
 
     return (
       <form
@@ -90,14 +95,13 @@ export class GameForm extends React.Component {
         <div className="form-input">
           <label htmlFor="tags">Tags</label>
           <Field
-            component="select"
+            component={RenderSelectInput}
             name="tags"
             id="tags"
-            multiple
+            isMulti
             type="select-multiple"
-          >
-            {tags}
-          </Field>
+            options={tags}
+          />
         </div>
         <div className="form-actions">
           <Button

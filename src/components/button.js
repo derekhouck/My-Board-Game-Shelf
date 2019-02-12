@@ -4,7 +4,8 @@ import '../styles/button.css';
 export default function Button(props) {
   const classNames = 'btn' + 
     (props.disabled ? ' disabled' : '')  +
-    (props.primary ? ' btn-primary' : ''); 
+    (props.primary ? ' btn-primary' : '') + 
+    (props.secondary ? ' btn-secondary' : ''); 
   return (
     <button
       className={classNames}

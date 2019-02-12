@@ -51,9 +51,10 @@ export class Games extends React.Component {
               </ul>
               <section className="game__buttons">
                 <Link to={`/games/${game.id}/edit`}>
-                  <Button label="Edit" />
+                  <Button secondary label="Edit" />
                 </Link>
                 <Button
+                  primary
                   onClick={() => this.props.dispatch(deleteGame(game))}
                   label="Remove"
                 />
