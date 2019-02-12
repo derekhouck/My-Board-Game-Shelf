@@ -21,7 +21,7 @@ export class Games extends React.Component {
       );
     } else if (this.props.loading) {
       body = (
-        <div className="message message-default">Loading users...</div>
+        <div className="message message-default">Loading your games...</div>
       );
     } else {
       let games;
