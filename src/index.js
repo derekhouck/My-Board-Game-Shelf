@@ -7,9 +7,6 @@ import './styles/index.css';
 import App from './App';
 import store from './store';
 import * as serviceWorker from './serviceWorker';
-import initReactFastclick from 'react-fastclick';
-
-initReactFastclick();
 
 ReactDOM.render(
   <Provider store={store}>

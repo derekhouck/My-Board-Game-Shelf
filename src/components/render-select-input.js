@@ -23,6 +23,7 @@ export default class RenderSelectInput extends React.Component {
         value={input.value || ''}
         onChange={value => input.onChange(value)}
         onBlur={() => input.onBlur(input.value)}
+        optionClassName="needsclick"
         styles={customStyles}
         theme={theme => ({
             ...theme,
