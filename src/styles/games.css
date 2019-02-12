@@ -67,7 +67,9 @@
   }
 
   .game {
+    display: grid;
     flex: 0 1 45%;
+    grid-template-rows: auto 1fr auto;
   }
 }
 
