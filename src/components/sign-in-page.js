@@ -8,27 +8,45 @@ import Button from './button';
 
 
 export function SignInPage(props) {
+  let body;
+
   if (props.loggedIn) {
     return <Redirect to="/dashboard" />;
   }
+
+  if (props.loading) {
+    body = (
+      <div className="message message-default">
+        Logging you in...
+      </div>
+    );
+  } else {
+    body = (
+      <div className="sign-in-body">
+        <LoginForm />
+        <div>
+          <h2>Don't have an account?</h2>
+          <Link to="/register">
+            <Button
+              label="Register"
+            />
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <section className="sign-in-page">
       <h1>Sign into your account</h1>
-      <LoginForm />
-      <div>
-        <h2>Don't have an account?</h2>
-        <Link to="/register">
-          <Button 
-            label="Register"
-          />
-        </Link>
-      </div>
+      { body }
     </section>
   );
 }
 
 const mapStateToProps = state => ({
-  loggedIn: state.auth.currentUser !== null
+  loggedIn: state.auth.currentUser !== null,
+  loading: state.auth.loading
 });
 
 export default connect(mapStateToProps)(SignInPage);
