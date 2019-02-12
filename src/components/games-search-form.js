@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field, focus } from 'redux-form';
-import { fetchGames } from '../actions/games';
+import { filterGames, resetFilters } from '../actions/games';
 import '../styles/games-search-form.css';
 
 import Button from './button';
@@ -10,11 +10,14 @@ import RenderSelectInput from './render-select-input';
 
 export class GamesSearchForm extends React.Component {
   onSubmit(values) {
-    const { tagId } = values;
-    if (tagId) {
-      values.tagId = tagId.value;
-    }
-    return this.props.dispatch(fetchGames(values));
+    const { searchTerm, players, tag } = values;
+    const tagId = tag ? tag.value : null;
+    const filters = {
+      title: searchTerm,
+      players,
+      tagId
+    };
+    return this.props.dispatch(filterGames(filters));
   }
 
   render() {
@@ -43,18 +46,18 @@ export class GamesSearchForm extends React.Component {
               label="Number of players"
             />
             <div className="form-input games__search-tags">
-              <label htmlFor="tagId">Tag</label>
+              <label htmlFor="tag">Tag</label>
               <Field
                 component={RenderSelectInput}
-                name="tagId"
-                id="tagId"
+                name="tag"
+                id="tag"
                 options={tags}
               />
             </div>
           </div>
           <div className="games__search-buttons">
             <Button label="Search" type="submit" />
-            <Button secondary label="Clear filters" type="reset" onClick={() => this.props.dispatch(fetchGames())} />
+            <Button secondary label="Clear filters" type="reset" onClick={() => this.props.dispatch(resetFilters())} />
           </div>
         </form>
       </section>
@@ -90,8 +93,5 @@ const mapStateToProps = state => ({
 
 export default reduxForm({
   form: 'games-search-form',
-  destroyOnUnmount: false,
-  // keepDirtyOnReinitialize: true,
-  // enableReinitialize: true,
   onSubmitFail: (errors, dispatch) => dispatch(focus('registration', Object.keys(errors)[0]))
 })(connect(mapStateToProps)(GamesSearchForm));

@@ -7,10 +7,20 @@ import usersReducer from './reducers/users';
 import authReducer from './reducers/auth';
 import gamesReducer from './reducers/games';
 import { setAuthToken, refreshAuthToken } from './actions/auth';
+import { RESET_FILTERS } from './actions/games'
 
 const store = createStore(
   combineReducers({
-    form: formReducer,
+    form: formReducer.plugin({
+      'games-search-form': (state, action) => {
+        switch(action.type) {
+          case RESET_FILTERS:
+            return undefined;
+          default:
+            return state;
+        }
+      }
+    }),
     users: usersReducer,
     auth: authReducer,
     games: gamesReducer,

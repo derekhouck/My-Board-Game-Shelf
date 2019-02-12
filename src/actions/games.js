@@ -20,10 +20,21 @@ export const fetchTagsSuccess = tags => ({
   tags
 });
 
+export const FILTER_GAMES = 'FILTER_GAMES';
+export const filterGames = filters => ({
+  type: FILTER_GAMES,
+  filters
+});
+
 export const REMOVE_GAME = 'REMOVE_GAME';
 export const removeGame = game => ({
   type: REMOVE_GAME,
   game
+});
+
+export const RESET_FILTERS = 'RESET_FILTERS';
+export const resetFilters = () => ({
+  type: RESET_FILTERS
 });
 
 export const GAMES_ERROR = 'GAMES_ERROR';

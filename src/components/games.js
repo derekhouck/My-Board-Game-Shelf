@@ -1,15 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchGames, deleteGame } from '../actions/games';
+import { fetchGames } from '../actions/games';
 import '../styles/games.css';
 
 import Button from './button';
 import GamesSearchFrom from './games-search-form';
+import Game from './game';
 
 export class Games extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchGames());
+  }
+
+  filterGames(games) {
+    const { filters } = this.props;
+    const re = new RegExp(filters.title, 'i');
+    const titleTest = game => filters.title ? re.test(game.title) : true;
+    const playersTest = game => 
+      filters.players ? (game.players.min <= filters.players && game.players.max >= filters.players) : true;
+    const tagIdTest = game => filters.tagId ? (game.tags.filter(tag => tag.id === filters.tagId).length > 0) : true;
+
+    return games.filter(game => titleTest(game) && playersTest(game) && tagIdTest(game));
   }
 
   renderGames() {
@@ -25,7 +37,8 @@ export class Games extends React.Component {
       );
     } else {
       let games;
-      if (this.props.games.length === 0) {
+      const filteredGames = this.filterGames(this.props.games);
+      if (filteredGames.length === 0) {
         games = (
           <div className="games__no-games">
             <p>You don't have any games at the moment. Let's add one now.</p>
@@ -35,33 +48,7 @@ export class Games extends React.Component {
           </div>
         );
       } else {
-        games = this.props.games.map(game => {
-          const tags = game.tags.map(tag => (<li key={game.id + '_' + tag.id} id={game.id + '_' + tag.id}>{tag.name}</li>));
-          return (
-            <li className="game" key={game.id} id={game.id}>
-              <h3 className="game__title">{game.title}</h3>
-              <ul className="game__details">
-                <li><strong>Players:</strong> {game.players.min} - {game.players.max}</li>
-                <li>
-                  <strong>Tags</strong>
-                  <ul className="game__tag-list">
-                    {tags}
-                  </ul>
-                </li>
-              </ul>
-              <section className="game__buttons">
-                <Link to={`/games/${game.id}/edit`}>
-                  <Button secondary label="Edit" />
-                </Link>
-                <Button
-                  primary
-                  onClick={() => this.props.dispatch(deleteGame(game))}
-                  label="Remove"
-                />
-              </section>
-            </li>
-          );
-        });
+        games = filteredGames.map(game => <Game key={game.id} game={game} />);
       }
       body = (
         <section className="games">
@@ -90,6 +77,7 @@ export class Games extends React.Component {
 
 const mapStateToProps = state => ({
   games: state.games.games,
+  filters: state.games.filters,
   loading: state.games.loading,
   error: state.games.error
 });
