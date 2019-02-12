@@ -122,6 +122,7 @@ const mapStateToProps = (state, props) => ({
   editing: !!props.match.params.id,
 });
 
+// TODO: Add requiresLogin component
 export default reduxForm({
   form: 'game-form',
   onSubmitFail: (errors, dispatch) => dispatch(focus('registration', Object.keys(errors)[0]))
