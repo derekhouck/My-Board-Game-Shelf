@@ -16,7 +16,7 @@ export class GamesSearchForm extends React.Component {
     const tags = this.props.tags.map(tag => (<option key={tag.id} value={tag.id}>{tag.name}</option>));
     return (
       <section className="games__search">
-        <h3>Filter your games</h3>
+        <h2>Filter your games</h2>
         <form
           className="games__search-form"
           onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}

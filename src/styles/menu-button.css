@@ -3,7 +3,8 @@
   text-align: center;
 }
 
-.menu-button button {
+.menu-button__box {
+  display: inline-block;
   background-color: #4f2119;
   color: #f9fafa;
   border: 4px solid #e18258;
