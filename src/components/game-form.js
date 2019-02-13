@@ -8,11 +8,21 @@ import '../styles/game-form.css';
 
 import Button from './button';
 import Input from './input';
-import RenderSelectInput from './render-select-input';
+import Select from './select';
 
 const playersMin = minNum(1);
 const playersMax = maxNum(99);
 const notLessThanMinPlayers = notLessThanField('minPlayers');
+const multiSelectOptionMarkup = (text) => (
+  <div>
+    <span className="checkbox">
+      <svg className="checkbox-icon" x="0px" y="0px" width="12px" height="12px" viewBox="0 0 488.878 488.878">
+        <g><polygon points="143.294,340.058 50.837,247.602 0,298.439 122.009,420.447 122.149,420.306 144.423,442.58 488.878,98.123 437.055,46.298 "/></g>
+      </svg>
+    </span>
+    <span> {text}</span>
+  </div>
+);
 
 export class GameForm extends React.Component {
   componentDidMount() {
@@ -43,11 +53,7 @@ export class GameForm extends React.Component {
 
   onSubmit(values) {
     const { title, minPlayers, maxPlayers, tags } = values;
-    let tagValues;
-    if (tags) {
-      tagValues = tags.map(tag => tag.value);
-    }
-    const game = { title, minPlayers, maxPlayers, tags: tagValues };
+    const game = { title, minPlayers, maxPlayers, tags };
     const whichAction = (game) => {
       if (this.props.editing) {
         game.id = this.props.match.params.id
@@ -61,7 +67,11 @@ export class GameForm extends React.Component {
   }
 
   render() {
-    const tags = this.props.tags.map(tag => ({value: tag.id, label: tag.name}));
+    const tags = this.props.tags.map(tag => ({
+      markup: multiSelectOptionMarkup(tag.name),
+      value: tag.id, 
+      text: tag.name
+    }));
 
     return (
       <form
@@ -96,10 +106,11 @@ export class GameForm extends React.Component {
         <div className="form-input">
           <label htmlFor="tags">Tags</label>
           <Field
-            component={RenderSelectInput}
-            name="tags"
+            component={Select}
+            customLabelRenderer={values => values.options.map(value => value.text).join(', ')}
             id="tags"
-            isMulti
+            multiselect
+            name="tags"
             type="select-multiple"
             options={tags}
           />
