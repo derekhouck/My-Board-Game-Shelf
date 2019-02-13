@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import '../styles/landing-page.css';
+import './landing-page.css';
 
 import Button from './button';
 

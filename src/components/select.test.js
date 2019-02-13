@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import App from './App';
+import Select from './select';
 
-describe('<App />', function () {
+describe('<Select />', function () {
   it('renders without crashing', () => {
-    shallow(<App />);
+    shallow(<Select input={{}} />);
   });
 });

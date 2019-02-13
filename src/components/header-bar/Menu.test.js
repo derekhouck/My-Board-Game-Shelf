@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import App from './App';
+import Menu from './Menu';
 
-describe('<App />', function () {
+describe('<Menu />', function () {
   it('renders without crashing', () => {
-    shallow(<App />);
+    shallow(<Menu />);
   });
 });

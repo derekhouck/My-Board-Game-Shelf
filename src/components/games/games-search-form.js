@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field, focus } from 'redux-form';
-import { filterGames, resetFilters } from '../actions/games';
-import '../styles/games-search-form.css';
+import { filterGames, resetFilters } from '../../actions/games';
+import './games-search-form.css';
 
-import Button from './button';
-import Input from './input';
-import Select from './select';
+import Button from '../button';
+import Input from '../input';
+import Select from '../select';
 
 export class GamesSearchForm extends React.Component {
   onSubmit(values) {

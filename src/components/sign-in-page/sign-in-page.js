@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import '../styles/sign-in-page.css';
+import './sign-in-page.css';
 
 import LoginForm from './login-form';
-import Button from './button';
+import Button from '../button';
 
 
 export function SignInPage(props) {

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { clearAuth } from '../actions/auth';
-import { clearAuthToken } from '../local-storage';
+import { clearAuth } from '../../actions/auth';
+import { clearAuthToken } from '../../local-storage';
 import { action as toggleMenu } from 'redux-burger-menu';
 
 import Menu from './Menu';
@@ -38,7 +38,7 @@ export class HeaderBar extends React.Component {
             Add a game
           </Link>
           <Link to="/account" onClick={() => this.props.dispatch(toggleMenu(false))}>Your account</Link>
-          <button onClick={() => this.logOut()}>Log out</button>
+          <button className="App-header__logout" onClick={() => this.logOut()}>Log out</button>
         </Menu>
       );
     } else {

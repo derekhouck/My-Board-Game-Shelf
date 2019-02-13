@@ -1,7 +1,7 @@
 import React from 'react';
 import requiresLogin from './requires-login';
 
-import Games from './games';
+import Games from './games/games';
 
 export function Dashboard(props) {
   return (

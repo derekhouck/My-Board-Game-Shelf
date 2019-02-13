@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import requiresLogin from './requires-login';
-import { toggleDeleting } from '../actions/users';
+import requiresLogin from '../requires-login';
+import { toggleDeleting } from '../../actions/users';
 
 import DeleteAccount from './delete-account';
-import Button from './button';
+import Button from '../button';
 
 export function Account(props) {
   if (props.deleting) {

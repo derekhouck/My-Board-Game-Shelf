@@ -1,11 +1,11 @@
 import React from 'react';
 import { Field, reduxForm, focus } from 'redux-form';
 import { connect } from 'react-redux';
-import { login } from '../actions/auth';
-import { required, nonEmpty } from '../validators';
+import { login } from '../../actions/auth';
+import { required, nonEmpty } from '../../validators';
 
-import Input from './input';
-import Button from './button';
+import Input from '../input';
+import Button from '../button';
 
 export class LoginForm extends React.Component {
     onSubmit(values) {

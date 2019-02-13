@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import App from './App';
+import { Dashboard } from './dashboard';
 
-describe('<App />', function () {
+describe('<Dashboard />', function () {
   it('renders without crashing', () => {
-    shallow(<App />);
+    shallow(<Dashboard />);
   });
 });

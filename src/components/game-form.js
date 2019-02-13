@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Field, focus } from 'redux-form';
 import { fetchGames, fetchTags, addGame, editGame } from '../actions/games';
 import { required, nonEmpty, minNum, maxNum, notLessThanField } from '../validators';
-import '../styles/game-form.css';
+import './game-form.css';
 
 import Button from './button';
 import Input from './input';

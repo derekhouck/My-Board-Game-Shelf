@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchGames } from '../actions/games';
-import '../styles/games.css';
+import { fetchGames } from '../../actions/games';
+import './games.css';
 
-import Button from './button';
+import Button from '../button';
 import GamesSearchFrom from './games-search-form';
 import Game from './game';
 
@@ -13,7 +13,8 @@ export class Games extends React.Component {
     this.props.dispatch(fetchGames());
   }
 
-  filterGames(games) {
+  filterGames(games = []) {
+    if (games.length === 0) { return games }
     const { filters } = this.props;
     const re = new RegExp(filters.title, 'i');
     const titleTest = game => filters.title ? re.test(game.title) : true;

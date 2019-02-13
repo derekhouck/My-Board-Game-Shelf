@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/menu-button.css';
+import './menu-button.css';
 
 export default function MenuButton(props) {
   return (

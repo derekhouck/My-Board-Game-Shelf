@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field, focus } from 'redux-form';
 import { Link } from 'react-router-dom';
-import { toggleDeleting, deleteUser } from '../actions/users';
-import { required, nonEmpty, matches } from '../validators';
+import { toggleDeleting, deleteUser } from '../../actions/users';
+import { required, nonEmpty, matches } from '../../validators';
 
-import Button from './button';
-import Input from './input';
+import Button from '../button';
+import Input from '../input';
 
 const matchesUsername = matches('username');
 

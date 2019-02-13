@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-import '../styles/registration-page.css';
+import './registration-page.css';
 
 import RegistrationForm from './registration-form';
-import Button from './button';
+import Button from '../button';
 
 export function RegistrationPage(props) {
   if (props.loggedIn) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactResponsiveSelect from 'react-responsive-select';
-import '../styles/select.css';
+import './select.css';
 
 // By default no caret icon is supplied - any valid jsx markup will do
 const caretIcon = (

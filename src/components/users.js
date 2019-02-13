@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { fetchUsers } from '../actions/users';
 
-class Users extends React.Component {
+export class Users extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchUsers());
   }

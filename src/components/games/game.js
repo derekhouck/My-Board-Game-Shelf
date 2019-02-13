@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deleteGame } from '../actions/games';
+import { deleteGame } from '../../actions/games';
 
-import Button from './button';
+import Button from '../button';
 
 export function Game(props) {
   const game = props.game;
