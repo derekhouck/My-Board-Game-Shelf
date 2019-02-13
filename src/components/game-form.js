@@ -45,7 +45,7 @@ export class GameForm extends React.Component {
       "title": currentGame.title,
       "minPlayers": currentGame.players.min,
       "maxPlayers": currentGame.players.max,
-      "tags": currentGame.tags.map(tag => ({value: tag.id, label: tag.name}))
+      "tags": currentGame.tags.map(tag => tag.id)
     };
 
     this.props.initialize(initData);
@@ -67,7 +67,7 @@ export class GameForm extends React.Component {
   }
 
   render() {
-    const tags = this.props.tags.map(tag => ({
+    const tags = this.props.tags.sort((a,b) => a.name.localeCompare(b.name)).map(tag => ({
       markup: multiSelectOptionMarkup(tag.name),
       value: tag.id, 
       text: tag.name
