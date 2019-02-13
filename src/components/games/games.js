@@ -20,7 +20,8 @@ export class Games extends React.Component {
     const titleTest = game => filters.title ? re.test(game.title) : true;
     const playersTest = game => 
       filters.players ? (game.players.min <= filters.players && game.players.max >= filters.players) : true;
-    const tagIdTest = game => filters.tagId ? (game.tags.filter(tag => tag.id === filters.tagId).length > 0) : true;
+    const tagIdTest = game => 
+      !filters.tagId ? true : filters.tagId === 'null' ? true : (game.tags.filter(tag => tag.id === filters.tagId).length > 0);
 
     return games.filter(game => titleTest(game) && playersTest(game) && tagIdTest(game));
   }
