@@ -19,8 +19,14 @@
 .game {
   background-color: hsla(18, 70%, 75%, 1);
   border: 2px solid #4f2119;
+  box-shadow: 0 1px 4px hsla(9, 52%, 10%, 0.75);
   margin: 1em 0;
   padding: 1em;
+  transition: 0.4s;
+}
+
+.game:active, .game:focus, .game:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 .game__title {
