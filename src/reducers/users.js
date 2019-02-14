@@ -1,8 +1,8 @@
-import { 
-  FETCH_USERS_REQUEST, 
-  FETCH_USERS_SUCCESS, 
+import {
+  FETCH_USERS_REQUEST,
+  FETCH_USERS_SUCCESS,
   TOGGLE_DELETING,
-  USERS_ERROR 
+  USERS_ERROR
 } from '../actions/users';
 
 const initialState = {
@@ -10,7 +10,7 @@ const initialState = {
   loading: false,
   deleting: false,
   error: null
-}
+};
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -24,7 +24,7 @@ export default function reducer(state = initialState, action) {
         loading: false,
         users: action.users
       });
-      case TOGGLE_DELETING:
+    case TOGGLE_DELETING:
       return Object.assign({}, state, {
         deleting: !state.deleting
       });
