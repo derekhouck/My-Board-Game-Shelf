@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import './landing-page.css';
 
@@ -12,13 +12,16 @@ export function LandingPage(props) {
 
     return (
         <section className="landing-page">
-            <h1>Curate your board game collection</h1>
-            <p><em>My Board Game Shelf</em> helps you plan the perfect game night. You can view your entire board game collection at a glance and filter by title, number of players, and tags.</p>
+            <div className="landing-page__copy">
+                <h1>Curate your board game collection</h1>
+                <p><em>My Board Game Shelf</em> helps you plan the perfect game night.</p>
+                <p>You can view your entire board game collection at a glance and filter by title, number of players, and tags.</p>
+            </div>
             <div className="landing-page__actions">
                 <Link to="/register">
-                    <Button 
+                    <Button
                         primary
-                        label="Register for free" 
+                        label="Register for free"
                     />
                 </Link>
                 <Link to="/sign-in">

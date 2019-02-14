@@ -1,9 +1,70 @@
 .landing-page {
+  align-content: center;
+  background: #e18258;
+  background-image: url(./landing-page-background.jpg);
+  background-size: cover;
+  display: grid;
+  grid-template-areas:
+    'copy'
+    'actions';
+  height: 100vh;
+  justify-content: center;
+  left: 0;
+  top: 0;
+  padding: 2em;
+  position: absolute;
   margin: 0 auto;
-  max-width: 55em;
   text-align: center;
+  width: 100vw;
 }
 
 .landing-page__actions > * {
-  margin: 1em;
+  display: block;
+  margin: 1em auto;
+}
+
+.landing-page__copy {
+  background-color: #e18258;
+  padding: 2em;
+  width: 100vw;
+}
+
+@media only screen and (min-width: 768px) {
+  .landing-page {
+    align-content: start;
+    grid-gap: 1em;
+    padding-top: 10em;
+  }
+  
+  .landing-page > * {
+    max-width: 50vw;
+  }
+  
+  .landing-page__copy {
+    border: 4px solid #4f2119;
+  }
+}
+
+@media only screen  and (min-width : 1224px) {
+  .landing-page {
+    align-content: center;
+    align-items: center;
+    justify-content: space-evenly;
+    grid-template-areas: 'copy actions';
+    padding-top: 2em;
+    text-align: left;
+  }
+
+  .landing-page > * {
+    max-width: 40vw;
+  }
+
+  .landing-page__actions {
+    text-align: center;
+  }
+
+  .landing-page__actions > * {
+    display: inline-block;
+    margin: 1em;
+  }
 }
