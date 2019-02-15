@@ -13,16 +13,6 @@
 - Ability to add, edit, and remove individual games from a user's shelf.
 - User can delete their own account if they no longer wish to use the app.
 
-## Previews
-
-Dashboard
-
-![Screenshot of the dashboard page](./dashboard.png)
-
-Game Form
-
-![Screenshot of the add/edit game form](./game-form.png)
-
 ## Tech Stack:
 
 - [React](https://reactjs.org/) with [Redux](https://redux.js.org/) for state management and [React Router](https://reacttraining.com/react-router/) for routing.
@@ -38,3 +28,13 @@ Game Form
 Documentation for the back-end API can be found at https://github.com/derekhouck/My-Board-Game-Shelf-API.
 
 This app was originally created as a project for [Thinkful's Engineering Immersion program](https://www.thinkful.com/bootcamp/web-development/full-time/).
+
+## Screenshots
+
+Dashboard
+
+![Screenshot of the dashboard page](./dashboard.png)
+
+Game Form
+
+![Screenshot of the add/edit game form](./game-form.png)
