@@ -1,6 +1,7 @@
 /* Position and sizing of burger button */
 .bm-burger-button {
   position: relative;
+  text-align: center;
   width: 40px;
 }
 

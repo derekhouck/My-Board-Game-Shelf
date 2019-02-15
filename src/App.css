@@ -3,13 +3,13 @@
 }
 
 .App-header {
+  align-items: center;
   background-color: #4f2119;
   box-shadow: 0 1px 4px hsla(9, 52%, 10%, 1);
   color: #f9fafa;
   display: flex;
-  align-items: center;
+  font-size: 1.5em;
   justify-content: space-between;
-  font-size: calc(10px + 2vmin);
   padding: 1rem;
   position: relative;
   z-index: 100;
@@ -37,7 +37,11 @@
 }
 
 @media only screen and (min-width: 768px) {
-  .App-title {
+  .App-header {
+    padding: 1.5rem;
+  }
+  .App-title, a.App-title {
     font-size: 2em;
+    padding: 0;
   }
 }

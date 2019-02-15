@@ -31,9 +31,7 @@
 
 @media only screen and (min-width: 768px) {
   .landing-page {
-    align-content: start;
     grid-gap: 1em;
-    padding-top: 10em;
   }
   
   .landing-page > * {
