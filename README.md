@@ -11,6 +11,11 @@
 - Ability to add, edit, and remove individual games from a user's shelf.
 - User can delete their own account if they no longer wish to use the app.
 
+## Previews
+
+Dashboard
+![Screenshot of the dashboard page](./dashboard.png)
+
 ## Tech Stack:
 
 - [React](https://reactjs.org/) with [Redux](https://redux.js.org/) for state management and [React Router](https://reacttraining.com/react-router/) for routing.
