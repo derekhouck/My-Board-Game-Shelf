@@ -63,10 +63,6 @@
 }
 
 @media screen and (max-width: 768px) {
-  .rrs {
-    position: static;
-  }
-
   .rrs.rrs--options-visible:after {
     content: '';
     cursor: pointer;
