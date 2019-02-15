@@ -14,7 +14,12 @@
 ## Previews
 
 Dashboard
+
 ![Screenshot of the dashboard page](./dashboard.png)
+
+Game Form
+
+![Screenshot of the add/edit game form](./game-form.png)
 
 ## Tech Stack:
 
