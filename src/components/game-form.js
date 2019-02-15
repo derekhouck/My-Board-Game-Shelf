@@ -53,7 +53,10 @@ export class GameForm extends React.Component {
 
   onSubmit(values) {
     const { title, minPlayers, maxPlayers, tags } = values;
-    const game = { title, minPlayers, maxPlayers, tags };
+    const game = {
+      title, minPlayers, maxPlayers,
+      tags: (tags[0] === '') ? [] : tags
+    };
     const whichAction = (game) => {
       if (this.props.editing) {
         game.id = this.props.match.params.id
@@ -68,7 +71,7 @@ export class GameForm extends React.Component {
 
   render() {
     const sortedTags = this.props.tags.sort((a, b) => a.name.localeCompare(b.name));
-    const tagOptions = [{ id: null, name: 'No tags' }, ...sortedTags];
+    const tagOptions = [{ id: '', name: 'No tags -- this cannot be used after tags have been set' }, ...sortedTags];
     const tags = tagOptions.map(tag => ({
       markup: multiSelectOptionMarkup(tag.name),
       value: tag.id,
