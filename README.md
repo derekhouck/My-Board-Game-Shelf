@@ -1,3 +1,5 @@
+![My Board Game Shelf loaded on different devices](./responsive-design.jpg)
+
 # My Board Game Shelf
 
 *My Board Game Shelf* is an app for organizing and filtering your board game collection. You can check it out at https://my-board-game-shelf.herokuapp.com.
