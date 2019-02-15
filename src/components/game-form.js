@@ -68,69 +68,89 @@ export class GameForm extends React.Component {
       }
     };
     return this.props.dispatch(whichAction(game))
-      .then(() => (this.props.history.push('/dashboard')));
+      .then(() => this.props.history.push('/dashboard'));
   }
 
-  render() {
-    const sortedTags = this.props.tags.sort((a, b) => a.name.localeCompare(b.name));
+  getTagOptions(tags) {
+    const sortedTags = tags.sort((a, b) => a.name.localeCompare(b.name));
     const tagOptions = [{ id: '', name: 'No tags -- this cannot be used after tags have been set' }, ...sortedTags];
-    const tags = tagOptions.map(tag => ({
+    const mappedTags = tagOptions.map(tag => ({
       markup: multiSelectOptionMarkup(tag.name),
       value: tag.id,
       text: tag.name
     }));
+    return mappedTags;
+  }
 
-    return (
-      <form
-        className="game-form"
-        onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
-      >
-        <h1>{this.props.editing ? 'Edit' : 'Add a'} Game</h1>
-        <Field
-          component={Input}
-          type="text"
-          name="title"
-          id="title"
-          label="Game title"
-          validate={[required, nonEmpty]}
-        />
-        <Field
-          component={Input}
-          type="number"
-          name="minPlayers"
-          id="minPlayers"
-          label="Minimum number of players"
-          validate={[playersMin, playersMax]}
-        />
-        <Field
-          component={Input}
-          type="number"
-          name="maxPlayers"
-          id="maxPlayers"
-          label="Maximum number of players"
-          validate={[playersMin, playersMax, notLessThanMinPlayers]}
-        />
-        <div className="form-input">
-          <label htmlFor="tags">Tags</label>
+  renderForm() {
+    let form;
+
+    if (this.props.error) {
+      form = (
+        <div className="message message-error">{this.props.error.message}</div>
+      );
+    } else if (this.props.loading) {
+      form = (
+        <div className="message message-default">Submitting your game...</div>
+      );
+    } else {
+      form = (
+        <form
+          className="game-form"
+          onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
+        >
+          <h1>{this.props.editing ? 'Edit' : 'Add a'} Game</h1>
           <Field
-            component={Select}
-            customLabelRenderer={values => values.options.map(value => value.text).join(', ')}
-            id="tags"
-            multiselect
-            name="tags"
-            type="select-multiple"
-            options={tags}
+            component={Input}
+            type="text"
+            name="title"
+            id="title"
+            label="Game title"
+            validate={[required, nonEmpty]}
           />
-        </div>
-        <div className="form-actions">
-          <Button
-            primary
-            type="submit"
-            label={(this.props.editing ? 'Edit' : 'Add') + ' Game'}
+          <Field
+            component={Input}
+            type="number"
+            name="minPlayers"
+            id="minPlayers"
+            label="Minimum number of players"
+            validate={[playersMin, playersMax]}
           />
-        </div>
-      </form>
-    );
+          <Field
+            component={Input}
+            type="number"
+            name="maxPlayers"
+            id="maxPlayers"
+            label="Maximum number of players"
+            validate={[playersMin, playersMax, notLessThanMinPlayers]}
+          />
+          <div className="form-input">
+            <label htmlFor="tags">Tags</label>
+            <Field
+              component={Select}
+              customLabelRenderer={values => values.options.map(value => value.text).join(', ')}
+              id="tags"
+              multiselect
+              name="tags"
+              type="select-multiple"
+              options={this.getTagOptions(this.props.tags)}
+            />
+          </div>
+          <div className="form-actions">
+            <Button
+              primary
+              type="submit"
+              label={(this.props.editing ? 'Edit' : 'Add') + ' Game'}
+            />
+          </div>
+        </form>
+      );
+    }
+    return form;
+  }
+
+  render() {
+    return this.renderForm();
   }
 }
 
@@ -139,6 +159,7 @@ const mapStateToProps = (state, props) => ({
   tags: state.games.tags,
   currentGame: state.games.games.find(game => game.id === props.match.params.id),
   editing: !!props.match.params.id,
+  loading: state.games.loading
 });
 
 export default reduxForm({

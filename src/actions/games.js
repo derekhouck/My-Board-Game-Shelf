@@ -96,6 +96,8 @@ export const fetchTags = filters => (dispatch, getState) => {
 export const addGame = game => (dispatch, getState) => {
   const authToken = getState().auth.authToken;
 
+  dispatch(fetchGamesRequest());
+
   return fetch(`${API_BASE_URL}/games`, {
     method: 'POST',
     headers: {
@@ -105,7 +107,7 @@ export const addGame = game => (dispatch, getState) => {
     body: JSON.stringify(game)
   })
     .then(res => normalizeResponseErrors(res))
-    .then(res => res.json())
+    .then(res => setTimeout(res.json(), 5000))
     .catch(err => {
       const { reason, message, location } = err;
       if (reason === 'ValidationError') {
