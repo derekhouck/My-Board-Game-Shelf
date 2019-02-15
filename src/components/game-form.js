@@ -54,7 +54,9 @@ export class GameForm extends React.Component {
   onSubmit(values) {
     const { title, minPlayers, maxPlayers, tags } = values;
     const game = {
-      title, minPlayers, maxPlayers,
+      title,
+      minPlayers: Number(minPlayers),
+      maxPlayers: Number(maxPlayers),
       tags: (tags[0] === '') ? [] : tags
     };
     const whichAction = (game) => {
