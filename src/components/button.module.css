@@ -18,19 +18,30 @@
   outline: 0;
 }
 
-.btn.disabled {
+.disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
-.btn.disabled:hover {
+.disabled:hover {
   box-shadow: none;
 }
 
-.btn.btn-primary {
+.primary {
   background-color: #CB3A2A;
 }
 
-.btn.btn-secondary {
-  background-color: #DBB3C6;
-  color: #4f2119;
+.secondary {
+  background-color: #e18258;
+  color: #19000b;
+}
+
+.game {
+  background: transparent;
+  border-color: #e18258;
+  color: #e18258;
+}
+
+.game.primary {
+  border-color: #e38278;
+  color: #e38278;
 }

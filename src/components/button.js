@@ -1,11 +1,13 @@
 import React from 'react';
-import './button.css';
+import styles from './button.module.css'; // Import css modules stylesheet as styles
 
 export default function Button(props) {
-  const classNames = 'btn' + 
-    (props.disabled ? ' disabled' : '')  +
-    (props.primary ? ' btn-primary' : '') + 
-    (props.secondary ? ' btn-secondary' : ''); 
+  const classNames = `
+    ${styles.btn} 
+    ${props.disabled ? styles.disabled : ''} 
+    ${props.primary ? styles.primary : ''} 
+    ${props.secondary ? styles.secondary : ''}
+    ${props.game ? styles.game : ''}`;
   return (
     <button
       className={classNames}

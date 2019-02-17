@@ -22,9 +22,10 @@ export function Game(props) {
       </ul>
       <section className="game__buttons">
         <Link to={`/games/${game.id}/edit`}>
-          <Button secondary label="Edit" />
+          <Button game secondary label="Edit" />
         </Link>
         <Button
+          game
           primary
           onClick={() => props.dispatch(deleteGame(game))}
           label="Remove"

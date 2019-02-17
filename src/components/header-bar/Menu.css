@@ -28,14 +28,14 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 /* General sidebar styles */
 .bm-menu {
-  background: #e18258;
+  background: #d19cb8;
   border-left: 8px solid #4f2119;
   padding: 2.5em 1.5em 0;
   font-size: 1.15em;
 }
 
 .bm-menu a {
-  color: #4f2119;
+  color: #19000b;
 }
 
 /* Morph shape necessary with bubble or elastic */
@@ -59,7 +59,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .bm-item, .bm-item a {
   background: transparent;
   border: none;
-  color: #4f2119;
+  color: #19000b;
   cursor: pointer;
   text-decoration: none;
 }
