@@ -24,12 +24,12 @@ export class GamesSearchForm extends React.Component {
 
     return (
       <section className="games__search">
-        <h2>Filter your games</h2>
         <form
           className="games__search-form"
           onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
         >
-          <div className="games__search-fields">
+          <fieldset className="games__search-fields">
+            <legend>Filter your games</legend>
             <Field
               component={Input}
               type="text"
@@ -55,7 +55,7 @@ export class GamesSearchForm extends React.Component {
                 options={tags}
               />
             </div>
-          </div>
+          </fieldset>
           <div className="games__search-buttons">
             <Button label="Search" type="submit" />
             <Button secondary label="Clear filters" type="reset" onClick={() => this.props.dispatch(resetFilters())} />

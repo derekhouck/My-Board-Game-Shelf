@@ -2,9 +2,8 @@
   text-align: center;
 }
 
-.games__search-fields {
-  border: 0;
-  padding: 0;
+.games__search-fields legend {
+  text-transform: uppercase;
 }
 
 .games__search-buttons > * {

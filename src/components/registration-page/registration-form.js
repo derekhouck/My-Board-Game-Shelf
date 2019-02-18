@@ -24,37 +24,43 @@ export class RegistrationForm extends React.Component {
       <form
         className="registration-form"
         onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
-        <Field
-          component={Input}
-          type="text"
-          name="name"
-          label="Name"
-        />
-        <Field
-          component={Input}
-          type="text"
-          name="username"
-          label="Username"
-          validate={[required, nonEmpty, isTrimmed]}
-        />
-        <Field
-          component={Input}
-          type="password"
-          name="password"
-          id="password"
-          label="Password"
-          validate={[required, isTrimmed, passwordLength]}
-        />
-        <Field
-          component={Input}
-          type="password"
-          name="passwordConfirm"
-          id="passwordConfirm"
-          label="Confirm password"
-          validate={[required, matchesPassword, nonEmpty]}
-        />
-        <Button 
-          type="submit" 
+        <fieldset>
+          <legend>About you</legend>
+          <Field
+            component={Input}
+            type="text"
+            name="name"
+            label="Name"
+          />
+        </fieldset>
+        <fieldset>
+          <legend>Account details</legend>
+          <Field
+            component={Input}
+            type="text"
+            name="username"
+            label="Username"
+            validate={[required, nonEmpty, isTrimmed]}
+          />
+          <Field
+            component={Input}
+            type="password"
+            name="password"
+            id="password"
+            label="Password"
+            validate={[required, isTrimmed, passwordLength]}
+          />
+          <Field
+            component={Input}
+            type="password"
+            name="passwordConfirm"
+            id="passwordConfirm"
+            label="Confirm password"
+            validate={[required, matchesPassword, nonEmpty]}
+          />
+        </fieldset>
+        <Button
+          type="submit"
           label="Create Account"
           primary
         />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-import './registration-page.css';
+import styles from './registration-page.module.css';
 
 import RegistrationForm from './registration-form';
 import Button from '../button';
@@ -11,16 +11,16 @@ export function RegistrationPage(props) {
     return <Redirect to="/dashboard" />;
   }
   return (
-    <section className="registration-page">
+    <section className={styles.registrationPage}>
       <h1>Create an Account</h1>
       <RegistrationForm />
       <div>
-      <h2>Already have an account?</h2>
-      <Link to="/sign-in">
-        <Button 
-          label="Log In"
-        />
-      </Link>
+        <h2>Already have an account?</h2>
+        <Link to="/sign-in">
+          <Button
+            label="Sign in"
+          />
+        </Link>
       </div>
     </section>
   );

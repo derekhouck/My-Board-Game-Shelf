@@ -18,6 +18,11 @@ code {
     monospace;
 }
 
+fieldset {
+  border-color: #19000b;
+  margin-bottom: 1em;
+}
+
 h1, h2 {
   font-family: 'Raleway', sans-serif;
   font-weight: 700;
@@ -34,6 +39,10 @@ h1 {
 
 img {
   max-width: 100%;
+}
+
+legend {
+  padding: 1em;
 }
 
 @media only screen and (min-width: 768px) {

@@ -99,43 +99,45 @@ export class GameForm extends React.Component {
           className="game-form"
           onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
         >
-          <h1>{this.props.editing ? 'Edit' : 'Add a'} Game</h1>
-          <Field
-            component={Input}
-            type="text"
-            name="title"
-            id="title"
-            label="Game title"
-            validate={[required, nonEmpty]}
-          />
-          <Field
-            component={Input}
-            type="number"
-            name="minPlayers"
-            id="minPlayers"
-            label="Minimum number of players"
-            validate={[playersMin, playersMax]}
-          />
-          <Field
-            component={Input}
-            type="number"
-            name="maxPlayers"
-            id="maxPlayers"
-            label="Maximum number of players"
-            validate={[playersMin, playersMax, notLessThanMinPlayers]}
-          />
-          <div className="form-input">
-            <label htmlFor="tags">Tags</label>
+          <fieldset>
+            <legend>{this.props.editing ? 'Edit' : 'Add a'} Game</legend>
             <Field
-              component={Select}
-              customLabelRenderer={values => values.options.map(value => value.text).join(', ')}
-              id="tags"
-              multiselect
-              name="tags"
-              type="select-multiple"
-              options={this.getTagOptions(this.props.tags)}
+              component={Input}
+              type="text"
+              name="title"
+              id="title"
+              label="Game title"
+              validate={[required, nonEmpty]}
             />
-          </div>
+            <Field
+              component={Input}
+              type="number"
+              name="minPlayers"
+              id="minPlayers"
+              label="Minimum number of players"
+              validate={[playersMin, playersMax]}
+            />
+            <Field
+              component={Input}
+              type="number"
+              name="maxPlayers"
+              id="maxPlayers"
+              label="Maximum number of players"
+              validate={[playersMin, playersMax, notLessThanMinPlayers]}
+            />
+            <div className="form-input">
+              <label htmlFor="tags">Tags</label>
+              <Field
+                component={Select}
+                customLabelRenderer={values => values.options.map(value => value.text).join(', ')}
+                id="tags"
+                multiselect
+                name="tags"
+                type="select-multiple"
+                options={this.getTagOptions(this.props.tags)}
+              />
+            </div>
+          </fieldset>
           <div className="form-actions">
             <Button
               primary

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import './sign-in-page.css';
+import styles from './sign-in-page.module.css';
 
 import LoginForm from './login-form';
 import Button from '../button';
@@ -37,9 +37,9 @@ export function SignInPage(props) {
   }
 
   return (
-    <section className="sign-in-page">
+    <section className={styles.signInPage}>
       <h1>Sign into your account</h1>
-      { body }
+      {body}
     </section>
   );
 }
