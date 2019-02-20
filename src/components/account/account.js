@@ -23,8 +23,10 @@ export function Account(props) {
         </ul>
         <div>
           <h2>Delete Your Account</h2>
-          <p><strong>Warning: This action cannot be undone!</strong></p>
-          <Button 
+          <p>
+            <strong>Warning: This action cannot be undone!</strong>
+          </p>
+          <Button
             onClick={() => props.dispatch(toggleDeleting())}
             label="Delete Account"
           />
