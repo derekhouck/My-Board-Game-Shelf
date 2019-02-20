@@ -10,6 +10,7 @@ import Input from '../input';
 
 export class EditAccount extends React.Component {
   componentDidMount() {
+    console.log(this.props.currentUser);
     const initData = {
       "name": this.props.currentUser.name,
       "username": this.props.currentUser.username
@@ -18,6 +19,7 @@ export class EditAccount extends React.Component {
   }
 
   onSubmit(values) {
+    console.log(this.props.currentUser);
     const { name, username } = values;
     const updateData = {
       id: this.props.currentUser.id,
@@ -25,8 +27,7 @@ export class EditAccount extends React.Component {
       username
     };
 
-    return this.props.dispatch(editUser(updateData))
-      .then(() => this.props.resetEditing());
+    return this.props.dispatch(editUser(updateData));
   }
 
   render() {

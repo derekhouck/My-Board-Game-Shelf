@@ -2,7 +2,7 @@ import { SubmissionError } from 'redux-form';
 
 import { API_BASE_URL } from '../config';
 import { normalizeResponseErrors } from './utils';
-import { clearAuth, refreshAuthToken, authSuccess } from './auth'
+import { clearAuth, refreshAuthToken } from './auth'
 import { clearAuthToken } from '../local-storage';
 
 export const FETCH_USERS_REQUEST = 'FETCH_USERS_REQUEST';
@@ -35,6 +35,7 @@ export const usersError = error => ({
 
 export const fetchUsers = () => (dispatch, getState) => {
   const authToken = getState().auth.authToken;
+  console.log(authToken);
   dispatch(fetchUsersRequest());
   return fetch(`${API_BASE_URL}/users`, {
     method: 'GET',
@@ -86,8 +87,7 @@ export const editUser = user => (dispatch, getState) => {
   })
     .then(res => normalizeResponseErrors(res))
     .then(res => res.json())
-    .then(user => dispatch(authSuccess(user)))
-    .then(() => dispatch(refreshAuthToken()))
+    .then(user => dispatch(refreshAuthToken(true)))
     .catch(err => {
       const { reason, message, location } = err;
       if (reason === 'ValidationError') {

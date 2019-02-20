@@ -78,10 +78,10 @@ export const login = (username, password) => dispatch => {
     );
 };
 
-export const refreshAuthToken = () => (dispatch, getState) => {
+export const refreshAuthToken = hard => (dispatch, getState) => {
     dispatch(authRequest());
     const authToken = getState().auth.authToken;
-    return fetch(`${API_BASE_URL}/refresh`, {
+    return fetch(`${API_BASE_URL}/${hard ? 'hard-' : ''}refresh`, {
         method: 'POST',
         headers: {
             // Provide our existing token as credentials to get a new one
