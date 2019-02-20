@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Account } from './account';
-import Button from '../button';
 
 describe('<Account />', function () {
   it('renders without crashing', () => {
@@ -12,7 +11,7 @@ describe('<Account />', function () {
     const dispatch = jest.fn();
     const mockToggleDeletingAction = { type: 'TOGGLE_DELETING' };
     const wrapper = shallow(<Account currentUser={{}} dispatch={dispatch} />);
-    wrapper.find(Button).simulate('click');
+    wrapper.find('.delete-account-button').simulate('click');
     expect(dispatch).toHaveBeenCalledWith(mockToggleDeletingAction);
   });
 });

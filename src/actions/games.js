@@ -107,7 +107,7 @@ export const addGame = game => (dispatch, getState) => {
     body: JSON.stringify(game)
   })
     .then(res => normalizeResponseErrors(res))
-    .then(res => setTimeout(res.json(), 5000))
+    .then(res => res.json())
     .catch(err => {
       const { reason, message, location } = err;
       if (reason === 'ValidationError') {

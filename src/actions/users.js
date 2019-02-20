@@ -2,7 +2,7 @@ import { SubmissionError } from 'redux-form';
 
 import { API_BASE_URL } from '../config';
 import { normalizeResponseErrors } from './utils';
-import { clearAuth } from './auth'
+import { clearAuth, refreshAuthToken, authSuccess } from './auth'
 import { clearAuthToken } from '../local-storage';
 
 export const FETCH_USERS_REQUEST = 'FETCH_USERS_REQUEST';
@@ -14,6 +14,12 @@ export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
 export const fetchUsersSuccess = users => ({
   type: FETCH_USERS_SUCCESS,
   users
+});
+
+export const SET_EDITING = 'SET_EDITING';
+export const setEditing = editing => ({
+  type: SET_EDITING,
+  editing
 });
 
 export const TOGGLE_DELETING = 'TOGGLE_DELETING';
@@ -54,6 +60,34 @@ export const registerUser = user => dispatch => {
   })
     .then(res => normalizeResponseErrors(res))
     .then(res => res.json())
+    .catch(err => {
+      const { reason, message, location } = err;
+      if (reason === 'ValidationError') {
+        // Convert ValidationErrors into SubmissionErrors for Redux Form
+        return Promise.reject(
+          new SubmissionError({
+            [location]: message
+          })
+        );
+      }
+    });
+};
+
+export const editUser = user => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
+
+  return fetch(`${API_BASE_URL}/users/${user.id}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify(user)
+  })
+    .then(res => normalizeResponseErrors(res))
+    .then(res => res.json())
+    .then(user => dispatch(authSuccess(user)))
+    .then(() => dispatch(refreshAuthToken()))
     .catch(err => {
       const { reason, message, location } = err;
       if (reason === 'ValidationError') {

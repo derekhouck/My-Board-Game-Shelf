@@ -45,6 +45,11 @@ legend {
   padding: 1em;
 }
 
+/* Button groups */
+.btn-group > * {
+  margin: 1rem;
+}
+
 @media only screen and (min-width: 768px) {
   h2 {
     text-align: inherit;
