@@ -18,30 +18,40 @@
   outline: 0;
 }
 
-.disabled {
+.btn-disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
-.disabled:hover {
+.btn-disabled:hover {
   box-shadow: none;
 }
 
-.primary {
+.btn-primary {
   background-color: #CB3A2A;
 }
 
-.secondary {
+.btn-secondary {
   background-color: #e18258;
   color: #19000b;
 }
 
-.game {
+.btn-game {
   background: transparent;
   border-color: #e18258;
   color: #e18258;
 }
 
-.game.primary {
+.btn-game.btn-primary {
   border-color: #e38278;
   color: #e38278;
+}
+
+/* Button groups */
+.btn-group > * {
+  display: inline-block;
+  margin: 0.5rem;
+}
+
+.btn-group > *:first-child {
+  margin-left: 0;
 }

@@ -60,6 +60,7 @@ export class RegistrationForm extends React.Component {
           />
         </fieldset>
         <Button
+          disabled={this.props.pristine || this.props.submitting}
           type="submit"
           label="Create Account"
           primary

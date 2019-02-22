@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { focus, reduxForm, Field } from 'redux-form';
-import { Link } from 'react-router-dom';
 import { isTrimmed, required } from '../../validators';
 import { editUser } from '../../actions/users';
 
@@ -10,7 +9,6 @@ import Input from '../input';
 
 export class EditAccount extends React.Component {
   componentDidMount() {
-    console.log(this.props.currentUser);
     const initData = {
       "name": this.props.currentUser.name,
       "username": this.props.currentUser.username
@@ -19,7 +17,6 @@ export class EditAccount extends React.Component {
   }
 
   onSubmit(values) {
-    console.log(this.props.currentUser);
     const { name, username } = values;
     const updateData = {
       id: this.props.currentUser.id,
@@ -56,17 +53,16 @@ export class EditAccount extends React.Component {
         </fieldset>
         <div className="form-actions btn-group">
           <Button
+            disabled={this.props.pristine || this.props.submitting}
             type="submit"
             label="Save Edits"
             primary
           />
-          <Link to="/account">
-            <Button
-              label="Cancel"
-              secondary
-              onClick={() => this.props.resetEditing()}
-            />
-          </Link>
+          <Button
+            label="Cancel"
+            secondary
+            onClick={() => this.props.resetEditing()}
+          />
         </div>
       </form>
     );
@@ -79,5 +75,5 @@ const mapStateToProps = state => ({
 
 export default reduxForm({
   form: 'edit-account-form',
-  onSubmitFail: (errors, dispatch) => dispatch(focus('registration', Object.keys(errors)[0]))
+  onSubmitFail: (errors, dispatch) => dispatch(focus('edit-account-form', Object.keys(errors)[0]))
 })(connect(mapStateToProps)(EditAccount));

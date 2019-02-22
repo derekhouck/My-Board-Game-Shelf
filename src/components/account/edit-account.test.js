@@ -12,4 +12,16 @@ describe('<EditAccount />', function () {
       handleSubmit={handleSubmit}
     />);
   });
+
+  it('calls onSubmit when the submit button is clicked', function () {
+    const handleSubmit = jest.fn();
+    const initialize = jest.fn();
+    const wrapper = shallow(<EditAccount
+      currentUser={{}}
+      initialize={initialize}
+      handleSubmit={handleSubmit}
+    />);
+    wrapper.simulate('submit');
+    expect(handleSubmit).toHaveBeenCalled();
+  });
 });
