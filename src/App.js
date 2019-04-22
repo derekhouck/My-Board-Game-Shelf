@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Route, withRouter } from 'react-router-dom';
-import './App.css';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Route, Switch, withRouter } from "react-router-dom";
+import "./App.css";
 
-import HeaderBar from './components/header-bar/header-bar';
-import LandingPage from './components/landing-page';
-import SignInPage from './components/sign-in-page/sign-in-page';
-import RegistrationPage from './components/registration-page/registration-page';
-import Dashboard from './components/dashboard';
-import GameForm from './components/game-form';
-import Users from './components/users';
-import Account from './components/account/account';
-import { refreshAuthToken } from './actions/auth';
+import HeaderBar from "./components/header-bar/header-bar";
+import LandingPage from "./components/landing-page";
+import SignInPage from "./components/sign-in-page/sign-in-page";
+import RegistrationPage from "./components/registration-page/registration-page";
+import Dashboard from "./components/dashboard";
+import GameForm from "./components/game-form";
+import Users from "./components/users";
+import Account from "./components/account/account";
+import NotFound from "./components/404";
+import { refreshAuthToken } from "./actions/auth";
 
 class App extends Component {
   componentDidUpdate(prevProps) {
@@ -48,14 +49,21 @@ class App extends Component {
       <div className="App" id="App">
         <HeaderBar />
         <main className="App-main" id="AppMain">
-          <Route exact path="/" component={LandingPage} />
-          <Route exact path="/sign-in" component={SignInPage} />
-          <Route exact path="/register" component={RegistrationPage} />
-          <Route exact path="/dashboard" component={Dashboard} />
-          <Route exact path="/games/add" component={GameForm} />
-          <Route exact path="/games/:id/edit" component={GameForm} />
-          <Route exact path="/account" component={Account} />
-          <Route exact path="/users" component={Users} />
+          <Switch>
+            <Route exact path="/" component={LandingPage} />
+            <Route exact path="/sign-in" component={SignInPage} />
+            <Route exact path="/register" component={RegistrationPage} />
+            <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/games/add" component={withRouter(GameForm)} />
+            <Route
+              exact
+              path="/games/:id/edit"
+              component={withRouter(GameForm)}
+            />
+            <Route exact path="/account" component={Account} />
+            <Route exact path="/users" component={Users} />
+            <Route component={NotFound} />
+          </Switch>
         </main>
       </div>
     );
