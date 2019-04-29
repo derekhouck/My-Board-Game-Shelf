@@ -1,12 +1,12 @@
 .landing-page {
   align-content: end;
   background: #e18258;
-  background-image: url(./landing-page-background.jpg);
+  background-image: url(https://res.cloudinary.com/dlwgq6st9/image/upload/v1556576329/landing-page-background.jpg);
   background-size: cover;
   display: grid;
   grid-template-areas:
-    'copy'
-    'actions';
+    "copy"
+    "actions";
   height: 100vh;
   justify-content: center;
   left: 0;
@@ -34,7 +34,7 @@
     align-content: center;
     grid-gap: 1em;
   }
-  
+
   .landing-page > * {
     max-width: 60vw;
   }
@@ -44,11 +44,11 @@
   }
 }
 
-@media only screen  and (min-width : 1224px) {
+@media only screen and (min-width: 1224px) {
   .landing-page {
     align-items: center;
     justify-content: space-evenly;
-    grid-template-areas: 'copy actions';
+    grid-template-areas: "copy actions";
     padding-top: 2em;
     text-align: left;
   }
