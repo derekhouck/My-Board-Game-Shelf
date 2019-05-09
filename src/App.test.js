@@ -2,7 +2,7 @@ import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { mount, shallow } from "enzyme";
-import App from "./App";
+import { App } from "./App";
 import { LandingPage } from "./components/landing-page";
 import NotFound from "./components/404";
 import store from "./store";
@@ -10,6 +10,11 @@ import store from "./store";
 describe("<App />", function() {
   it("renders without crashing", () => {
     shallow(<App />);
+  });
+
+  it("renders when logged in", () => {
+    const wrapper = shallow(<App />);
+    wrapper.setProps({ loggedIn: true });
   });
 
   it("redirects to landing page when given root path", () => {

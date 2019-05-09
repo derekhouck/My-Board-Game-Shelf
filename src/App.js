@@ -14,7 +14,7 @@ import Account from "./components/account/account";
 import NotFound from "./components/404";
 import { refreshAuthToken } from "./actions/auth";
 
-class App extends Component {
+export class App extends Component {
   componentDidUpdate(prevProps) {
     if (!prevProps.loggedIn && this.props.loggedIn) {
       // When we are logged in, refresh the auth token periodically
@@ -46,7 +46,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App" id="App">
+      <div className="App" id="App" loggedin={this.props.loggedIn}>
         <HeaderBar />
         <main className="App-main" id="AppMain">
           <Switch>
