@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.org/derekhouck/My-Board-Game-Shelf.svg?branch=master)](https://travis-ci.org/derekhouck/My-Board-Game-Shelf)
 
-*My Board Game Shelf* is an app for organizing and filtering your board game collection. You can check it out at https://my-board-game-shelf.herokuapp.com.
+*My Board Game Shelf* is an app for organizing and filtering your board game collection. You can check it out at http://myboardgameshelf.com.
 
 ## Features
 
