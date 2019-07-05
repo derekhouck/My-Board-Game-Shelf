@@ -1,12 +1,16 @@
 import React from "react";
 import requiresLogin from "./requires-login";
 import { connect } from "react-redux";
+import { Redirect } from 'react-router-dom';
 
 import { fetchUsers } from "../actions/users";
 
 export class Users extends React.Component {
   componentDidMount() {
-    this.props.dispatch(fetchUsers());
+    const { dispatch, isAdmin } = this.props;
+    if (isAdmin) {
+      dispatch(fetchUsers());
+    }
   }
 
   renderUsers() {
@@ -40,19 +44,21 @@ export class Users extends React.Component {
   }
 
   render() {
-    return (
-      <section>
+    const { isAdmin } = this.props;
+    return isAdmin
+      ? <section>
         <h2>Users</h2>
         {this.renderUsers()}
       </section>
-    );
+      : <Redirect to="/" />;
   }
 }
 
 const mapStateToProps = state => ({
+  error: state.users.error,
+  isAdmin: state.auth.currentUser.admin,
   users: state.users.users,
   loading: state.users.loading,
-  error: state.users.error
 });
 
 export default requiresLogin()(connect(mapStateToProps)(Users));

@@ -4,7 +4,8 @@ import Input from './input';
 
 describe('<Input />', function () {
   it('renders without crashing', () => {
-    shallow(<Input meta={{}} input={{}} />);
+    const wrapper = shallow(<Input meta={{}} input={{}} />);
+    expect(wrapper).toMatchSnapshot();
   });
 
   it('shows an error message when error exists', function () {
