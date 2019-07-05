@@ -7,7 +7,7 @@ import { LandingPage } from "./components/landing-page";
 import NotFound from "./components/404";
 import store from "./store";
 
-describe("<App />", function() {
+describe("<App />", function () {
   it("renders without crashing", () => {
     shallow(<App />);
   });
@@ -15,6 +15,8 @@ describe("<App />", function() {
   it("renders when logged in", () => {
     const wrapper = shallow(<App />);
     wrapper.setProps({ loggedIn: true });
+    wrapper.setProps({ loggedIn: false });
+    wrapper.unmount();
   });
 
   it("redirects to landing page when given root path", () => {
