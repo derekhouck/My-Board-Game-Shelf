@@ -1,7 +1,10 @@
 .switch {
   background: #cccccc;
+  border: 0;
   border-radius: 1rem;
+  cursor: pointer;
   height: 2rem;
+  padding: 0;
   position: relative;
   transition: background .4s .3s ease-out;
   width: 3.25rem;

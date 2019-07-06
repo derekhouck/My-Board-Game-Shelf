@@ -17,18 +17,21 @@ class ToggleSwitch extends React.Component {
     const { className, theme } = this.props;
     const switchClasses = `switch switch--theme-${theme ? theme : 'default'} switch--is-${enabled ? 'on' : 'off'} ${className ? className : ''}`;
     return (
-      <div
+      <button
+        aria-pressed={enabled.toString()}
         className={switchClasses}
         onClick={() => this.toggleSwitch()}
+        type="button"
       >
         <div className={`switch-toggle`}>
         </div>
-      </div>
+      </button>
     );
   }
 };
 
 ToggleSwitch.defaultProps = {
+  enabled: false,
   onStateChanged: enabled => console.log('You should set the onStateChanged prop!')
 };
 
