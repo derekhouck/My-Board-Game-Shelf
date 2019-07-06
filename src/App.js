@@ -45,8 +45,9 @@ export class App extends Component {
   }
 
   render() {
+    const { loggedIn } = this.props;
     return (
-      <div className="App" id="App" loggedin={this.props.loggedIn}>
+      <div className="App" id="App" loggedin={loggedIn ? loggedIn.toString() : 'false'}>
         <HeaderBar />
         <main className="App-main" id="AppMain">
           <Switch>

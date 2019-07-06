@@ -1,0 +1,30 @@
+.switch {
+  background: #cccccc;
+  border-radius: 1rem;
+  height: 2rem;
+  position: relative;
+  transition: background .4s .3s ease-out;
+  width: 3.25rem;
+}
+
+.switch--is-on {
+  background: #4f2119;
+}
+
+.switch-toggle {
+  background: #fff;
+  border-radius: 1rem;
+  height: 1.75rem;
+  position: absolute;
+  transition: transform .4s ease-out;
+  top: 0.125rem;
+  width: 1.75rem;
+}
+
+.switch--is-on .switch-toggle {
+  transform: translateX(1.375rem);
+}
+
+.switch--is-off .switch-toggle{
+  transform: translateX(0.125rem);
+}

@@ -3,6 +3,7 @@ import requiresLogin from "./requires-login";
 import { connect } from "react-redux";
 import { Redirect } from 'react-router-dom';
 import { fetchUsers } from "../actions/users";
+import ToggleSwitch from "./toggle-switch";
 import './users.css';
 
 export class Users extends React.Component {
@@ -32,19 +33,23 @@ export class Users extends React.Component {
             {user.name}
           </td>
           <td>
-            {user.admin ? "Yes" : "No"}
+            <ToggleSwitch enabled={user.admin} />
           </td>
         </tr>
       ));
 
       body = (
         <table className="users">
-          <tr>
-            <th>Username</th>
-            <th>Name</th>
-            <th>Admin</th>
-          </tr>
-          {users}
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Name</th>
+              <th>Admin</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users}
+          </tbody>
         </table>
       );
     }
