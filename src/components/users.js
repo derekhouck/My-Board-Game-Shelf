@@ -2,8 +2,8 @@ import React from "react";
 import requiresLogin from "./requires-login";
 import { connect } from "react-redux";
 import { Redirect } from 'react-router-dom';
-
 import { fetchUsers } from "../actions/users";
+import './users.css';
 
 export class Users extends React.Component {
   componentDidMount() {
@@ -24,20 +24,29 @@ export class Users extends React.Component {
       body = <div className="message message-default">Loading users...</div>;
     } else {
       const users = this.props.users.map(user => (
-        <li className="user" key={user.id} id={user.id}>
-          <p>
-            <strong>Username:</strong> {user.username}
-          </p>
-          <p>
-            <strong>Name:</strong> {user.name}
-          </p>
-          <p>
-            <strong>Admin:</strong> {user.admin ? "Yes" : "No"}
-          </p>
-        </li>
+        <tr className="user" key={user.id} id={user.id}>
+          <td>
+            {user.username}
+          </td>
+          <td>
+            {user.name}
+          </td>
+          <td>
+            {user.admin ? "Yes" : "No"}
+          </td>
+        </tr>
       ));
 
-      body = <ul className="users">{users}</ul>;
+      body = (
+        <table className="users">
+          <tr>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Admin</th>
+          </tr>
+          {users}
+        </table>
+      );
     }
 
     return body;
