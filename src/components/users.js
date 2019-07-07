@@ -2,7 +2,7 @@ import React from "react";
 import requiresLogin from "./requires-login";
 import { connect } from "react-redux";
 import { Redirect } from 'react-router-dom';
-import { fetchUsers } from "../actions/users";
+import { editUser, fetchUsers } from "../actions/users";
 import ToggleSwitch from "./toggle-switch";
 import './users.css';
 
@@ -13,6 +13,15 @@ export class Users extends React.Component {
       dispatch(fetchUsers());
     }
   }
+
+  updateUser = (userId, admin) => {
+    const { dispatch } = this.props;
+    const updateData = {
+      id: userId,
+      admin,
+    };
+    return dispatch(editUser(updateData));
+  };
 
   renderUsers() {
     let body;
@@ -33,7 +42,10 @@ export class Users extends React.Component {
             {user.name}
           </td>
           <td>
-            <ToggleSwitch enabled={user.admin} />
+            <ToggleSwitch
+              enabled={user.admin}
+              onStateChanged={admin => this.updateUser(user.id, admin)}
+            />
           </td>
         </tr>
       ));

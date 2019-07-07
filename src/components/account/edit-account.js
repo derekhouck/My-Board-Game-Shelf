@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { focus, reduxForm, Field } from 'redux-form';
 import { isTrimmed, required } from '../../validators';
 import { editUser } from '../../actions/users';
+import { refreshAuthToken } from '../../actions/auth';
 
 import Button from '../button';
 import Input from '../input';
@@ -18,13 +19,15 @@ export class EditAccount extends React.Component {
 
   onSubmit(values) {
     const { name, username } = values;
+    const { currentUser, dispatch } = this.props;
     const updateData = {
-      id: this.props.currentUser.id,
+      id: currentUser.id,
       name,
       username
     };
 
-    return this.props.dispatch(editUser(updateData));
+    return dispatch(editUser(updateData))
+      .then(() => dispatch(refreshAuthToken(true)));
   }
 
   render() {
