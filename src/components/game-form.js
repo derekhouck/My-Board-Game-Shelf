@@ -3,6 +3,7 @@ import requiresLogin from "./requires-login";
 import { connect } from "react-redux";
 import { reduxForm, Field, focus } from "redux-form";
 import { fetchGames, fetchTags, addGame, editGame } from "../actions/games";
+import { fetchUserGames } from "../actions/users";
 import {
   required,
   nonEmpty,

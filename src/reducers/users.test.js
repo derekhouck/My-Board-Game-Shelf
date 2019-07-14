@@ -1,5 +1,6 @@
 import reducer from './users';
 import {
+  fetchUserGamesSuccess,
   fetchUsersRequest,
   fetchUsersSuccess,
   toggleDeleting,
@@ -8,14 +9,27 @@ import {
 
 describe('usersReducer', function () {
   const initialState = {
+    deleting: false,
+    games: [],
     users: [],
     loading: false,
-    deleting: false,
     error: null
   };
   const error = 'Test error';
+  const games = ['game one', 'game two'];
   const loading = true;
   const users = ['user one', 'user two'];
+
+  describe('fetchUserGamesSuccess', function () {
+    it('should set loading to false and set games', function () {
+      const currentState = Object.assign({}, initialState, { loading });
+      expect(currentState.loading).toBe(true);
+      expect(currentState.games).toEqual([]);
+      const state = reducer(currentState, fetchUserGamesSuccess(games));
+      expect(state.loading).toBe(false);
+      expect(state.games).toEqual(games);
+    });
+  });
 
   describe('fetchUsersRequest', function () {
     it('should set loading to true and error to null', function () {

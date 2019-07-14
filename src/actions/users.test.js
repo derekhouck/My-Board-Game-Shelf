@@ -1,4 +1,5 @@
 import {
+  FETCH_USER_GAMES_SUCCESS, fetchUserGamesSuccess,
   FETCH_USERS_REQUEST, fetchUsersRequest,
   FETCH_USERS_SUCCESS, fetchUsersSuccess,
   TOGGLE_DELETING, toggleDeleting,
@@ -6,6 +7,13 @@ import {
 } from './users';
 
 describe('Users actions', function () {
+  describe('fetchUserGamesSuccess', function () {
+    it('should return FETCH_USER_GAMES_SUCCESS', function () {
+      const action = fetchUserGamesSuccess();
+      expect(action.type).toEqual(FETCH_USER_GAMES_SUCCESS);
+    });
+  });
+
   describe('fetchUsersRequest', function () {
     it('should return FETCH_USERS_REQUEST', function () {
       const action = fetchUsersRequest();

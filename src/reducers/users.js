@@ -1,4 +1,5 @@
 import {
+  FETCH_USER_GAMES_SUCCESS,
   FETCH_USERS_REQUEST,
   FETCH_USERS_SUCCESS,
   TOGGLE_DELETING,
@@ -14,6 +15,11 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case FETCH_USER_GAMES_SUCCESS:
+      return Object.assign({}, state, {
+        loading: false,
+        games: action.games
+      });
     case FETCH_USERS_REQUEST:
       return Object.assign({}, state, {
         loading: true,

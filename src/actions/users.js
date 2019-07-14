@@ -5,6 +5,12 @@ import { normalizeResponseErrors } from './utils';
 import { clearAuth } from './auth'
 import { clearAuthToken } from '../local-storage';
 
+export const FETCH_USER_GAMES_SUCCESS = 'FETCH_USER_GAMES_SUCCESS';
+export const fetchUserGamesSuccess = games => ({
+  type: FETCH_USER_GAMES_SUCCESS,
+  games
+});
+
 export const FETCH_USERS_REQUEST = 'FETCH_USERS_REQUEST';
 export const fetchUsersRequest = () => ({
   type: FETCH_USERS_REQUEST
@@ -45,6 +51,31 @@ export const fetchUsers = () => (dispatch, getState) => {
     .then(res => normalizeResponseErrors(res))
     .then(res => res.json())
     .then(users => dispatch(fetchUsersSuccess(users)))
+    .catch(err => {
+      dispatch(usersError(err));
+    });
+}
+
+export const fetchUserGames = (userId, filters) => (dispatch, getState) => {
+  let url = new URL(`${API_BASE_URL}/users/${userId}/games`);
+  if (filters) {
+    Object.keys(filters).forEach(key => {
+      return url.searchParams.append(key, filters[key])
+    });
+  }
+  const authToken = getState().auth.authToken;
+
+  dispatch(fetchUsersRequest());
+
+  return fetch(url, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${authToken}`
+    }
+  })
+    .then(res => normalizeResponseErrors(res))
+    .then(res => res.json())
+    .then(games => dispatch(fetchUserGamesSuccess(games)))
     .catch(err => {
       dispatch(usersError(err));
     });
