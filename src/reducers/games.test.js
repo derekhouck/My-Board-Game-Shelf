@@ -58,11 +58,10 @@ describe('gamesReducer', function () {
   });
 
   describe('fetchTagsSuccess', function () {
-    it('should set loading to false and set tags', function () {
-      const currentState = Object.assign({}, initialState, { loading });
-      expect(currentState.loading).toBe(true);
+    it('should set tags', function () {
+      const currentState = Object.assign({}, initialState);
+      expect(currentState.tags).toEqual([]);
       const state = reducer(currentState, fetchTagsSuccess(tags));
-      expect(state.loading).toBe(false);
       expect(state.tags).toEqual(tags);
     });
   });

@@ -21,12 +21,10 @@ describe('usersReducer', function () {
   const users = ['user one', 'user two'];
 
   describe('fetchUserGamesSuccess', function () {
-    it('should set loading to false and set games', function () {
+    it('should set games', function () {
       const currentState = Object.assign({}, initialState, { loading });
-      expect(currentState.loading).toBe(true);
       expect(currentState.games).toEqual([]);
       const state = reducer(currentState, fetchUserGamesSuccess(games));
-      expect(state.loading).toBe(false);
       expect(state.games).toEqual(games);
     });
   });

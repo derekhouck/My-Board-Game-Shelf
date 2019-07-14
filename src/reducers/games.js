@@ -30,7 +30,6 @@ export default function reducer(state = initialState, action) {
       });
     case FETCH_TAGS_SUCCESS:
       return Object.assign({}, state, {
-        loading: false,
         tags: action.tags
       });
     case FILTER_GAMES:

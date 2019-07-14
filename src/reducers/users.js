@@ -7,6 +7,7 @@ import {
 } from '../actions/users';
 
 const initialState = {
+  games: [],
   users: [],
   loading: false,
   deleting: false,
@@ -17,7 +18,6 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_USER_GAMES_SUCCESS:
       return Object.assign({}, state, {
-        loading: false,
         games: action.games
       });
     case FETCH_USERS_REQUEST:

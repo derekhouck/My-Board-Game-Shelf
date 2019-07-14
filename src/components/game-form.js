@@ -2,7 +2,7 @@ import React from "react";
 import requiresLogin from "./requires-login";
 import { connect } from "react-redux";
 import { reduxForm, Field, focus } from "redux-form";
-import { fetchGames, fetchTags, addGame, editGame } from "../actions/games";
+import { fetchTags, addGame, editGame } from "../actions/games";
 import { fetchUserGames } from "../actions/users";
 import {
   required,
@@ -42,10 +42,11 @@ const multiSelectOptionMarkup = text => (
 
 export class GameForm extends React.Component {
   componentDidMount() {
-    this.props.dispatch(fetchTags()).then(() => {
-      if (this.props.editing) {
-        if (this.props.games.length === 0) {
-          this.props.dispatch(fetchGames()).then(() => this.handleInitialize());
+    const { currentUser, dispatch, editing, games } = this.props;
+    dispatch(fetchTags()).then(() => {
+      if (editing) {
+        if (games.length === 0) {
+          dispatch(fetchUserGames(currentUser.id)).then(() => this.handleInitialize());
         } else {
           this.handleInitialize();
         }
@@ -180,13 +181,14 @@ export class GameForm extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  games: state.games.games,
-  tags: state.games.tags,
-  currentGame: state.games.games.find(
+  games: state.users.games,
+  currentGame: state.users.games.find(
     game => game.id === props.match.params.id
   ),
+  currentUser: state.auth.currentUser,
   editing: !!props.match.params.id,
-  loading: state.games.loading
+  loading: state.loading.loading,
+  tags: state.games.tags,
 });
 
 export default reduxForm({

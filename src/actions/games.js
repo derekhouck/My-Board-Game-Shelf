@@ -1,7 +1,7 @@
 import { SubmissionError } from 'redux-form';
 
 import { API_BASE_URL } from '../config';
-import { normalizeResponseErrors } from './utils';
+import { normalizeResponseErrors, startLoading, stopLoading } from './utils';
 
 export const FETCH_GAMES_REQUEST = 'FETCH_GAMES_REQUEST';
 export const fetchGamesRequest = () => ({
@@ -77,7 +77,7 @@ export const fetchTags = filters => (dispatch, getState) => {
   }
   const authToken = getState().auth.authToken;
 
-  dispatch(fetchGamesRequest());
+  dispatch(startLoading());
 
   return fetch(url, {
     method: 'GET',
@@ -87,16 +87,18 @@ export const fetchTags = filters => (dispatch, getState) => {
   })
     .then(res => normalizeResponseErrors(res))
     .then(res => res.json())
-    .then(tags => dispatch(fetchTagsSuccess(tags)))
+    .then(tags => {
+      dispatch(fetchTagsSuccess(tags));
+      dispatch(stopLoading());
+    })
     .catch(err => {
       dispatch(gamesError(err));
+      dispatch(stopLoading());
     });
 }
 
 export const addGame = game => (dispatch, getState) => {
   const authToken = getState().auth.authToken;
-
-  dispatch(fetchGamesRequest());
 
   return fetch(`${API_BASE_URL}/games`, {
     method: 'POST',

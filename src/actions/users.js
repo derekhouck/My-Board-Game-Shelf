@@ -1,7 +1,7 @@
 import { SubmissionError } from 'redux-form';
 
 import { API_BASE_URL } from '../config';
-import { normalizeResponseErrors } from './utils';
+import { normalizeResponseErrors, startLoading, stopLoading } from './utils';
 import { clearAuth } from './auth'
 import { clearAuthToken } from '../local-storage';
 
@@ -65,7 +65,7 @@ export const fetchUserGames = (userId, filters) => (dispatch, getState) => {
   }
   const authToken = getState().auth.authToken;
 
-  dispatch(fetchUsersRequest());
+  dispatch(startLoading());
 
   return fetch(url, {
     method: 'GET',
@@ -75,9 +75,13 @@ export const fetchUserGames = (userId, filters) => (dispatch, getState) => {
   })
     .then(res => normalizeResponseErrors(res))
     .then(res => res.json())
-    .then(games => dispatch(fetchUserGamesSuccess(games)))
+    .then(games => {
+      dispatch(fetchUserGamesSuccess(games));
+      dispatch(stopLoading());
+    })
     .catch(err => {
       dispatch(usersError(err));
+      dispatch(stopLoading());
     });
 }
 
