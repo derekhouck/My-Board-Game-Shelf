@@ -4,7 +4,6 @@ import {
   fetchGamesSuccess,
   fetchTagsSuccess,
   filterGames,
-  removeGame,
   resetFilters,
   gamesError
 } from '../actions/games';
@@ -70,20 +69,6 @@ describe('gamesReducer', function () {
     it('should set filters', function () {
       const state = reducer(initialState, filterGames(filters));
       expect(state.filters).toEqual(filters);
-    });
-  });
-
-  describe('removeGame', function () {
-    it('should set loading to false and remove the game from games', function () {
-      const game = { title: 'game two', id: 2 };
-      const currentState = Object.assign({}, initialState, { loading, games });
-      expect(currentState.loading).toBe(true);
-      expect(currentState.games).toContainEqual(game);
-      expect(currentState.games.length).toEqual(games.length);
-      const state = reducer(currentState, removeGame(game));
-      expect(state.loading).toBe(false);
-      expect(state.games).not.toContainEqual(game);
-      expect(state.games.length).toEqual(games.length - 1);
     });
   });
 

@@ -2,6 +2,7 @@ import {
   FETCH_USER_GAMES_SUCCESS, fetchUserGamesSuccess,
   FETCH_USERS_REQUEST, fetchUsersRequest,
   FETCH_USERS_SUCCESS, fetchUsersSuccess,
+  REMOVE_GAME, removeGame,
   TOGGLE_DELETING, toggleDeleting,
   USERS_ERROR, usersError
 } from './users';
@@ -27,6 +28,15 @@ describe('Users actions', function () {
       const action = fetchUsersSuccess(users);
       expect(action.type).toEqual(FETCH_USERS_SUCCESS);
       expect(action.users).toEqual(users);
+    });
+  });
+
+  describe('removeGame', function () {
+    it('should return REMOVE_GAME', function () {
+      const game = 'sample game';
+      const action = removeGame(game);
+      expect(action.type).toEqual(REMOVE_GAME);
+      expect(action.game).toEqual(game);
     });
   });
 

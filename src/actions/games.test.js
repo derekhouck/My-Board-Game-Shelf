@@ -3,7 +3,6 @@ import {
   FETCH_GAMES_SUCCESS, fetchGamesSuccess,
   FETCH_TAGS_SUCCESS, fetchTagsSuccess,
   FILTER_GAMES, filterGames,
-  REMOVE_GAME, removeGame,
   RESET_FILTERS, resetFilters,
   GAMES_ERROR, gamesError
 } from './games';
@@ -40,15 +39,6 @@ describe('Games actions', function () {
       const action = filterGames(filters);
       expect(action.type).toEqual(FILTER_GAMES);
       expect(action.filters).toEqual(filters);
-    });
-  });
-
-  describe('removeGame', function () {
-    it('should return REMOVE_GAME', function () {
-      const game = 'sample game';
-      const action = removeGame(game);
-      expect(action.type).toEqual(REMOVE_GAME);
-      expect(action.game).toEqual(game);
     });
   });
 

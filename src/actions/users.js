@@ -22,6 +22,12 @@ export const fetchUsersSuccess = users => ({
   users
 });
 
+export const REMOVE_GAME = 'REMOVE_GAME';
+export const removeGame = game => ({
+  type: REMOVE_GAME,
+  game
+});
+
 export const SET_EDITING = 'SET_EDITING';
 export const setEditing = editing => ({
   type: SET_EDITING,
