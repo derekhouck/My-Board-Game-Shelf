@@ -5,6 +5,6 @@ import { Games } from './games';
 describe('<Games />', function () {
   it('renders without crashing', () => {
     const callback = jest.fn();
-    shallow(<Games filters={{}} dispatch={callback} />);
+    shallow(<Games currentUser={{}} filters={{}} dispatch={callback} />);
   });
 });

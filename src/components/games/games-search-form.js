@@ -81,16 +81,19 @@ function getUnique(arr, comp) {
 }
 
 const getTags = (games) => {
-  const tagArrays = games.games.map(game => game.tags);
+  const tagArrays = games.map(game => game.tags);
   const mergedArray = [].concat.apply([], tagArrays);
   const tags = getUnique(mergedArray, 'id');
 
   return tags;
 };
 
-const mapStateToProps = state => ({
-  tags: getTags(state.games)
-});
+const mapStateToProps = (state, ownProps) => {
+  const { games } = ownProps;
+  return {
+    tags: getTags(games)
+  }
+};
 
 export default reduxForm({
   form: 'games-search-form',

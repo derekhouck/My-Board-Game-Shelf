@@ -5,7 +5,7 @@ import { fetchUserGames } from '../../actions/users';
 import './games.css';
 
 import Button from '../button';
-import GamesSearchFrom from './games-search-form';
+import GamesSearchForm from './games-search-form';
 import Game from './game';
 
 export class Games extends React.Component {
@@ -66,11 +66,12 @@ export class Games extends React.Component {
   }
 
   render() {
+    const { games } = this.props;
     return (
       <section className="games__wrapper">
         <header className="games-header">
           <Link to="/games/add" className="centered"><Button primary label="Add a game" /></Link>
-          <GamesSearchFrom />
+          <GamesSearchForm games={games} />
         </header>
         {this.renderGames()}
       </section>
