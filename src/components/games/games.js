@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchGames } from '../../actions/games';
+import { fetchUserGames } from '../../actions/users';
 import './games.css';
 
 import Button from '../button';
@@ -10,7 +10,8 @@ import Game from './game';
 
 export class Games extends React.Component {
   componentDidMount() {
-    this.props.dispatch(fetchGames());
+    const { currentUser, dispatch } = this.props;
+    dispatch(fetchUserGames(currentUser.id));
   }
 
   filterGames(games = []) {
@@ -78,10 +79,11 @@ export class Games extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  games: state.games.games,
+  currentUser: state.auth.currentUser,
+  error: state.users.error,
+  games: state.users.games,
   filters: state.games.filters,
-  loading: state.games.loading,
-  error: state.games.error
+  loading: state.loading.loading,
 });
 
 export default connect(mapStateToProps)(Games);
