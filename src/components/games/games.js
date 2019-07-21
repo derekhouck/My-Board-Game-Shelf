@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchUserGames } from '../../actions/users';
 import './games.css';
 
 import Button from '../button';
@@ -9,11 +8,6 @@ import GamesSearchForm from './games-search-form';
 import Game from './game';
 
 export class Games extends React.Component {
-  componentDidMount() {
-    const { currentUser, dispatch } = this.props;
-    dispatch(fetchUserGames(currentUser.id));
-  }
-
   filterGames(games = []) {
     if (games.length === 0) { return games }
     const { filters } = this.props;
@@ -28,21 +22,22 @@ export class Games extends React.Component {
   }
 
   renderGames() {
+    const { controls, error, games, loading } = this.props;
     let body;
 
-    if (this.props.error) {
+    if (error) {
       body = (
-        <div className="message message-error">{this.props.error.message}</div>
+        <div className="message message-error">{error.message}</div>
       );
-    } else if (this.props.loading) {
+    } else if (loading) {
       body = (
         <div className="message message-default">Loading your games...</div>
       );
     } else {
-      let games;
-      const filteredGames = this.filterGames(this.props.games);
+      let gameElements;
+      const filteredGames = this.filterGames(games);
       if (filteredGames.length === 0) {
-        games = (
+        gameElements = (
           <div className="games__no-games">
             <p>You don't have any games at the moment. Let's add one now.</p>
             <Link to="/games/add">
@@ -51,13 +46,12 @@ export class Games extends React.Component {
           </div>
         );
       } else {
-        games = filteredGames.map(game => <Game key={game.id} game={game} />);
+        gameElements = filteredGames.map(game => <Game controls={controls} key={game.id} game={game} />);
       }
       body = (
         <section className="games">
-          <h2>Your Games</h2>
           <ul className="games__list">
-            {games}
+            {gameElements}
           </ul>
         </section>
       );
@@ -79,10 +73,13 @@ export class Games extends React.Component {
   }
 }
 
+Games.defaultProps = {
+  controls: false,
+  games: [],
+};
+
 const mapStateToProps = state => ({
-  currentUser: state.auth.currentUser,
   error: state.users.error,
-  games: state.users.games,
   filters: state.games.filters,
   loading: state.loading.loading,
 });

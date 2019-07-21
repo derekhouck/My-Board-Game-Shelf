@@ -45,15 +45,11 @@ export const fetchGames = filters => (dispatch, getState) => {
       return url.searchParams.append(key, filters[key])
     });
   }
-  const authToken = getState().auth.authToken;
 
   dispatch(fetchGamesRequest());
 
   return fetch(url, {
     method: 'GET',
-    headers: {
-      Authorization: `Bearer ${authToken}`
-    }
   })
     .then(res => normalizeResponseErrors(res))
     .then(res => res.json())

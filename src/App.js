@@ -13,6 +13,7 @@ import Users from "./components/users";
 import Account from "./components/account/account";
 import NotFound from "./components/404";
 import { refreshAuthToken } from "./actions/auth";
+import GamesPage from "./components/games/games-page";
 
 export class App extends Component {
   componentDidUpdate(prevProps) {
@@ -55,6 +56,7 @@ export class App extends Component {
             <Route exact path="/sign-in" component={SignInPage} />
             <Route exact path="/register" component={RegistrationPage} />
             <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/games" component={GamesPage} />
             <Route exact path="/games/add" component={withRouter(GameForm)} />
             <Route
               exact

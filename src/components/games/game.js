@@ -6,7 +6,7 @@ import { deleteGame } from '../../actions/games';
 import Button from '../button';
 
 export function Game(props) {
-  const game = props.game;
+  const { controls, game } = props;
   const tags = game.tags.map(tag => (<li key={game.id + '_' + tag.id} id={game.id + '_' + tag.id}>{tag.name}</li>));
   return (
     <li className="game" id={game.id}>
@@ -20,19 +20,26 @@ export function Game(props) {
           </ul>
         </li>
       </ul>
-      <section className="game__buttons">
-        <Link to={`/games/${game.id}/edit`}>
-          <Button game secondary label="Edit" />
-        </Link>
-        <Button
-          game
-          primary
-          onClick={() => props.dispatch(deleteGame(game))}
-          label="Remove"
-        />
-      </section>
+      {controls && (
+        <section className="game__buttons">
+          <Link to={`/games/${game.id}/edit`}>
+            <Button game secondary label="Edit" />
+          </Link>
+          <Button
+            game
+            primary
+            onClick={() => props.dispatch(deleteGame(game))}
+            label="Remove"
+          />
+        </section>
+      )}
     </li>
   );
+}
+
+Game.defaultProps = {
+  controls: false,
+  game: {},
 }
 
 export default connect()(Game);

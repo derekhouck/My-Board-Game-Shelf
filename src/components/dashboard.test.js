@@ -4,6 +4,7 @@ import { Dashboard } from './dashboard';
 
 describe('<Dashboard />', function () {
   it('renders without crashing', () => {
-    shallow(<Dashboard />);
+    const callback = jest.fn();
+    shallow(<Dashboard currentUser={{}} dispatch={callback} />);
   });
 });
