@@ -22,7 +22,14 @@ export class Games extends React.Component {
   }
 
   renderGames() {
-    const { controls, editButton, error, games, loading } = this.props;
+    const {
+      controls,
+      editButton,
+      error,
+      games,
+      loading,
+      removeButton,
+    } = this.props;
     let body;
 
     if (error) {
@@ -50,8 +57,9 @@ export class Games extends React.Component {
           <Game
             controls={controls}
             editButton={editButton}
-            key={game.id}
             game={game}
+            key={game.id}
+            removeButton={this.isUserGame(game)}
           />
         );
       }
@@ -64,6 +72,11 @@ export class Games extends React.Component {
       );
     }
     return body;
+  }
+
+  isUserGame(game) {
+    const { userGames } = this.props;
+    return !!userGames.filter(userGame => userGame.id === game.id).length
   }
 
   render() {
@@ -84,6 +97,8 @@ Games.defaultProps = {
   controls: false,
   editButton: true,
   games: [],
+  removeButton: true,
+  userGames: [],
 };
 
 const mapStateToProps = state => ({
