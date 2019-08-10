@@ -16,7 +16,11 @@ export class Dashboard extends React.Component {
     return (
       <section className="dashboard">
         <h1>Your Shelf</h1>
-        <Games controls games={games} />
+        <Games
+          controls
+          games={games}
+          userGames={games}
+        />
       </section>
     );
   }
