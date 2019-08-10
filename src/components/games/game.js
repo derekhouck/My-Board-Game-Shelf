@@ -6,7 +6,7 @@ import { deleteGame } from '../../actions/games';
 import Button from '../button';
 
 export function Game(props) {
-  const { controls, game } = props;
+  const { controls, editButton, game } = props;
   const tags = game.tags.map(tag => (<li key={game.id + '_' + tag.id} id={game.id + '_' + tag.id}>{tag.name}</li>));
   return (
     <li className="game" id={game.id}>
@@ -22,7 +22,10 @@ export function Game(props) {
       </ul>
       {controls && (
         <section className="game__buttons">
-          <Link to={`/games/${game.id}/edit`}>
+          <Link
+            className={editButton ? '' : 'game__buttons--hidden'}
+            to={`/games/${game.id}/edit`}
+          >
             <Button game secondary label="Edit" />
           </Link>
           <Button
@@ -35,11 +38,12 @@ export function Game(props) {
       )}
     </li>
   );
-}
+};
 
 Game.defaultProps = {
   controls: false,
+  editButton: true,
   game: {},
-}
+};
 
 export default connect()(Game);

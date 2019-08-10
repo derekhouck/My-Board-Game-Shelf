@@ -10,11 +10,15 @@ export class GamesPage extends React.Component {
   }
 
   render() {
-    const { games } = this.props;
+    const { games, loggedIn } = this.props;
     return (
       <section className="games-page">
         <h1>Games</h1>
-        <Games games={games} />
+        <Games
+          controls={loggedIn}
+          editButton={false}
+          games={games}
+        />
       </section>
     );
   }
@@ -22,6 +26,7 @@ export class GamesPage extends React.Component {
 
 const mapStateToProps = state => ({
   games: state.games.games,
+  loggedIn: state.auth.currentUser !== null,
 });
 
 export default connect(mapStateToProps)(GamesPage);

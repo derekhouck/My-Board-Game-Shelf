@@ -26,6 +26,10 @@
   box-shadow: none;
 }
 
+.btn-hidden {
+  visibility: hidden;
+}
+
 .btn-primary {
   background-color: #CB3A2A;
 }

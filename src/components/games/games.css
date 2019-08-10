@@ -75,6 +75,10 @@
   margin-top: 1rem;
 }
 
+.game__buttons--hidden {
+  visibility: hidden;
+}
+
 @media only screen and (min-width: 768px) {
   .games__list {
     display: flex;

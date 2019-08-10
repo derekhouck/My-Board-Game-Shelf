@@ -22,7 +22,7 @@ export class Games extends React.Component {
   }
 
   renderGames() {
-    const { controls, error, games, loading } = this.props;
+    const { controls, editButton, error, games, loading } = this.props;
     let body;
 
     if (error) {
@@ -46,7 +46,14 @@ export class Games extends React.Component {
           </div>
         );
       } else {
-        gameElements = filteredGames.map(game => <Game controls={controls} key={game.id} game={game} />);
+        gameElements = filteredGames.map(game =>
+          <Game
+            controls={controls}
+            editButton={editButton}
+            key={game.id}
+            game={game}
+          />
+        );
       }
       body = (
         <section className="games">
@@ -75,6 +82,7 @@ export class Games extends React.Component {
 
 Games.defaultProps = {
   controls: false,
+  editButton: true,
   games: [],
 };
 

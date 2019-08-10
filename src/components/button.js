@@ -2,18 +2,35 @@ import React from 'react';
 import './button.css';
 
 export default function Button(props) {
+  const {
+    disabled,
+    game,
+    hidden,
+    onClick,
+    label,
+    primary,
+    secondary,
+    type
+  } = props;
   const classNames = `
     btn 
-    ${props.disabled ? 'btn-disabled' : ''} 
-    ${props.primary ? 'btn-primary' : ''} 
-    ${props.secondary ? 'btn-secondary' : ''}
-    ${props.game ? 'btn-game' : ''}`;
+    ${disabled ? 'btn-disabled' : ''} 
+    ${hidden ? 'btn-hidden' : ''}
+    ${primary ? 'btn-primary' : ''} 
+    ${secondary ? 'btn-secondary' : ''}
+    ${game ? 'btn-game' : ''}`;
   return (
     <button
       className={classNames}
-      disabled={props.disabled}
-      type={props.type}
-      onClick={props.onClick}
-    >{props.label}</button>
+      disabled={disabled}
+      type={type}
+      onClick={onClick}
+    >
+      {label}
+    </button>
   );
 }
+
+Button.defaultProps = {
+  hidden: false,
+};
