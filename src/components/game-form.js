@@ -67,6 +67,7 @@ export class GameForm extends React.Component {
   }
 
   onSubmit(values) {
+    const { dispatch, editing, history, match } = this.props;
     const { title, minPlayers, maxPlayers, tags } = values;
     const game = {
       title,
@@ -75,16 +76,15 @@ export class GameForm extends React.Component {
       tags: tags[0] === "" ? [] : tags
     };
     const whichAction = game => {
-      if (this.props.editing) {
-        game.id = this.props.match.params.id;
+      if (editing) {
+        game.id = match.params.id;
         return editGame(game);
       } else {
         return addGame(game);
       }
     };
-    return this.props
-      .dispatch(whichAction(game))
-      .then(() => this.props.history.push("/dashboard"));
+    return dispatch(whichAction(game))
+      .then(() => history.push("/dashboard"));
   }
 
   getTagOptions(tags) {
