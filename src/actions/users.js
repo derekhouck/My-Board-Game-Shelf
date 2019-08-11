@@ -91,10 +91,37 @@ export const fetchUserGames = (userId, filters) => (dispatch, getState) => {
     });
 }
 
-export const registerUser = user => dispatch => {
-  return fetch(`${API_BASE_URL}/users`, {
-    method: 'POST',
+export const removeGameFromShelf = game => (dispatch, getState) => {
+  const { authToken, currentUser } = getState().auth;
+
+  dispatch(startLoading());
+
+  return fetch(`${API_BASE_URL}/users/${currentUser.id}/games`, {
+    method: 'DELETE',
     headers: {
+      Authorization: `Bearer ${authToken}`,
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({ gameId: game.id })
+  })
+    .then(res => normalizeResponseErrors(res))
+    .then(() => {
+      dispatch(removeGame(game));
+      dispatch(stopLoading());
+    })
+    .catch(err => {
+      dispatch(usersError(err));
+      dispatch(stopLoading());
+    });
+}
+
+export const editUser = user => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
+
+  return fetch(`${API_BASE_URL}/users/${user.id}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${authToken}`,
       'content-type': 'application/json'
     },
     body: JSON.stringify(user)
@@ -114,13 +141,10 @@ export const registerUser = user => dispatch => {
     });
 };
 
-export const editUser = user => (dispatch, getState) => {
-  const authToken = getState().auth.authToken;
-
-  return fetch(`${API_BASE_URL}/users/${user.id}`, {
-    method: 'PUT',
+export const registerUser = user => dispatch => {
+  return fetch(`${API_BASE_URL}/users`, {
+    method: 'POST',
     headers: {
-      Authorization: `Bearer ${authToken}`,
       'content-type': 'application/json'
     },
     body: JSON.stringify(user)

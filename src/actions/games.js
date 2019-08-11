@@ -141,7 +141,7 @@ export const editGame = game => (dispatch, getState) => {
 };
 
 export const deleteGame = game => (dispatch, getState) => {
-  const authToken = getState().auth.authToken;
+  const { authToken, currentUser } = getState().auth;
 
   dispatch(startLoading());
 
@@ -151,6 +151,15 @@ export const deleteGame = game => (dispatch, getState) => {
       Authorization: `Bearer ${authToken}`
     }
   })
+    .then(res => normalizeResponseErrors(res))
+    .then(() => fetch(`${API_BASE_URL}/users/${currentUser.id}/games`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({ gameId: game.id })
+    }))
     .then(res => normalizeResponseErrors(res))
     .then(() => {
       dispatch(removeGame(game));

@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deleteGame } from '../../actions/games';
+import { removeGameFromShelf } from '../../actions/users';
 
 import Button from '../button';
 
 export function Game(props) {
-  const { controls, editButton, removeButton, game } = props;
+  const { controls, dispatch, editButton, removeButton, game } = props;
   const tags = game.tags.map(tag => (<li key={game.id + '_' + tag.id} id={game.id + '_' + tag.id}>{tag.name}</li>));
   return (
     <li className="game" id={game.id}>
@@ -32,7 +32,7 @@ export function Game(props) {
             game
             hidden={!removeButton}
             primary
-            onClick={() => props.dispatch(deleteGame(game))}
+            onClick={() => dispatch(removeGameFromShelf(game))}
             label="Remove"
           />
         </section>
