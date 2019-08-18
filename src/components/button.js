@@ -3,9 +3,11 @@ import './button.css';
 
 export default function Button(props) {
   const {
+    className,
     disabled,
     game,
     hidden,
+    icon,
     onClick,
     label,
     primary,
@@ -14,8 +16,10 @@ export default function Button(props) {
   } = props;
   const classNames = `
     btn 
+    ${className}
     ${disabled ? 'btn-disabled' : ''} 
     ${hidden ? 'btn-hidden' : ''}
+    ${icon ? 'btn-icon' : ''}
     ${primary ? 'btn-primary' : ''} 
     ${secondary ? 'btn-secondary' : ''}
     ${game ? 'btn-game' : ''}`;
@@ -26,11 +30,20 @@ export default function Button(props) {
       type={type}
       onClick={onClick}
     >
-      {label}
+      <span className="btn__label">
+        {label}
+      </span>
+      {icon && (
+        <span className="btn__icon">
+          {icon}
+        </span>
+      )}
     </button>
   );
 }
 
 Button.defaultProps = {
+  className: '',
   hidden: false,
+  icon: null,
 };

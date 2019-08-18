@@ -28,17 +28,12 @@ export class Games extends React.Component {
       error,
       games,
       loading,
-      removeButton,
     } = this.props;
     let body;
 
     if (error) {
       body = (
         <div className="message message-error">{error.message}</div>
-      );
-    } else if (loading) {
-      body = (
-        <div className="message message-default">Loading your games...</div>
       );
     } else {
       let gameElements;
@@ -97,7 +92,6 @@ Games.defaultProps = {
   controls: false,
   editButton: true,
   games: [],
-  removeButton: true,
   userGames: [],
 };
 

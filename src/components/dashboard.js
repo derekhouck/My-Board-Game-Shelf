@@ -4,6 +4,7 @@ import requiresLogin from './requires-login';
 import { fetchUserGames } from '../actions/users';
 
 import Games from './games/games';
+import Loading from './loading';
 
 export class Dashboard extends React.Component {
   componentDidMount() {
@@ -12,7 +13,7 @@ export class Dashboard extends React.Component {
   }
 
   render() {
-    const { games } = this.props;
+    const { games, loading } = this.props;
     return (
       <section className="dashboard">
         <h1>Your Shelf</h1>
@@ -21,6 +22,7 @@ export class Dashboard extends React.Component {
           games={games}
           userGames={games}
         />
+        {loading && <Loading />}
       </section>
     );
   }
@@ -29,6 +31,7 @@ export class Dashboard extends React.Component {
 const mapStateToProps = state => ({
   currentUser: state.auth.currentUser,
   games: state.users.games,
+  loading: state.loading.loading,
 });
 
 export default connect(mapStateToProps)(requiresLogin()(Dashboard));

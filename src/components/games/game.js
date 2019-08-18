@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { removeGameFromShelf } from '../../actions/users';
+import { removeGameFromShelf, addGameToShelf } from '../../actions/users';
 
 import Button from '../button';
 
@@ -20,7 +20,7 @@ export function Game(props) {
           </ul>
         </li>
       </ul>
-      {controls && (editButton || removeButton) && (
+      {controls && (
         <section className="game__buttons">
           <Link
             className={editButton ? '' : 'game__buttons--hidden'}
@@ -29,11 +29,12 @@ export function Game(props) {
             <Button game secondary label="Edit" />
           </Link>
           <Button
+            className={removeButton ? "btn--remove" : "btn--add"}
             game
-            hidden={!removeButton}
+            icon={removeButton ? "-" : "+"}
             primary
-            onClick={() => dispatch(removeGameFromShelf(game))}
-            label="Remove"
+            onClick={() => dispatch(removeButton ? removeGameFromShelf(game) : addGameToShelf(game))}
+            label={removeButton ? "Remove" : "Add"}
           />
         </section>
       )}

@@ -5,6 +5,12 @@ import { normalizeResponseErrors, startLoading, stopLoading } from './utils';
 import { clearAuth } from './auth'
 import { clearAuthToken } from '../local-storage';
 
+export const ADD_GAME = 'ADD_GAME';
+export const addGame = game => ({
+  type: ADD_GAME,
+  game
+});
+
 export const FETCH_USER_GAMES_SUCCESS = 'FETCH_USER_GAMES_SUCCESS';
 export const fetchUserGamesSuccess = games => ({
   type: FETCH_USER_GAMES_SUCCESS,
@@ -44,6 +50,29 @@ export const usersError = error => ({
   type: USERS_ERROR,
   error
 });
+
+export const addGameToShelf = game => (dispatch, getState) => {
+  const { authToken, currentUser } = getState().auth;
+
+  dispatch(startLoading());
+  return fetch(`${API_BASE_URL}/users/${currentUser.id}/games`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({ gameId: game.id })
+  })
+    .then(res => normalizeResponseErrors(res))
+    .then(() => {
+      dispatch(addGame(game));
+      dispatch(stopLoading());
+    })
+    .catch(err => {
+      dispatch(usersError(err));
+      dispatch(stopLoading());
+    });
+};
 
 export const fetchUsers = () => (dispatch, getState) => {
   const authToken = getState().auth.authToken;

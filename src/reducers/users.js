@@ -1,4 +1,5 @@
 import {
+  ADD_GAME,
   FETCH_USER_GAMES_SUCCESS,
   FETCH_USERS_REQUEST,
   FETCH_USERS_SUCCESS,
@@ -17,6 +18,10 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case ADD_GAME:
+      return Object.assign({}, state, {
+        games: [...state.games, action.game]
+      });
     case FETCH_USER_GAMES_SUCCESS:
       return Object.assign({}, state, {
         games: action.games
