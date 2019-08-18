@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Redirect } from 'react-router-dom';
 import { editUser, fetchUsers } from "../actions/users";
 import ToggleSwitch from "./toggle-switch";
-import './users.css';
+import Table from './table';
 
 export class Users extends React.Component {
   componentDidMount() {
@@ -51,7 +51,7 @@ export class Users extends React.Component {
       ));
 
       body = (
-        <table className="users">
+        <Table className="users">
           <thead>
             <tr>
               <th>Username</th>
@@ -62,7 +62,7 @@ export class Users extends React.Component {
           <tbody>
             {users}
           </tbody>
-        </table>
+        </Table>
       );
     }
 

@@ -1,27 +1,24 @@
-.users {
+.table {
   border: 1px solid #19000b;
   border-collapse: collapse;
   text-align: left;
 }
 
-.users td, .users th {
+.table td, .table th {
   padding: 0.5em;
   border-left: 1px solid #19000b;
   border-right: 1px solid #19000b;
 }
 
-.users td {
-}
-
-.users th {
+.table th {
   background-color: #4f2119;
   color: #f9fafa;
 }
 
-.users tr:nth-child(even) {
+.table tr:nth-child(even) {
   background-color: hsla(18, 70%, 61%, 0.5);
 }
 
-.users tr:active, .users tr:focus, .users tr:hover {
+.table tr:active, .table tr:focus, .table tr:hover {
   background-color: #e18258;
 }

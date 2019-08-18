@@ -23,6 +23,7 @@ export class HeaderBar extends React.Component {
     const adminMenu = (
       <div className="admin-menu">
         <Link to="/users" onClick={() => dispatch(toggleMenu(false))}>Users</Link>
+        <Link to="/admin/games" onClick={() => dispatch(toggleMenu(false))}>Games</Link>
       </div>
     );
     const appTitle = (

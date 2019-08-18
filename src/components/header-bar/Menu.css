@@ -52,7 +52,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .bm-item {
   display: inline-block;
   font-weight: 700;
-  margin: 0.5em;
+  margin: 0 0.5em;
   padding: 0;
 }
 
@@ -61,7 +61,12 @@ Note: Beware of modifying this element as it can break the animations - you shou
   border: none;
   color: #19000b;
   cursor: pointer;
+  display: block;
   text-decoration: none;
+}
+
+.bm-item a {
+  margin: 0.5rem 0;
 }
 
 .bm-item:active, .bm-item a:active, .bm-item:focus, .bm-item a:focus, .bm-item:hover, .bm-item a:hover {

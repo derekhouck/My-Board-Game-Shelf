@@ -14,6 +14,7 @@ import Account from "./components/account/account";
 import NotFound from "./components/404";
 import { refreshAuthToken } from "./actions/auth";
 import GamesPage from "./components/games/games-page";
+import AdminGames from "./components/admin/admin-games";
 
 export class App extends Component {
   componentDidUpdate(prevProps) {
@@ -65,6 +66,7 @@ export class App extends Component {
             />
             <Route exact path="/account" component={Account} />
             <Route exact path="/users" component={Users} />
+            <Route exact path="/admin/games" component={AdminGames} />
             <Route component={NotFound} />
           </Switch>
         </main>

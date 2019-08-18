@@ -27,7 +27,6 @@ export class Games extends React.Component {
       editButton,
       error,
       games,
-      loading,
     } = this.props;
     let body;
 
@@ -98,7 +97,6 @@ Games.defaultProps = {
 const mapStateToProps = state => ({
   error: state.users.error,
   filters: state.games.filters,
-  loading: state.loading.loading,
 });
 
 export default connect(mapStateToProps)(Games);
