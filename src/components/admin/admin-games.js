@@ -1,5 +1,7 @@
 import React from 'react';
+import requiresLogin from '../requires-login';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { fetchGames } from '../../actions/games';
 
 import Loading from '../loading';
@@ -11,13 +13,15 @@ export class AdminGames extends React.Component {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
-    this.setState({ isLoading: true });
-    dispatch(fetchGames()).then(() => this.setState({ isLoading: false }));
+    const { dispatch, isAdmin } = this.props;
+    if (isAdmin) {
+      this.setState({ isLoading: true });
+      dispatch(fetchGames()).then(() => this.setState({ isLoading: false }));
+    }
   }
 
   render() {
-    const { games } = this.props;
+    const { games, isAdmin } = this.props;
     const { isLoading } = this.state;
 
     const gamesTable = (
@@ -37,21 +41,25 @@ export class AdminGames extends React.Component {
       </Table>
     );
 
-    return (
-      <section>
-        <h2>Games</h2>
-        {isLoading ? <Loading /> : gamesTable}
-      </section>
-    );
+    return isAdmin
+      ? (
+        <section>
+          <h2>Games</h2>
+          {isLoading ? <Loading /> : gamesTable}
+        </section>
+      )
+      : <Redirect to="/" />;
   }
 }
 
 AdminGames.defaultProps = {
   games: [],
+  isAdmin: false,
 };
 
 const mapStateToProps = state => ({
-  games: state.games.games
+  games: state.games.games,
+  isAdmin: state.auth.currentUser.admin,
 });
 
-export default connect(mapStateToProps)(AdminGames);
+export default requiresLogin()(connect(mapStateToProps)(AdminGames));
