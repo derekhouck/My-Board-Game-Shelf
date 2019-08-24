@@ -4,6 +4,10 @@
   text-align: left;
 }
 
+.table a {
+  color: #19000b;
+}
+
 .table td, .table th {
   padding: 0.5em;
   border-left: 1px solid #19000b;

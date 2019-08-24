@@ -1,7 +1,7 @@
 import React from 'react';
 import requiresLogin from '../requires-login';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { fetchGames } from '../../actions/games';
 
 import Loading from '../loading';
@@ -29,12 +29,16 @@ export class AdminGames extends React.Component {
         <thead>
           <tr>
             <th>Title</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {games.map(game => (
             <tr key={game.id}>
               <td>{game.title}</td>
+              <td>
+                <Link to={`/games/${game.id}/edit`}>Edit</Link>
+              </td>
             </tr>
           ))}
         </tbody>

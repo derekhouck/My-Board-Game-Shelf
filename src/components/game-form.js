@@ -182,7 +182,7 @@ export class GameForm extends React.Component {
 
 const mapStateToProps = (state, props) => ({
   games: state.users.games,
-  currentGame: state.users.games.find(
+  currentGame: state.games.games.find(
     game => game.id === props.match.params.id
   ),
   currentUser: state.auth.currentUser,
