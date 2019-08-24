@@ -1,9 +1,9 @@
 import React from "react";
 import requiresLogin from "./requires-login";
 import { connect } from "react-redux";
+import { Redirect } from 'react-router-dom';
 import { reduxForm, Field, focus } from "redux-form";
-import { fetchTags, addGame, editGame } from "../actions/games";
-import { fetchUserGames } from "../actions/users";
+import { addGame, fetchGames, fetchTags, editGame } from "../actions/games";
 import {
   required,
   nonEmpty,
@@ -42,14 +42,13 @@ const multiSelectOptionMarkup = text => (
 
 export class GameForm extends React.Component {
   componentDidMount() {
-    const { currentUser, dispatch, editing, games } = this.props;
+    const { dispatch, editing, isAdmin, games } = this.props;
     dispatch(fetchTags()).then(() => {
-      if (editing) {
-        if (games.length === 0) {
-          dispatch(fetchUserGames(currentUser.id)).then(() => this.handleInitialize());
-        } else {
-          this.handleInitialize();
-        }
+      if (editing && isAdmin) {
+        games.length === 0
+          ? dispatch(fetchGames())
+            .then(() => this.handleInitialize())
+          : this.handleInitialize();
       }
     });
   }
@@ -176,8 +175,14 @@ export class GameForm extends React.Component {
   }
 
   render() {
-    return this.renderForm();
+    const { editing, isAdmin } = this.props;
+    return !editing || isAdmin ? this.renderForm() : <Redirect to="/" />;
   }
+}
+
+GameForm.defaultProps = {
+  currentUser: null,
+  isAdmin: false
 }
 
 const mapStateToProps = (state, props) => ({
@@ -187,6 +192,9 @@ const mapStateToProps = (state, props) => ({
   ),
   currentUser: state.auth.currentUser,
   editing: !!props.match.params.id,
+  isAdmin: state.auth.currentUser
+    ? state.auth.currentUser.admin
+    : false,
   loading: state.loading.loading,
   tags: state.games.tags,
 });
