@@ -15,4 +15,22 @@ describe('<AdminGames />', function () {
     );
     expect(wrapper.find('h2').text()).toEqual('Games');
   })
+
+  it('renders each game title', () => {
+    const games = [
+      { id: 1, title: 'Game One' },
+      { id: 2, title: 'Game Two' }
+    ];
+    const wrapper = shallow(
+      <AdminGames
+        dispatch={dispatch}
+        games={games}
+        isAdmin
+      />
+    );
+    wrapper.setState({ isLoading: false });
+    games.forEach(game =>
+      expect(wrapper.contains(<td>{game.title}</td>)).toBe(true)
+    );
+  });
 });

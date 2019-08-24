@@ -2,8 +2,9 @@ import React from 'react';
 import requiresLogin from '../requires-login';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { fetchGames } from '../../actions/games';
+import { deleteGame, fetchGames } from '../../actions/games';
 
+import Button from '../button';
 import Loading from '../loading';
 import Table from '../table';
 
@@ -18,6 +19,12 @@ export class AdminGames extends React.Component {
       this.setState({ isLoading: true });
       dispatch(fetchGames()).then(() => this.setState({ isLoading: false }));
     }
+  }
+
+  handleDeleteButtonBlick(game) {
+    const { dispatch } = this.props;
+    this.setState({ isLoading: true });
+    dispatch(deleteGame(game)).then(() => this.setState({ isLoading: false }));
   }
 
   render() {
@@ -36,8 +43,16 @@ export class AdminGames extends React.Component {
           {games.map(game => (
             <tr key={game.id}>
               <td>{game.title}</td>
-              <td>
-                <Link to={`/games/${game.id}/edit`}>Edit</Link>
+              <td className="btn-group">
+                <Link to={`/games/${game.id}/edit`}>
+                  <Button label='Edit' small />
+                </Link>
+                <Button
+                  className='btn--remove'
+                  label='Delete'
+                  onClick={() => this.handleDeleteButtonBlick(game)}
+                  small
+                />
               </td>
             </tr>
           ))}

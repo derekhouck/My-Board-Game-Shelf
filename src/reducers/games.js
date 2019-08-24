@@ -4,6 +4,7 @@ import {
   FETCH_TAGS_SUCCESS,
   FILTER_GAMES,
   GAMES_ERROR,
+  REMOVE_GAME,
   RESET_FILTERS
 } from '../actions/games';
 
@@ -34,6 +35,10 @@ export default function reducer(state = initialState, action) {
     case FILTER_GAMES:
       return Object.assign({}, state, {
         filters: action.filters
+      });
+    case REMOVE_GAME:
+      return Object.assign({}, state, {
+        games: state.games.filter(game => game.id !== action.game.id)
       });
     case RESET_FILTERS:
       return Object.assign({}, state, {

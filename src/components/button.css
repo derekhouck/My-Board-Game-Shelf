@@ -48,6 +48,11 @@
   color: #19000b;
 }
 
+.btn-small {
+  margin: 0;
+  padding: 0.5rem 1rem;
+}
+
 .btn__icon {
   order: 1;
   padding-right: 2rem;
@@ -69,10 +74,13 @@
   color: #f9fafa;
 }
 
-.btn-game.btn--remove {
+.btn--remove {
   background-color: hsla(6, 66%, 34%, 1);
-  border-color: #f9fafa;
   color: #f9fafa;
+}
+
+.btn-game.btn--remove {
+  border-color: #f9fafa;
 }
 
 /* Button groups */
@@ -83,4 +91,8 @@
 
 .btn-group > *:first-child {
   margin-left: 0;
+}
+
+.btn-group > *:last-child {
+  margin-right: 0;
 }

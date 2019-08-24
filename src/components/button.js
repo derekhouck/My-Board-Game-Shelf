@@ -12,6 +12,7 @@ export default function Button(props) {
     label,
     primary,
     secondary,
+    small,
     type
   } = props;
   const classNames = `
@@ -22,6 +23,7 @@ export default function Button(props) {
     ${icon ? 'btn-icon' : ''}
     ${primary ? 'btn-primary' : ''} 
     ${secondary ? 'btn-secondary' : ''}
+    ${small ? 'btn-small' : ''}
     ${game ? 'btn-game' : ''}`;
   return (
     <button
@@ -44,6 +46,8 @@ export default function Button(props) {
 
 Button.defaultProps = {
   className: '',
+  disabled: false,
   hidden: false,
   icon: null,
+  small: null,
 };

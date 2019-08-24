@@ -1,7 +1,6 @@
 import { SubmissionError } from 'redux-form';
 
 import { API_BASE_URL } from '../config';
-import { removeGame } from './users';
 import { normalizeResponseErrors, startLoading, stopLoading } from './utils';
 
 export const FETCH_GAMES_REQUEST = 'FETCH_GAMES_REQUEST';
@@ -27,15 +26,21 @@ export const filterGames = filters => ({
   filters
 });
 
-export const RESET_FILTERS = 'RESET_FILTERS';
-export const resetFilters = () => ({
-  type: RESET_FILTERS
-});
-
 export const GAMES_ERROR = 'GAMES_ERROR';
 export const gamesError = error => ({
   type: GAMES_ERROR,
   error
+});
+
+export const REMOVE_GAME = 'REMOVE_GAME';
+export const removeGame = game => ({
+  type: REMOVE_GAME,
+  game
+});
+
+export const RESET_FILTERS = 'RESET_FILTERS';
+export const resetFilters = () => ({
+  type: RESET_FILTERS
 });
 
 export const fetchGames = filters => (dispatch, getState) => {
@@ -143,8 +148,6 @@ export const editGame = game => (dispatch, getState) => {
 export const deleteGame = game => (dispatch, getState) => {
   const { authToken, currentUser } = getState().auth;
 
-  dispatch(startLoading());
-
   return fetch(`${API_BASE_URL}/games/${game.id}`, {
     method: 'DELETE',
     headers: {
@@ -163,10 +166,8 @@ export const deleteGame = game => (dispatch, getState) => {
     .then(res => normalizeResponseErrors(res))
     .then(() => {
       dispatch(removeGame(game));
-      dispatch(stopLoading());
     })
     .catch(err => {
       dispatch(gamesError(err));
-      dispatch(stopLoading());
     });
 };

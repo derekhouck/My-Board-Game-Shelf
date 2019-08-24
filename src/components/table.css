@@ -6,6 +6,8 @@
 
 .table a {
   color: #19000b;
+  display: inline-block;
+  margin: 0.25rem;
 }
 
 .table td, .table th {
