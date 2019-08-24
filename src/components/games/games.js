@@ -24,7 +24,6 @@ export class Games extends React.Component {
   renderGames() {
     const {
       controls,
-      editButton,
       error,
       games,
     } = this.props;
@@ -50,7 +49,6 @@ export class Games extends React.Component {
         gameElements = filteredGames.map(game =>
           <Game
             controls={controls}
-            editButton={editButton}
             game={game}
             key={game.id}
             removeButton={this.isUserGame(game)}
@@ -89,7 +87,6 @@ export class Games extends React.Component {
 
 Games.defaultProps = {
   controls: false,
-  editButton: true,
   games: [],
   userGames: [],
 };

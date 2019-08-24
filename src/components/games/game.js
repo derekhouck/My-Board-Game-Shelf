@@ -6,7 +6,9 @@ import { removeGameFromShelf, addGameToShelf } from '../../actions/users';
 import Button from '../button';
 
 export function Game(props) {
-  const { controls, dispatch, editButton, removeButton, game } = props;
+  const {
+    controls, dispatch, isAdmin, removeButton, game
+  } = props;
   const tags = game.tags.map(tag => (<li key={game.id + '_' + tag.id} id={game.id + '_' + tag.id}>{tag.name}</li>));
   return (
     <li className="game" id={game.id}>
@@ -23,7 +25,7 @@ export function Game(props) {
       {controls && (
         <section className="game__buttons">
           <Link
-            className={editButton ? '' : 'game__buttons--hidden'}
+            className={isAdmin ? '' : 'game__buttons--hidden'}
             to={`/games/${game.id}/edit`}
           >
             <Button game secondary label="Edit" />
@@ -44,9 +46,14 @@ export function Game(props) {
 
 Game.defaultProps = {
   controls: false,
-  editButton: true,
   removeButton: true,
   game: {},
 };
 
-export default connect()(Game);
+const mapStateToProps = state => ({
+  isAdmin: state.auth.currentUser
+    ? state.auth.currentUser.admin
+    : false
+});
+
+export default connect(mapStateToProps)(Game);

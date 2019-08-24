@@ -19,13 +19,12 @@ export class GamesPage extends React.Component {
   }
 
   render() {
-    const { games, loading, loggedIn, userGames } = this.props;
+    const { games, isAdmin, loading, loggedIn, userGames } = this.props;
     return (
       <section className="games-page">
         <h1>Games</h1>
         <Games
           controls={loggedIn}
-          editButton={false}
           games={games}
           userGames={userGames}
         />
@@ -38,6 +37,7 @@ export class GamesPage extends React.Component {
 const mapStateToProps = state => ({
   currentUser: state.auth.currentUser,
   games: state.games.games,
+  isAdmin: state.auth.currentUser ? state.auth.currentUser.admin : false,
   loading: state.loading.loading,
   loggedIn: state.auth.currentUser !== null,
   userGames: state.users.games,
