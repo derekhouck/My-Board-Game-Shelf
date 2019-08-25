@@ -97,15 +97,20 @@
   .games__wrapper {
     display:grid;
     grid-template-columns: 1fr auto;
-    grid-template-areas: "games search-form";
+    grid-template-areas: 
+    "children children"
+    "games search-form";
   }
   .games-header {
     grid-area: search-form;
-    padding-top: 4em;
   }
 
   .games-header > * {
     margin: 0 1em;
+  }
+
+  .games__games-list {
+    grid-area: games;
   }
 
   .game {

@@ -3,6 +3,7 @@ import './button.css';
 
 export default function Button(props) {
   const {
+    centered,
     className,
     disabled,
     game,
@@ -17,6 +18,7 @@ export default function Button(props) {
   } = props;
   const classNames = `
     btn 
+    ${centered ? 'btn--centered' : ''}
     ${className}
     ${disabled ? 'btn-disabled' : ''} 
     ${hidden ? 'btn-hidden' : ''}
@@ -45,6 +47,7 @@ export default function Button(props) {
 }
 
 Button.defaultProps = {
+  centered: false,
   className: '',
   disabled: false,
   hidden: false,

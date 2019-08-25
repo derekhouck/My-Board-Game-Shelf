@@ -69,9 +69,8 @@
   color: #e18258;
 }
 
-.btn-game.btn--add {
+.btn--add {
   background-color: hsla(137, 24%, 28%, 1);
-  border-color: #f9fafa;
   color: #f9fafa;
 }
 
@@ -80,8 +79,13 @@
   color: #f9fafa;
 }
 
-.btn-game.btn--remove {
+.btn-game.btn--add, .btn-game.btn--remove {
   border-color: #f9fafa;
+}
+
+.btn--centered {
+  display: block;
+  margin: 0 auto;
 }
 
 /* Button groups */

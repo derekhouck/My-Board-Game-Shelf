@@ -1,8 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import requiresLogin from './requires-login';
 import { fetchUserGames } from '../actions/users';
 
+import Button from './button';
 import Games from './games/games';
 import Loading from './loading';
 
@@ -21,7 +23,15 @@ export class Dashboard extends React.Component {
           controls
           games={games}
           userGames={games}
-        />
+        >
+          <Link to="/games">
+            <Button
+              centered
+              className="btn--add"
+              label="Add games"
+            />
+          </Link>
+        </Games>
         {loading && <Loading />}
       </section>
     );

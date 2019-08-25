@@ -8,6 +8,25 @@ import GamesSearchForm from './games-search-form';
 import Game from './game';
 
 export class Games extends React.Component {
+  createGameElements(games = []) {
+    const { controls } = this.props;
+    return games.length === 0
+      ? <div className="games__no-games">
+        <p>You don't have any games at the moment. Let's add one now.</p>
+        <Link to="/games/add">
+          <Button primary label="Add a game" />
+        </Link>
+      </div>
+      : games.map(game =>
+        <Game
+          controls={controls}
+          game={game}
+          key={game.id}
+          removeButton={this.isUserGame(game)}
+        />
+      );
+  }
+
   filterGames(games = []) {
     if (games.length === 0) { return games }
     const { filters } = this.props;
@@ -21,9 +40,13 @@ export class Games extends React.Component {
     return games.filter(game => titleTest(game) && playersTest(game) && tagIdTest(game));
   }
 
+  isUserGame(game) {
+    const { userGames } = this.props;
+    return !!userGames.filter(userGame => userGame.id === game.id).length
+  }
+
   renderGames() {
     const {
-      controls,
       error,
       games,
     } = this.props;
@@ -34,49 +57,26 @@ export class Games extends React.Component {
         <div className="message message-error">{error.message}</div>
       );
     } else {
-      let gameElements;
       const filteredGames = this.filterGames(games);
-      if (filteredGames.length === 0) {
-        gameElements = (
-          <div className="games__no-games">
-            <p>You don't have any games at the moment. Let's add one now.</p>
-            <Link to="/games/add">
-              <Button primary label="Add a game" />
-            </Link>
-          </div>
-        );
-      } else {
-        gameElements = filteredGames.map(game =>
-          <Game
-            controls={controls}
-            game={game}
-            key={game.id}
-            removeButton={this.isUserGame(game)}
-          />
-        );
-      }
       body = (
-        <section className="games">
+        <div className="games">
           <ul className="games__list">
-            {gameElements}
+            {this.createGameElements(filteredGames)}
           </ul>
-        </section>
+        </div>
       );
     }
-    return body;
-  }
-
-  isUserGame(game) {
-    const { userGames } = this.props;
-    return !!userGames.filter(userGame => userGame.id === game.id).length
+    return <section className="games__games-list">{body}</section>;
   }
 
   render() {
-    const { games } = this.props;
+    const { children, games } = this.props;
     return (
       <section className="games__wrapper">
+        <div className="games__children">
+          {children}
+        </div>
         <header className="games-header">
-          <Link to="/games/add" className="centered"><Button primary label="Add a game" /></Link>
           <GamesSearchForm games={games} />
         </header>
         {this.renderGames()}
