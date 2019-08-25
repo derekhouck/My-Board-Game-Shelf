@@ -3,7 +3,7 @@ import {
   FETCH_USER_GAMES_SUCCESS,
   FETCH_USERS_REQUEST,
   FETCH_USERS_SUCCESS,
-  REMOVE_GAME,
+  REMOVE_USER_GAME,
   TOGGLE_DELETING,
   USERS_ERROR
 } from '../actions/users';
@@ -36,7 +36,7 @@ export default function reducer(state = initialState, action) {
         loading: false,
         users: action.users
       });
-    case REMOVE_GAME:
+    case REMOVE_USER_GAME:
       return Object.assign({}, state, {
         games: state.games.filter(game => game.id !== action.game.id)
       });

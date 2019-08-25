@@ -1,11 +1,11 @@
 import React from 'react';
-import {BrowserRouter as Router} from 'react-router-dom';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import { HeaderBar } from './header-bar';
 
 describe('<HeaderBar />', function () {
   it('renders without crashing', () => {
-    shallow(<HeaderBar />);
+    const wrapper = shallow(<HeaderBar />);
+    expect(wrapper.find('.App-header')).toHaveLength(1);
   });
 
   it('dispatches logout action', function () {

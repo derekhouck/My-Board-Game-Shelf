@@ -42,10 +42,10 @@ export class HeaderBar extends React.Component {
           customBurgerIcon={<MenuButton />}
         >
           <Link
-            to="/games/add"
+            to="/games"
             onClick={() => dispatch(toggleMenu(false))}
           >
-            Add a game
+            Add games
           </Link>
           <Link to="/account" onClick={() => dispatch(toggleMenu(false))}>Your account</Link>
           <button className="App-header__logout" onClick={() => this.logOut()}>Log out</button>

@@ -1,6 +1,7 @@
 .btn {
   background-color: #4f2119;
   border: 1px solid #4f2119;
+  border-radius: 0.5rem;
   box-sizing: border-box;
   color: #f9fafa;
   cursor: pointer;

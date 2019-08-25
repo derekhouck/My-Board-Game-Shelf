@@ -28,9 +28,9 @@ export const fetchUsersSuccess = users => ({
   users
 });
 
-export const REMOVE_GAME = 'REMOVE_GAME';
-export const removeGame = game => ({
-  type: REMOVE_GAME,
+export const REMOVE_USER_GAME = 'REMOVE_USER_GAME';
+export const removeUserGame = game => ({
+  type: REMOVE_USER_GAME,
   game
 });
 
@@ -135,7 +135,7 @@ export const removeGameFromShelf = game => (dispatch, getState) => {
   })
     .then(res => normalizeResponseErrors(res))
     .then(() => {
-      dispatch(removeGame(game));
+      dispatch(removeUserGame(game));
       dispatch(stopLoading());
     })
     .catch(err => {

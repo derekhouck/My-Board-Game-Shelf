@@ -3,7 +3,7 @@ import {
   fetchUserGamesSuccess,
   fetchUsersRequest,
   fetchUsersSuccess,
-  removeGame,
+  removeUserGame,
   toggleDeleting,
   usersError
 } from '../actions/users';
@@ -55,13 +55,13 @@ describe('usersReducer', function () {
     });
   });
 
-  describe('removeGame', function () {
+  describe('removeUserGame', function () {
     it('should remove the game from games', function () {
       const game = { title: 'game two', id: 2 };
       const currentState = Object.assign({}, initialState, { games });
       expect(currentState.games).toContainEqual(game);
       expect(currentState.games.length).toEqual(games.length);
-      const state = reducer(currentState, removeGame(game));
+      const state = reducer(currentState, removeUserGame(game));
       expect(state.games).not.toContainEqual(game);
       expect(state.games.length).toEqual(games.length - 1);
     });
