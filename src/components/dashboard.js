@@ -22,6 +22,7 @@ export class Dashboard extends React.Component {
         <Games
           controls
           games={games}
+          noGamesText="You don't have any games at the moment. Let's add some."
           userGames={games}
         >
           <Link to="/games">

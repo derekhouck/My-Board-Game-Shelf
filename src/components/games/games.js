@@ -5,29 +5,18 @@ import { resetFilters } from '../../actions/games';
 import './games.css';
 
 import Button from '../button';
+import GameList from './game-list';
 import GamesSearchForm from './games-search-form';
-import Game from './game';
 
 export class Games extends React.Component {
-  createGameElements(games = []) {
-    const { controls, dispatch, filters } = this.props;
-    const anyFilters = !!Object.keys(filters).length;
-    return games.length === 0
-      ? <div className="games__no-games">
-        <p>
-          {anyFilters ? 'No games match these filters.' : 'You don\'t have any games at the moment. Let\'s add one now.'}
-        </p>
-        {anyFilters &&
-          <Button secondary label="Clear filters" type="reset" onClick={() => dispatch(resetFilters())} />}
-      </div>
-      : games.map(game =>
-        <Game
-          controls={controls}
-          game={game}
-          key={game.id}
-          removeButton={this.isUserGame(game)}
-        />
-      );
+  addIsUserGameAttr(games = []) {
+    const { userGames } = this.props;
+    return games.map(game => {
+      userGames.find(userGame => userGame.id === game.id)
+        ? game.isUserGame = true
+        : game.isUserGame = false;
+      return game;
+    });
   }
 
   filterGames(games = []) {
@@ -43,15 +32,15 @@ export class Games extends React.Component {
     return games.filter(game => titleTest(game) && playersTest(game) && tagIdTest(game));
   }
 
-  isUserGame(game) {
-    const { userGames } = this.props;
-    return !!userGames.filter(userGame => userGame.id === game.id).length
-  }
-
   renderGames() {
     const {
+      controls,
+      dispatch,
       error,
+      filters,
       games,
+      noGamesText,
+      submitGamesButton
     } = this.props;
     let body;
 
@@ -61,13 +50,25 @@ export class Games extends React.Component {
       );
     } else {
       const filteredGames = this.filterGames(games);
-      body = (
-        <div className="games">
-          <ul className="games__list">
-            {this.createGameElements(filteredGames)}
-          </ul>
-        </div>
-      );
+      if (filteredGames.length === 0) {
+        const anyFilters = !!Object.keys(filters).length;
+        body = (<div className="games__no-games">
+          <p>
+            {anyFilters ? 'No games match these filters.' : noGamesText}
+          </p>
+          {anyFilters &&
+            <Button secondary label="Clear filters" type="reset" onClick={() => dispatch(resetFilters())} />}
+          {submitGamesButton &&
+            <div>
+              <p>Can't find a game you're looking for? Add it to our collection below.</p>
+              <Link to='/games/add'><Button label="Submit Game" /></Link>
+            </div>
+          }
+        </div>)
+      } else {
+        const finalGames = this.addIsUserGameAttr(filteredGames);
+        body = <GameList controls={controls} games={finalGames} />;
+      }
     }
     return <section className="games__games-list">{body}</section>;
   }
@@ -91,6 +92,8 @@ export class Games extends React.Component {
 Games.defaultProps = {
   controls: false,
   games: [],
+  noGamesText: 'There are no games to list.',
+  submitGamesButton: false,
   userGames: [],
 };
 

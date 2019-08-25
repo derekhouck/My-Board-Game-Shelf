@@ -20,13 +20,13 @@ export class GamesPage extends React.Component {
 
   render() {
     const { games, loading, loggedIn, userGames } = this.props;
-    console.log(games);
     return (
       <section className="games-page">
         <h1>Games</h1>
         <Games
           controls={loggedIn}
           games={games}
+          submitGamesButton
           userGames={userGames}
         />
         {loading && <Loading />}
