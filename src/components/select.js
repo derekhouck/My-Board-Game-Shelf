@@ -20,7 +20,7 @@ export default class Select extends React.Component {
   }
 
   render() {
-    const { input, multiselect } = this.props;
+    const { initialValue, input, multiselect } = this.props;
 
     return (
       <ReactResponsiveSelect
@@ -31,10 +31,13 @@ export default class Select extends React.Component {
         noSelectionLabel={this.props.noSelectionLabel}
         onChange={newValue => this.handleChange(newValue)}
         options={this.props.options}
-        selectedValue={ !multiselect ? input.value : undefined }
-        selectedValues={ multiselect ? input.value : undefined }
+        selectedValue={!multiselect ? input.value || initialValue : undefined}
+        selectedValues={multiselect ? input.value : undefined}
       />
     );
   }
-
 }
+
+Select.defaultProps = {
+  initialValue: null
+};

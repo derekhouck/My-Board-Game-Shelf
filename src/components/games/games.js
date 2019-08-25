@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { resetFilters } from '../../actions/games';
 import './games.css';
 
 import Button from '../button';
@@ -9,13 +10,15 @@ import Game from './game';
 
 export class Games extends React.Component {
   createGameElements(games = []) {
-    const { controls } = this.props;
+    const { controls, dispatch, filters } = this.props;
+    const anyFilters = !!Object.keys(filters).length;
     return games.length === 0
       ? <div className="games__no-games">
-        <p>You don't have any games at the moment. Let's add one now.</p>
-        <Link to="/games/add">
-          <Button primary label="Add a game" />
-        </Link>
+        <p>
+          {anyFilters ? 'No games match these filters.' : 'You don\'t have any games at the moment. Let\'s add one now.'}
+        </p>
+        {anyFilters &&
+          <Button secondary label="Clear filters" type="reset" onClick={() => dispatch(resetFilters())} />}
       </div>
       : games.map(game =>
         <Game

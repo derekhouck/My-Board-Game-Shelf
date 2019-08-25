@@ -9,7 +9,8 @@ export default class Input extends React.Component {
     }
 
     render() {
-        const Element = this.props.element || 'input';
+        const { element, placeholder } = this.props;
+        const Element = element || 'input';
 
         let error;
         if (this.props.meta.touched && this.props.meta.error) {
@@ -33,6 +34,7 @@ export default class Input extends React.Component {
                 <Element
                     {...this.props.input}
                     id={this.props.input.name}
+                    placeholder={placeholder}
                     type={this.props.type}
                     ref={input => (this.input = input)}
                 />
@@ -40,3 +42,7 @@ export default class Input extends React.Component {
         );
     }
 }
+
+Input.defaultProps = {
+    placeholder: ''
+};

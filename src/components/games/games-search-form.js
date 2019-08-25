@@ -9,6 +9,10 @@ import Input from '../input';
 import Select from '../select';
 
 export class GamesSearchForm extends React.Component {
+  componentWillUnmount() {
+    const { dispatch } = this.props;
+    return dispatch(resetFilters());
+  }
   onSubmit(values) {
     const { searchTerm, players, tag } = values;
     const filters = {
@@ -20,30 +24,33 @@ export class GamesSearchForm extends React.Component {
   }
 
   render() {
-    const tags = this.props.tags.map(tag => ({ value: tag.id, text: tag.name }));
+    const { dispatch, handleSubmit, initialValues, tags } = this.props;
+    const mappedTags = tags.map(tag => ({ value: tag.id, text: tag.name }));
 
     return (
       <section className="games__search">
         <form
           className="games__search-form"
-          onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
+          onSubmit={handleSubmit(values => this.onSubmit(values))}
         >
           <fieldset className="games__search-fields">
             <legend>Filter your games</legend>
             <Field
               component={Input}
-              type="text"
               name="searchTerm"
               id="searchTerm"
               label="Game title"
               className="games__search-title"
+              placeholder={initialValues.title}
+              type="text"
             />
             <Field
               component={Input}
-              type="number"
               name="players"
               id="players"
               label="Number of players"
+              placeholder={initialValues.players}
+              type="number"
             />
             <div className="form-input games__search-tags">
               <label htmlFor="tag">Tag</label>
@@ -52,19 +59,24 @@ export class GamesSearchForm extends React.Component {
                 id="tag"
                 name="tag"
                 noSelectionLabel='Select a tag'
-                options={tags}
+                options={mappedTags}
+                initialValue={initialValues.tagId}
               />
             </div>
           </fieldset>
           <div className="games__search-buttons">
             <Button label="Search" type="submit" />
-            <Button secondary label="Clear filters" type="reset" onClick={() => this.props.dispatch(resetFilters())} />
+            <Button secondary label="Clear filters" type="reset" onClick={() => dispatch(resetFilters())} />
           </div>
         </form>
       </section>
     );
   }
 }
+
+GamesSearchForm.defaultProps = {
+  initialValues: {}
+};
 
 function getUnique(arr, comp) {
 
@@ -91,11 +103,15 @@ const getTags = (games) => {
 const mapStateToProps = (state, ownProps) => {
   const { games } = ownProps;
   return {
+    initialValues: state.games.filters,
     tags: getTags(games)
   }
 };
 
-export default reduxForm({
-  form: 'games-search-form',
-  onSubmitFail: (errors, dispatch) => dispatch(focus('registration', Object.keys(errors)[0]))
-})(connect(mapStateToProps)(GamesSearchForm));
+export default connect(mapStateToProps)(
+  reduxForm({
+    enableReinitialize: true,
+    form: 'games-search-form',
+    onSubmitFail: (errors, dispatch) => dispatch(focus('registration', Object.keys(errors)[0]))
+  })(GamesSearchForm)
+);
