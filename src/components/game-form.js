@@ -59,6 +59,7 @@ export class GameForm extends React.Component {
       title: currentGame.title,
       minPlayers: currentGame.players.min,
       maxPlayers: currentGame.players.max,
+      status: currentGame.status,
       tags: currentGame.tags.map(tag => tag.id)
     };
 
@@ -67,12 +68,13 @@ export class GameForm extends React.Component {
 
   onSubmit(values) {
     const { dispatch, editing, history, match } = this.props;
-    const { title, minPlayers, maxPlayers, tags } = values;
+    const { title, minPlayers, maxPlayers, status, tags } = values;
     const game = {
-      title,
       minPlayers: Number(minPlayers),
       maxPlayers: Number(maxPlayers),
-      tags: tags[0] === "" ? [] : tags
+      status,
+      tags: tags[0] === "" ? [] : tags,
+      title,
     };
     const whichAction = game => {
       if (editing) {
@@ -104,13 +106,14 @@ export class GameForm extends React.Component {
   }
 
   renderForm() {
+    const { editing, error, handleSubmit, loading } = this.props;
     let form = <div />;
 
-    if (this.props.error) {
+    if (error) {
       form = (
-        <div className="message message-error">{this.props.error.message}</div>
+        <div className="message message-error">{error.message}</div>
       );
-    } else if (this.props.loading) {
+    } else if (loading) {
       form = (
         <div className="message message-default">Submitting your game...</div>
       );
@@ -118,10 +121,10 @@ export class GameForm extends React.Component {
       form = (
         <form
           className="game-form"
-          onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
+          onSubmit={handleSubmit(values => this.onSubmit(values))}
         >
           <fieldset>
-            <legend>{this.props.editing ? "Edit" : "Add a"} Game</legend>
+            <legend>{editing ? "Edit" : "Add a"} Game</legend>
             <Field
               component={Input}
               type="text"
@@ -146,6 +149,20 @@ export class GameForm extends React.Component {
               label="Maximum number of players"
               validate={[playersMin, playersMax, notLessThanMinPlayers]}
             />
+            {editing &&
+              <div>
+                <label htmlFor="status">Status</label>
+                <Field
+                  component="select"
+                  id="status"
+                  name="status"
+                >
+                  <option value="pending">pending</option>
+                  <option value="approved">approved</option>
+                  <option value="rejected">rejected</option>
+                </Field>
+              </div>
+            }
             <div className="form-input">
               <label htmlFor="tags">Tags</label>
               <Field
@@ -165,7 +182,7 @@ export class GameForm extends React.Component {
             <Button
               primary
               type="submit"
-              label={(this.props.editing ? "Edit" : "Add") + " Game"}
+              label={(editing ? "Edit" : "Add") + " Game"}
             />
           </div>
         </form>
