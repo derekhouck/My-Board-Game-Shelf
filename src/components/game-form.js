@@ -85,7 +85,7 @@ export class GameForm extends React.Component {
       }
     };
     return dispatch(whichAction(game))
-      .then(() => history.push("/dashboard"));
+      .then(() => editing ? history.push('/admin/games') : history.push("/dashboard"));
   }
 
   getTagOptions(tags) {
