@@ -12,8 +12,11 @@
 
 .table td, .table th {
   padding: 0.5em;
-  border-left: 1px solid #19000b;
-  border-right: 1px solid #19000b;
+  border: 1px solid #4f2119;
+}
+
+.table th {
+  border: 1px solid #19000b;
 }
 
 .table th {
@@ -22,9 +25,9 @@
 }
 
 .table tr:nth-child(even) {
-  background-color: hsla(18, 70%, 61%, 0.5);
+  background-color: hsla(18, 70%, 81%, 0.5);
 }
 
 .table tr:active, .table tr:focus, .table tr:hover {
-  background-color: #e18258;
+  background-color: hsla(18, 70%, 61%, 0.5);
 }
