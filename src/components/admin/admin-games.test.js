@@ -10,6 +10,7 @@ describe('<AdminGames />', function () {
     const wrapper = shallow(
       <AdminGames dispatch={dispatch} isAdmin />
     );
+    expect(wrapper).toMatchSnapshot();
     expect(wrapper.find('h2').text()).toEqual('Games');
   })
 
@@ -17,6 +18,7 @@ describe('<AdminGames />', function () {
     const wrapper = shallow(
       <AdminGames dispatch={dispatch} />
     );
+    expect(wrapper).toMatchSnapshot();
     expect(wrapper.contains(<Redirect to="/" />)).toBe(true);
   })
 

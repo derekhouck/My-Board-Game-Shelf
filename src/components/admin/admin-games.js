@@ -11,6 +11,9 @@ import Table from '../table';
 
 export class AdminGames extends React.Component {
   state = {
+    filters: {
+      status: ''
+    },
     isLoading: false
   }
 
@@ -30,13 +33,16 @@ export class AdminGames extends React.Component {
 
   render() {
     const { games, isAdmin } = this.props;
-    const { isLoading } = this.state;
+    const { filters, isLoading } = this.state;
     const addColor = status =>
       status === 'approved'
         ? 'green'
         : status === 'rejected'
           ? 'red'
           : 'yellow';
+    const filteredGames = filters.status
+      ? games.filter(game => game.status === filters.status)
+      : games;
 
     const gamesTable = (
       <Table>
@@ -48,7 +54,7 @@ export class AdminGames extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {games.map(game => (
+          {filteredGames.map(game => (
             <tr key={game.id}>
               <td>{game.title}</td>
               <td>
@@ -79,6 +85,15 @@ export class AdminGames extends React.Component {
       ? (
         <section>
           <h2>Games</h2>
+          <div>
+            Status:
+            <select onChange={e => this.setState({ filters: { status: e.target.value } })}>
+              <option value="">any</option>
+              <option>pending</option>
+              <option>approved</option>
+              <option>rejected</option>
+            </select>
+          </div>
           {isLoading ? <Loading /> : gamesTable}
         </section>
       )
