@@ -6,7 +6,7 @@ import { toggleDeleting, deleteUser } from '../../actions/users';
 import { required, nonEmpty, matches } from '../../validators';
 
 import Button from '../button';
-import Input from '../input';
+import Input from '../atoms/input';
 
 const matchesUsername = matches('username');
 
@@ -51,14 +51,14 @@ export class DeleteAccount extends React.Component {
             id="confirmUsername"
             validate={[required, nonEmpty, matchesUsername]}
           />
-          <Button 
+          <Button
             primary
-            type="submit" 
+            type="submit"
             label="Delete My Account"
           />
         </form>
         <Link to="/dashboard">
-          <Button 
+          <Button
             label="I've changed my mind"
           />
         </Link>

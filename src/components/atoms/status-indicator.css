@@ -1,0 +1,19 @@
+.status-indicator {
+  background-color: #4f2119;
+  border-radius: 0.5em;
+  color: #f9fafa;
+  padding: 0.5em;
+}
+
+.status-indicator--green {
+  background-color: #3b7a57;
+}
+
+.status-indicator--red {
+  background-color: #d73b3e;
+}
+
+.status-indicator--yellow {
+  background-color: #fce883;
+  color: #4f2119;
+}

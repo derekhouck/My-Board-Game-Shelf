@@ -4,7 +4,7 @@ import { registerUser } from '../../actions/users';
 import { login } from '../../actions/auth';
 import { required, nonEmpty, matches, length, isTrimmed } from '../../validators';
 
-import Input from '../input';
+import Input from '../atoms/input';
 import Button from '../button';
 
 const passwordLength = length({ min: 8, max: 72 });

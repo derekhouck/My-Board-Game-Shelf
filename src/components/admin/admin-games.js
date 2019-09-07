@@ -6,6 +6,7 @@ import { deleteGame, fetchGames } from '../../actions/games';
 
 import Button from '../button';
 import Loading from '../loading';
+import StatusIndicator from '../atoms/status-indicator';
 import Table from '../table';
 
 export class AdminGames extends React.Component {
@@ -30,12 +31,19 @@ export class AdminGames extends React.Component {
   render() {
     const { games, isAdmin } = this.props;
     const { isLoading } = this.state;
+    const addColor = status =>
+      status === 'approved'
+        ? 'green'
+        : status === 'rejected'
+          ? 'red'
+          : 'yellow';
 
     const gamesTable = (
       <Table>
         <thead>
           <tr>
             <th>Title</th>
+            <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -43,6 +51,13 @@ export class AdminGames extends React.Component {
           {games.map(game => (
             <tr key={game.id}>
               <td>{game.title}</td>
+              <td>
+                <StatusIndicator
+                  color={addColor(game.status)}
+                >
+                  {game.status}
+                </StatusIndicator>
+              </td>
               <td className="btn-group">
                 <Link to={`/games/${game.id}/edit`}>
                   <Button label='Edit' small />

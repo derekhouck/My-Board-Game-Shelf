@@ -6,7 +6,7 @@ import { editUser } from '../../actions/users';
 import { refreshAuthToken } from '../../actions/auth';
 
 import Button from '../button';
-import Input from '../input';
+import Input from '../atoms/input';
 
 export class EditAccount extends React.Component {
   componentDidMount() {

@@ -14,7 +14,7 @@ import {
 import "./game-form.css";
 
 import Button from "./button";
-import Input from "./input";
+import Input from "./atoms/input";
 import Select from "./select";
 
 const playersMin = minNum(1);

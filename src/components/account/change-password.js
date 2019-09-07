@@ -4,7 +4,7 @@ import { focus, reduxForm, Field } from 'redux-form';
 import { isTrimmed, length, matches, nonEmpty, required } from '../../validators';
 
 import Button from '../button';
-import Input from '../input';
+import Input from '../atoms/input';
 import { editUser } from '../../actions/users';
 
 const passwordLength = length({ min: 8, max: 72 });

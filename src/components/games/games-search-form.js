@@ -5,7 +5,7 @@ import { filterGames, resetFilters } from '../../actions/games';
 import './games-search-form.css';
 
 import Button from '../button';
-import Input from '../input';
+import Input from '../atoms/input';
 import Select from '../select';
 
 export class GamesSearchForm extends React.Component {
