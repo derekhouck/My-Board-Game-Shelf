@@ -2,7 +2,8 @@ import React from 'react';
 import requiresLogin from '../requires-login';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { deleteGame, fetchGames } from '../../actions/games';
+import { fetchAdminGames } from '../../actions/admin';
+import { deleteGame } from '../../actions/games';
 
 import Button from '../button';
 import Loading from '../loading';
@@ -19,10 +20,7 @@ export class AdminGames extends React.Component {
 
   componentDidMount() {
     const { dispatch, isAdmin } = this.props;
-    if (isAdmin) {
-      this.setState({ isLoading: true });
-      dispatch(fetchGames()).then(() => this.setState({ isLoading: false }));
-    }
+    if (isAdmin) { dispatch(fetchAdminGames()) }
   }
 
   handleDeleteButtonBlick(game) {
@@ -32,7 +30,7 @@ export class AdminGames extends React.Component {
   }
 
   render() {
-    const { games, isAdmin } = this.props;
+    const { error, games, isAdmin, loading } = this.props;
     const { filters, isLoading } = this.state;
     const addColor = status =>
       status === 'approved'
@@ -85,6 +83,7 @@ export class AdminGames extends React.Component {
       ? (
         <section>
           <h2>Games</h2>
+          {error && <StatusIndicator color="red">{`${error.status} ${error.name}: ${error.message}`}</StatusIndicator>}
           <div>
             Status:
             <select onChange={e => this.setState({ filters: { status: e.target.value } })}>
@@ -94,7 +93,7 @@ export class AdminGames extends React.Component {
               <option>rejected</option>
             </select>
           </div>
-          {isLoading ? <Loading /> : gamesTable}
+          {isLoading || loading ? <Loading /> : gamesTable}
         </section>
       )
       : <Redirect to="/" />;
@@ -102,13 +101,17 @@ export class AdminGames extends React.Component {
 }
 
 AdminGames.defaultProps = {
+  error: null,
   games: [],
   isAdmin: false,
+  loading: false,
 };
 
 const mapStateToProps = state => ({
-  games: state.games.games,
+  error: state.admin.error,
+  games: state.admin.games,
   isAdmin: state.auth.currentUser.admin,
+  loading: state.admin.loading,
 });
 
 export default requiresLogin()(connect(mapStateToProps)(AdminGames));

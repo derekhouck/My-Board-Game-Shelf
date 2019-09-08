@@ -39,4 +39,31 @@ describe('<AdminGames />', function () {
       expect(wrapper.contains(<td>{game.title}</td>)).toBe(true)
     );
   });
+
+  it('filters by status', () => {
+    const games = [
+      {
+        id: 1,
+        status: 'pending',
+        title: 'Game One'
+      },
+      {
+        id: 2,
+        status: 'approved',
+        title: 'Game Two'
+      }
+    ];
+    const wrapper = shallow(
+      <AdminGames
+        dispatch={dispatch}
+        games={games}
+        isAdmin
+      />
+    );
+
+    wrapper.setState({ isLoading: false });
+    wrapper.find('select').simulate('change', { target: { value: 'approved' } });
+    expect(wrapper.contains(<td>{games[0].title}</td>)).toBe(false);
+    expect(wrapper.contains(<td>{games[1].title}</td>)).toBe(true);
+  });
 });

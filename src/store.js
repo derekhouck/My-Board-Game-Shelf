@@ -3,6 +3,7 @@ import { reducer as formReducer } from 'redux-form';
 import { reducer as burgerMenu } from 'redux-burger-menu';
 import thunk from 'redux-thunk';
 import { loadAuthToken } from './local-storage';
+import adminReducer from './reducers/admin';
 import authReducer from './reducers/auth';
 import loadingReducer from './reducers/loading';
 import usersReducer from './reducers/users';
@@ -12,6 +13,7 @@ import { RESET_FILTERS } from './actions/games'
 
 const store = createStore(
   combineReducers({
+    admin: adminReducer,
     auth: authReducer,
     form: formReducer.plugin({
       'games-search-form': (state, action) => {

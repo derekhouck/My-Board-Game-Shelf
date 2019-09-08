@@ -7,6 +7,7 @@ import './games.css';
 import Button from '../button';
 import GameList from './game-list';
 import GamesSearchForm from './games-search-form';
+import StatusIndicator from '../atoms/status-indicator';
 
 export class Games extends React.Component {
   addIsUserGameAttr(games = []) {
@@ -36,7 +37,6 @@ export class Games extends React.Component {
     const {
       controls,
       dispatch,
-      error,
       filters,
       games,
       noGamesText,
@@ -44,39 +44,34 @@ export class Games extends React.Component {
     } = this.props;
     let body;
 
-    if (error) {
-      body = (
-        <div className="message message-error">{error.message}</div>
-      );
+    const filteredGames = this.filterGames(games);
+    if (filteredGames.length === 0) {
+      const anyFilters = !!Object.keys(filters).length;
+      body = (<div className="games__no-games">
+        <p>
+          {anyFilters ? 'No games match these filters.' : noGamesText}
+        </p>
+        {anyFilters &&
+          <Button secondary label="Clear filters" type="reset" onClick={() => dispatch(resetFilters())} />}
+        {submitGamesButton &&
+          <div>
+            <p>Can't find a game you're looking for? Add it to our collection below.</p>
+            <Link to='/games/add'><Button label="Submit Game" /></Link>
+          </div>
+        }
+      </div>)
     } else {
-      const filteredGames = this.filterGames(games);
-      if (filteredGames.length === 0) {
-        const anyFilters = !!Object.keys(filters).length;
-        body = (<div className="games__no-games">
-          <p>
-            {anyFilters ? 'No games match these filters.' : noGamesText}
-          </p>
-          {anyFilters &&
-            <Button secondary label="Clear filters" type="reset" onClick={() => dispatch(resetFilters())} />}
-          {submitGamesButton &&
-            <div>
-              <p>Can't find a game you're looking for? Add it to our collection below.</p>
-              <Link to='/games/add'><Button label="Submit Game" /></Link>
-            </div>
-          }
-        </div>)
-      } else {
-        const finalGames = this.addIsUserGameAttr(filteredGames);
-        body = <GameList controls={controls} games={finalGames} />;
-      }
+      const finalGames = this.addIsUserGameAttr(filteredGames);
+      body = <GameList controls={controls} games={finalGames} />;
     }
     return <section className="games__games-list">{body}</section>;
   }
 
   render() {
-    const { children, games } = this.props;
+    const { children, error, games } = this.props;
     return (
       <section className="games__wrapper">
+        {error && <StatusIndicator color="red">{`${error.status} ${error.name}: ${error.message}`}</StatusIndicator>}
         <div className="games__children">
           {children}
         </div>
