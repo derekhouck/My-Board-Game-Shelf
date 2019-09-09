@@ -55,13 +55,13 @@ export class GameForm extends React.Component {
   }
 
   handleInitialize() {
-    const currentGame = this.props.currentGame;
+    const { currentGame } = this.props;
     const initData = {
       title: currentGame.title,
       minPlayers: currentGame.players.min,
       maxPlayers: currentGame.players.max,
       status: currentGame.status,
-      tags: currentGame.tags.map(tag => tag.id)
+      tags: currentGame.tags
     };
 
     this.props.initialize(initData);
