@@ -3,7 +3,8 @@ import requiresLogin from "./requires-login";
 import { connect } from "react-redux";
 import { Redirect } from 'react-router-dom';
 import { reduxForm, Field, focus } from "redux-form";
-import { addGame, fetchGames, fetchTags, editGame } from "../actions/games";
+import { fetchAdminGames } from '../actions/admin';
+import { addGame, fetchTags, editGame } from "../actions/games";
 import {
   required,
   nonEmpty,
@@ -46,7 +47,7 @@ export class GameForm extends React.Component {
     dispatch(fetchTags()).then(() => {
       if (editing && isAdmin) {
         games.length === 0
-          ? dispatch(fetchGames())
+          ? dispatch(fetchAdminGames())
             .then(() => this.handleInitialize())
           : this.handleInitialize();
       }
@@ -198,13 +199,16 @@ export class GameForm extends React.Component {
 }
 
 GameForm.defaultProps = {
+  currentGame: null,
   currentUser: null,
-  isAdmin: false
+  games: [],
+  isAdmin: false,
+  tags: [],
 }
 
 const mapStateToProps = (state, props) => ({
-  games: state.users.games,
-  currentGame: state.games.games.find(
+  games: state.admin.games,
+  currentGame: state.admin.games.find(
     game => game.id === props.match.params.id
   ),
   currentUser: state.auth.currentUser,
