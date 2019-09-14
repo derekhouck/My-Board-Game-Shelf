@@ -74,6 +74,32 @@ export const addGameToShelf = game => (dispatch, getState) => {
     });
 };
 
+export const editUser = user => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
+
+  return fetch(`${API_BASE_URL}/users/${user.id}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify(user)
+  })
+    .then(res => normalizeResponseErrors(res))
+    .then(res => res.json())
+    .catch(err => {
+      const { reason, message, location } = err;
+      if (reason === 'ValidationError') {
+        // Convert ValidationErrors into SubmissionErrors for Redux Form
+        return Promise.reject(
+          new SubmissionError({
+            [location]: message
+          })
+        );
+      }
+    });
+};
+
 export const fetchUsers = () => (dispatch, getState) => {
   const authToken = getState().auth.authToken;
   dispatch(fetchUsersRequest());
@@ -143,32 +169,6 @@ export const removeGameFromShelf = game => (dispatch, getState) => {
       dispatch(stopLoading());
     });
 }
-
-export const editUser = user => (dispatch, getState) => {
-  const authToken = getState().auth.authToken;
-
-  return fetch(`${API_BASE_URL}/users/${user.id}`, {
-    method: 'PUT',
-    headers: {
-      Authorization: `Bearer ${authToken}`,
-      'content-type': 'application/json'
-    },
-    body: JSON.stringify(user)
-  })
-    .then(res => normalizeResponseErrors(res))
-    .then(res => res.json())
-    .catch(err => {
-      const { reason, message, location } = err;
-      if (reason === 'ValidationError') {
-        // Convert ValidationErrors into SubmissionErrors for Redux Form
-        return Promise.reject(
-          new SubmissionError({
-            [location]: message
-          })
-        );
-      }
-    });
-};
 
 export const registerUser = user => dispatch => {
   return fetch(`${API_BASE_URL}/users`, {
