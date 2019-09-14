@@ -5,6 +5,7 @@ import { RegistrationForm } from './registration-form';
 describe('<RegistrationForm />', function () {
   it('renders without crashing', () => {
     const callback = jest.fn();
-    shallow(<RegistrationForm handleSubmit={callback} />);
+    const wrapper = shallow(<RegistrationForm handleSubmit={callback} />);
+    expect(wrapper).toMatchSnapshot();
   });
 });

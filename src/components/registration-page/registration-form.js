@@ -7,6 +7,9 @@ import { required, nonEmpty, matches, length, isTrimmed } from '../../validators
 import Input from '../atoms/input';
 import Button from '../button';
 
+const validateEmail = value =>
+  value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ?
+    'Invalid email address' : undefined;
 const passwordLength = length({ min: 8, max: 72 });
 const matchesPassword = matches('password');
 
@@ -31,6 +34,13 @@ export class RegistrationForm extends React.Component {
             type="text"
             name="name"
             label="Name"
+          />
+          <Field
+            component={Input}
+            name="email"
+            label="Email"
+            type="email"
+            validate={[required, validateEmail]}
           />
         </fieldset>
         <fieldset>
