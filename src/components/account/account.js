@@ -23,6 +23,7 @@ export class Account extends React.Component {
   }
 
   render() {
+    const { currentUser, deleting, dispatch } = this.props;
     if (this.state.editing) {
       return <EditAccount
         resetEditing={() => this.setEditing(false)}
@@ -31,7 +32,7 @@ export class Account extends React.Component {
       return <ChangePassword
         resetPasswordChange={() => this.setPasswordChange(false)}
       />;
-    } else if (this.props.deleting) {
+    } else if (deleting) {
       return <DeleteAccount />;
     } else {
       return (
@@ -39,10 +40,13 @@ export class Account extends React.Component {
           <h1>Your Account</h1>
           <ul>
             <li>
-              Name: {this.props.currentUser.name}
+              Name: {currentUser.name}
             </li>
             <li>
-              Username: {this.props.currentUser.username}
+              Email: {currentUser.email}
+            </li>
+            <li>
+              Username: {currentUser.username}
             </li>
           </ul>
           <Button
@@ -65,7 +69,7 @@ export class Account extends React.Component {
             <Button
               primary
               className="delete-account-button"
-              onClick={() => this.props.dispatch(toggleDeleting())}
+              onClick={() => dispatch(toggleDeleting())}
               label="Delete Account"
             />
           </div>
