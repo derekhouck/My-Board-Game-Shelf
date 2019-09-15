@@ -2,14 +2,11 @@ import React from 'react';
 import { reduxForm, Field, focus } from 'redux-form';
 import { registerUser } from '../../actions/users';
 import { login } from '../../actions/auth';
-import { required, nonEmpty, matches, length, isTrimmed } from '../../validators';
+import { nonEmpty, matches, length, isTrimmed, required, validateEmail } from '../../validators';
 
 import Input from '../atoms/input';
 import Button from '../button';
 
-const validateEmail = value =>
-  value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ?
-    'Invalid email address' : undefined;
 const passwordLength = length({ min: 8, max: 72 });
 const matchesPassword = matches('password');
 

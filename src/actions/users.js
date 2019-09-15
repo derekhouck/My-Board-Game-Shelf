@@ -2,7 +2,7 @@ import { SubmissionError } from 'redux-form';
 
 import { API_BASE_URL } from '../config';
 import { normalizeResponseErrors, startLoading, stopLoading } from './utils';
-import { clearAuth } from './auth'
+import { clearAuth, refreshAuthToken } from './auth'
 import { clearAuthToken } from '../local-storage';
 
 export const ADD_GAME = 'ADD_GAME';
@@ -74,6 +74,31 @@ export const addGameToShelf = game => (dispatch, getState) => {
     });
 };
 
+export const deleteUser = user => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
+  return fetch(`${API_BASE_URL}/users/${user.id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${authToken}`
+    }
+  })
+    .then(() => {
+      dispatch(clearAuth());
+      clearAuthToken();
+    })
+    .catch(err => {
+      const { reason, message, location } = err;
+      if (reason === 'ValidationError') {
+        // Convert ValidationErrors into SubmissionErrors for Redux Form
+        return Promise.reject(
+          new SubmissionError({
+            [location]: message
+          })
+        );
+      }
+    });
+};
+
 export const editUser = user => (dispatch, getState) => {
   const authToken = getState().auth.authToken;
 
@@ -87,6 +112,7 @@ export const editUser = user => (dispatch, getState) => {
   })
     .then(res => normalizeResponseErrors(res))
     .then(res => res.json())
+    .then(() => dispatch(refreshAuthToken('hard')))
     .catch(err => {
       const { reason, message, location } = err;
       if (reason === 'ValidationError') {
@@ -192,28 +218,3 @@ export const registerUser = user => dispatch => {
       }
     });
 };
-
-export const deleteUser = user => (dispatch, getState) => {
-  const authToken = getState().auth.authToken;
-  return fetch(`${API_BASE_URL}/users/${user.id}`, {
-    method: 'DELETE',
-    headers: {
-      Authorization: `Bearer ${authToken}`
-    }
-  })
-    .then(() => {
-      dispatch(clearAuth());
-      clearAuthToken();
-    })
-    .catch(err => {
-      const { reason, message, location } = err;
-      if (reason === 'ValidationError') {
-        // Convert ValidationErrors into SubmissionErrors for Redux Form
-        return Promise.reject(
-          new SubmissionError({
-            [location]: message
-          })
-        );
-      }
-    });
-}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { focus, reduxForm, Field } from 'redux-form';
-import { isTrimmed, required } from '../../validators';
+import { isTrimmed, required, validateEmail } from '../../validators';
 import { editUser } from '../../actions/users';
 import { refreshAuthToken } from '../../actions/auth';
 
@@ -10,17 +10,20 @@ import Input from '../atoms/input';
 
 export class EditAccount extends React.Component {
   componentDidMount() {
+    const { currentUser, initialize } = this.props;
     const initData = {
-      "name": this.props.currentUser.name,
-      "username": this.props.currentUser.username
+      "email": currentUser.email,
+      "name": currentUser.name,
+      "username": currentUser.username
     };
-    this.props.initialize(initData);
+    initialize(initData);
   }
 
   onSubmit(values) {
-    const { name, username } = values;
+    const { email, name, username } = values;
     const { currentUser, dispatch } = this.props;
     const updateData = {
+      email,
       id: currentUser.id,
       name,
       username
@@ -42,9 +45,16 @@ export class EditAccount extends React.Component {
           <legend>Edit Your Account</legend>
           <Field
             component={Input}
-            type="text"
-            name="name"
             label="Name"
+            name="name"
+            type="text"
+          />
+          <Field
+            component={Input}
+            label="Email"
+            name="email"
+            type="email"
+            validate={[required, validateEmail]}
           />
           <Field
             component={Input}
