@@ -43,7 +43,7 @@ export class LoginForm extends React.Component {
                             type="text"
                             name="username"
                             id="username"
-                            label="Username"
+                            label="Email or Username"
                             validate={[required, nonEmpty]}
                         />
                         <Field

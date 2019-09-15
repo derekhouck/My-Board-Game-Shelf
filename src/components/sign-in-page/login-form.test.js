@@ -7,7 +7,8 @@ describe('<LoginForm />', function () {
   const error = { message: 'Test message' };
 
   it('renders without crashing', () => {
-    shallow(<LoginForm handleSubmit={handleSubmit} />);
+    const wrapper = shallow(<LoginForm handleSubmit={handleSubmit} />);
+    expect(wrapper).toMatchSnapshot();
   });
 
   it('shows an error when error exists', function () {
