@@ -5,6 +5,7 @@ import { HeaderBar } from './header-bar';
 describe('<HeaderBar />', function () {
   it('renders without crashing', () => {
     const wrapper = shallow(<HeaderBar />);
+    expect(wrapper).toMatchSnapshot();
     expect(wrapper.find('.App-header')).toHaveLength(1);
   });
 

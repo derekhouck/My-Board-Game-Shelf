@@ -47,6 +47,7 @@ export class HeaderBar extends React.Component {
           >
             Add games
           </Link>
+          <Link to="/dashboard" onClick={() => dispatch(toggleMenu(false))}>Your shelf</Link>
           <Link to="/account" onClick={() => dispatch(toggleMenu(false))}>Your account</Link>
           <button className="App-header__logout" onClick={() => this.logOut()}>Log out</button>
           {currentUser && currentUser.admin ? adminMenu : null}
