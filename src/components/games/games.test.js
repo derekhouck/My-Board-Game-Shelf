@@ -6,6 +6,7 @@ describe('<Games />', function () {
   it('renders without crashing', () => {
     const callback = jest.fn();
     const wrapper = shallow(<Games currentUser={{}} filters={{}} dispatch={callback} />);
+    expect(wrapper).toMatchSnapshot();
     expect(wrapper.find('.games__wrapper')).toHaveLength(1);
   });
 });

@@ -2,11 +2,18 @@
   background-color: #4f2119;
   border-radius: 0.5em;
   color: #f9fafa;
+  display: inline-block;
+  margin: 0.25em;
   padding: 0.5em;
 }
 
 .status-indicator--green {
   background-color: #3b7a57;
+}
+
+.status-indicator--pink {
+  background-color: #d19cb8;
+  color: #19000b;
 }
 
 .status-indicator--red {

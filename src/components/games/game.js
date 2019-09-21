@@ -4,23 +4,32 @@ import { Link } from 'react-router-dom';
 import { removeGameFromShelf, addGameToShelf } from '../../actions/users';
 
 import Button from '../button';
+import StatusIndicator from '../atoms/status-indicator';
 
 export function Game(props) {
   const {
     controls, dispatch, isAdmin, removeButton, game
   } = props;
-  const tags = game.tags.map(tag => (<li key={game.id + '_' + tag.id} id={game.id + '_' + tag.id}>{tag.name}</li>));
+  const tags = game.tags.map(tag =>
+    <StatusIndicator
+      color="pink"
+      key={game.id + '_' + tag.id}
+      id={game.id + '_' + tag.id}
+    >
+      {tag.name}
+    </StatusIndicator>
+  );
   return (
     <li className="game" id={game.id}>
       <h3 className="game__title">{game.title}</h3>
       <ul className="game__details">
         <li><strong>Players:</strong> {game.players.min} - {game.players.max}</li>
-        <li>
-          <strong>Tags</strong>
-          <ul className="game__tag-list">
+        {game.tags.length > 0 &&
+          <li>
+            <strong>Tags:</strong>
             {tags}
-          </ul>
-        </li>
+          </li>
+        }
       </ul>
       {controls && (
         <section className="game__buttons">
@@ -31,9 +40,9 @@ export function Game(props) {
             <Button game secondary label="Edit" />
           </Link>
           <Button
+            centered
             className={removeButton ? "btn--remove" : "btn--add"}
             game
-            icon={removeButton ? "-" : "+"}
             primary
             onClick={() => dispatch(removeButton ? removeGameFromShelf(game) : addGameToShelf(game))}
             label={removeButton ? "Remove" : "Add"}
