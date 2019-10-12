@@ -1,14 +1,14 @@
 import React from 'react';
-import requiresLogin from '../requires-login';
+import requiresLogin from '../../requires-login';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { fetchAdminGames } from '../../actions/admin';
-import { deleteGame } from '../../actions/games';
+import { fetchAdminGames } from '../../../actions/admin';
+import { deleteGame } from '../../../actions/games';
 
-import Button from '../button';
-import Loading from '../loading';
-import StatusIndicator from '../atoms/status-indicator';
-import Table from '../table';
+import Button from '../../button';
+import Loading from '../../loading';
+import StatusIndicator from '../../atoms/status-indicator';
+import Table from '../../table';
 
 export class AdminGames extends React.Component {
   state = {
@@ -43,14 +43,7 @@ export class AdminGames extends React.Component {
       : games;
 
     const gamesTable = (
-      <Table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
+      <Table headings={['Title', 'Status', 'Actions']}>
         <tbody>
           {filteredGames.map(game => (
             <tr key={game.id}>

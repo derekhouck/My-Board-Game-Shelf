@@ -51,14 +51,10 @@ export class Users extends React.Component {
       ));
 
       body = (
-        <Table className="users">
-          <thead>
-            <tr>
-              <th>Username</th>
-              <th>Name</th>
-              <th>Admin</th>
-            </tr>
-          </thead>
+        <Table
+          className="users"
+          headings={['Username', 'Name', 'Admin']}
+        >
           <tbody>
             {users}
           </tbody>
