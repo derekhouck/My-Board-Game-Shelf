@@ -1,25 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { AdminGames } from './admin-games';
-import { Redirect } from 'react-router-dom';
 
 describe('<AdminGames />', function () {
   const dispatch = jest.fn().mockResolvedValue();
 
   it('renders a Games heading when admin', () => {
     const wrapper = shallow(
-      <AdminGames dispatch={dispatch} isAdmin />
-    );
-    expect(wrapper).toMatchSnapshot();
-    expect(wrapper.find('h2').text()).toEqual('Games');
-  })
-
-  it('redirects when not admin', () => {
-    const wrapper = shallow(
       <AdminGames dispatch={dispatch} />
     );
     expect(wrapper).toMatchSnapshot();
-    expect(wrapper.contains(<Redirect to="/" />)).toBe(true);
+    expect(wrapper.find('h2').text()).toEqual('Games');
   })
 
   it('renders each game title', () => {
@@ -31,7 +22,6 @@ describe('<AdminGames />', function () {
       <AdminGames
         dispatch={dispatch}
         games={games}
-        isAdmin
       />
     );
     wrapper.setState({ isLoading: false });
@@ -57,7 +47,6 @@ describe('<AdminGames />', function () {
       <AdminGames
         dispatch={dispatch}
         games={games}
-        isAdmin
       />
     );
 

@@ -8,6 +8,7 @@ import authReducer from './reducers/auth';
 import loadingReducer from './reducers/loading';
 import usersReducer from './reducers/users';
 import gamesReducer from './reducers/games';
+import tagsReducer from './reducers/tags';
 import { setAuthToken, refreshAuthToken } from './actions/auth';
 import { RESET_FILTERS } from './actions/games'
 
@@ -28,6 +29,7 @@ const store = createStore(
     loading: loadingReducer,
     users: usersReducer,
     games: gamesReducer,
+    tags: tagsReducer,
     burgerMenu
   }),
   applyMiddleware(thunk)

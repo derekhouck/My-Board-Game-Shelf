@@ -1,7 +1,7 @@
 import React from 'react';
-import requiresLogin from '../../requires-login';
+import { requiresAdmin } from '../../helpers/requiresAdmin';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { fetchAdminGames } from '../../../actions/admin';
 import { deleteGame } from '../../../actions/games';
 
@@ -19,8 +19,8 @@ export class AdminGames extends React.Component {
   }
 
   componentDidMount() {
-    const { dispatch, isAdmin } = this.props;
-    if (isAdmin) { dispatch(fetchAdminGames()) }
+    const { dispatch } = this.props;
+    dispatch(fetchAdminGames());
   }
 
   handleDeleteButtonBlick(game) {
@@ -30,7 +30,7 @@ export class AdminGames extends React.Component {
   }
 
   render() {
-    const { error, games, isAdmin, loading } = this.props;
+    const { error, games, loading } = this.props;
     const { filters, isLoading } = this.state;
     const addColor = status =>
       status === 'approved'
@@ -72,39 +72,35 @@ export class AdminGames extends React.Component {
       </Table>
     );
 
-    return isAdmin
-      ? (
-        <section>
-          <h2>Games</h2>
-          {error && <StatusIndicator color="red">{`${error.status} ${error.name}: ${error.message}`}</StatusIndicator>}
-          <div>
-            Status:
+    return (
+      <section>
+        <h2>Games</h2>
+        {error && <StatusIndicator color="red">{`${error.status} ${error.name}: ${error.message}`}</StatusIndicator>}
+        <div>
+          Status:
             <select onChange={e => this.setState({ filters: { status: e.target.value } })}>
-              <option value="">any</option>
-              <option>pending</option>
-              <option>approved</option>
-              <option>rejected</option>
-            </select>
-          </div>
-          {isLoading || loading ? <Loading /> : gamesTable}
-        </section>
-      )
-      : <Redirect to="/" />;
+            <option value="">any</option>
+            <option>pending</option>
+            <option>approved</option>
+            <option>rejected</option>
+          </select>
+        </div>
+        {isLoading || loading ? <Loading /> : gamesTable}
+      </section>
+    );
   }
 }
 
 AdminGames.defaultProps = {
   error: null,
   games: [],
-  isAdmin: false,
   loading: false,
 };
 
 const mapStateToProps = state => ({
   error: state.admin.error,
   games: state.admin.games,
-  isAdmin: state.auth.currentUser.admin,
   loading: state.admin.loading,
 });
 
-export default requiresLogin()(connect(mapStateToProps)(AdminGames));
+export default requiresAdmin()(connect(mapStateToProps)(AdminGames));

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import requiresLogin from '../requires-login';
+import requiresLogin from '../helpers/requires-login';
 import { toggleDeleting } from '../../actions/users';
 
 import Button from '../button';

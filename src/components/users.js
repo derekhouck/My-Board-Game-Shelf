@@ -1,17 +1,14 @@
 import React from "react";
-import requiresLogin from "./requires-login";
+import { requiresAdmin } from './helpers/requiresAdmin';
 import { connect } from "react-redux";
-import { Redirect } from 'react-router-dom';
 import { editUser, fetchUsers } from "../actions/users";
 import ToggleSwitch from "./toggle-switch";
 import Table from './table';
 
 export class Users extends React.Component {
   componentDidMount() {
-    const { dispatch, isAdmin } = this.props;
-    if (isAdmin) {
-      dispatch(fetchUsers());
-    }
+    const { dispatch } = this.props;
+    dispatch(fetchUsers());
   }
 
   updateUser = (userId, admin) => {
@@ -66,21 +63,19 @@ export class Users extends React.Component {
   }
 
   render() {
-    const { isAdmin } = this.props;
-    return isAdmin
-      ? <section>
+    return (
+      <section>
         <h2>Users</h2>
         {this.renderUsers()}
       </section>
-      : <Redirect to="/" />;
+    );
   }
 }
 
 const mapStateToProps = state => ({
   error: state.users.error,
-  isAdmin: state.auth.currentUser.admin,
   users: state.users.users,
   loading: state.users.loading,
 });
 
-export default requiresLogin()(connect(mapStateToProps)(Users));
+export default requiresAdmin()(connect(mapStateToProps)(Users));

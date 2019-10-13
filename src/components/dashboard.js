@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import requiresLogin from './requires-login';
+import requiresLogin from './helpers/requires-login';
 import { fetchUserGames } from '../actions/users';
 
 import Button from './button';

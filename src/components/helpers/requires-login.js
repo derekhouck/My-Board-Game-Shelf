@@ -1,10 +1,10 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {Redirect} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-export default () => Component => {
+export const requiresLogin = () => Component => {
     function RequiresLogin(props) {
-        const {authenticating, loggedIn, error, ...passThroughProps} = props;
+        const { authenticating, loggedIn, error, ...passThroughProps } = props;
         if (authenticating) {
             return <div>Logging in...</div>;
         } else if (!loggedIn || error) {
@@ -25,3 +25,5 @@ export default () => Component => {
 
     return connect(mapStateToProps)(RequiresLogin);
 };
+
+export default requiresLogin;

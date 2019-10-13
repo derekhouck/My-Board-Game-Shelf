@@ -1,22 +1,22 @@
 import React from "react";
-import requiresLogin from "./requires-login";
+import requiresLogin from "../helpers/requires-login";
 import { connect } from "react-redux";
 import { Redirect } from 'react-router-dom';
 import { reduxForm, Field, focus } from "redux-form";
-import { fetchAdminGames } from '../actions/admin';
-import { addGame, fetchTags, editGame } from "../actions/games";
+import { fetchAdminGames } from '../../actions/admin';
+import { addGame, fetchTags, editGame } from "../../actions/games";
 import {
   required,
   nonEmpty,
   minNum,
   maxNum,
   notLessThanField
-} from "../validators";
+} from "../../validators";
 import "./game-form.css";
 
-import Button from "./button";
-import Input from "./atoms/input";
-import Select from "./select";
+import Button from "../button";
+import Input from "../atoms/input";
+import Select from "../select";
 
 const playersMin = minNum(1);
 const playersMax = maxNum(99);

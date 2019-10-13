@@ -1,5 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<AdminGames /> redirects when not admin 1`] = `ShallowWrapper {}`;
-
 exports[`<AdminGames /> renders a Games heading when admin 1`] = `ShallowWrapper {}`;

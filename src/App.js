@@ -8,7 +8,7 @@ import LandingPage from "./components/landing-page";
 import SignInPage from "./components/sign-in-page/sign-in-page";
 import RegistrationPage from "./components/registration-page/registration-page";
 import Dashboard from "./components/dashboard";
-import GameForm from "./components/game-form";
+import GameForm from "./components/pages/game-form";
 import Users from "./components/users";
 import Account from "./components/account/account";
 import NotFound from "./components/404";
@@ -16,6 +16,7 @@ import { refreshAuthToken } from "./actions/auth";
 import GamesPage from "./components/games/games-page";
 import AdminGames from "./components/pages/admin/admin-games";
 import AdminTags from "./components/pages/admin/admin-tags";
+import AdminTagForm from "./components/pages/admin/admin-tag-form";
 
 export class App extends Component {
   componentDidUpdate(prevProps) {
@@ -69,6 +70,11 @@ export class App extends Component {
             <Route exact path="/users" component={Users} />
             <Route exact path="/admin/games" component={AdminGames} />
             <Route exact path="/admin/tags" component={AdminTags} />
+            <Route
+              exact
+              path="/admin/tags/:id/edit"
+              component={withRouter(AdminTagForm)}
+            />
             <Route component={NotFound} />
           </Switch>
         </main>
