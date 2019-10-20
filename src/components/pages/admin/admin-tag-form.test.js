@@ -5,7 +5,7 @@ import { AdminTagForm } from './admin-tag-form';
 describe('<AdminTagForm />', function () {
   const dispatch = jest.fn(() => Promise.resolve());
   const handleSubmit = jest.fn();
-  const match = { params: {} };
+  const match = { params: { id: 'test-id' } };
 
   it('renders without crashing', () => {
     const wrapper = shallow(
@@ -16,5 +16,16 @@ describe('<AdminTagForm />', function () {
       />
     );
     expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should call dispatch when mounted', function () {
+    shallow(
+      <AdminTagForm
+        dispatch={dispatch}
+        handleSubmit={handleSubmit}
+        match={match}
+      />
+    );
+    expect(dispatch).toHaveBeenCalled();
   });
 });

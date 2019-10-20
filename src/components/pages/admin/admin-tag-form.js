@@ -6,12 +6,13 @@ import { required, nonEmpty } from '../../../validators';
 import Select from '../../select';
 import Button from '../../button';
 import { connect } from 'react-redux';
-import { fetchTag, editTag } from '../../../actions/tags';
+import { fetchTag, editTag, addTag } from '../../../actions/tags';
 import Loading from '../../loading';
 import StatusIndicator from '../../atoms/status-indicator';
 
 export class AdminTagForm extends Component {
   state = {
+    editing: !!this.props.match.params.id,
     loading: false,
     tagId: this.props.match.params.id,
   }
@@ -40,29 +41,34 @@ export class AdminTagForm extends Component {
 
   onSubmit(values) {
     const { dispatch, history } = this.props;
-    const { tagId } = this.state;
+    const { editing, tagId } = this.state;
     const { name, category } = values;
-    const updatedTag = {
+    const tagValues = {
       category,
-      id: tagId,
       name,
     };
-    return dispatch(editTag(updatedTag)).then(() => history.push('/admin/tags'));
+    const whichAction = tagObject => editing ? editTag(tagObject) : addTag(tagObject);
+    if (editing) {
+      tagValues.id = tagId;
+    }
+    return dispatch(whichAction(tagValues)).then(() => history.push('/admin/tags'));
   }
 
   componentDidMount() {
     const { dispatch } = this.props;
     const { tagId } = this.state;
-    this.setState({ loading: true });
-    dispatch(fetchTag(tagId)).then(tag => {
-      this.setState({ loading: false })
-      this.handleInitialize(tag);
-    });
+    if (tagId) {
+      this.setState({ loading: true });
+      dispatch(fetchTag(tagId)).then(tag => {
+        this.setState({ loading: false })
+        this.handleInitialize(tag);
+      });
+    }
   }
 
   render() {
     const { fetchError, handleSubmit } = this.props;
-    const { loading } = this.state;
+    const { editing, loading } = this.state;
 
     return (
       <section>
@@ -70,7 +76,7 @@ export class AdminTagForm extends Component {
         {loading ? <Loading /> : (
           <form onSubmit={handleSubmit(values => this.onSubmit(values))}>
             <fieldset>
-              <legend>Edit Tag</legend>
+              <legend>{editing ? 'Edit' : 'Add'} Tag</legend>
               <Field
                 component={Input}
                 type="text"
@@ -89,7 +95,7 @@ export class AdminTagForm extends Component {
               />
             </fieldset>
             <div>
-              <Button primary type="submit" label="Edit Tag" />
+              <Button primary type="submit" label={`${editing ? 'Edit' : 'Add'} Tag`} />
             </div>
           </form>
         )}

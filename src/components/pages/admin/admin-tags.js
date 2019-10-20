@@ -21,20 +21,25 @@ export class AdminTags extends Component {
         <h2>Tags</h2>
         {error && <StatusIndicator color="red">{`${error.status} ${error.name}: ${error.message}`}</StatusIndicator>}
         {loading ? <Loading /> :
-          <Table headings={['Name', 'Category', 'Actions']}>
-            <tbody>
-              {tags.map(tag =>
-                <tr key={tag.id}>
-                  <td>{tag.name}</td>
-                  <td>{tag.category}</td>
-                  <td>
-                    <Link to={`/admin/tags/${tag.id}/edit`}>
-                      <Button label="Edit" small />
-                    </Link>
-                  </td>
-                </tr>)}
-            </tbody>
-          </Table>
+          <section>
+            <Link to="/admin/tags/add">
+              <Button className="btn--add" label="Add tag" />
+            </Link>
+            <Table headings={['Name', 'Category', 'Actions']}>
+              <tbody>
+                {tags.map(tag =>
+                  <tr key={tag.id}>
+                    <td>{tag.name}</td>
+                    <td>{tag.category}</td>
+                    <td>
+                      <Link to={`/admin/tags/${tag.id}/edit`}>
+                        <Button label="Edit" small />
+                      </Link>
+                    </td>
+                  </tr>)}
+              </tbody>
+            </Table>
+          </section>
         }
       </section >
     );

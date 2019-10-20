@@ -8,6 +8,33 @@ export const tagsError = error => ({
   error
 });
 
+export const addTag = tag => (dispatch, getState) => {
+  const authToken = getState().auth.authToken;
+  const url = new URL(`${API_BASE_URL}/tags`);
+
+  return fetch(url, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      Authorization: `Bearer ${authToken}`
+    },
+    body: JSON.stringify(tag)
+  })
+    .then(res => normalizeResponseErrors(res))
+    .then(res => res.json())
+    .catch(err => {
+      const { reason, message, location } = err;
+      if (reason === 'ValidationError') {
+        // Convert ValidationErrors into SubmissionErrors for Redux Form
+        return Promise.reject(
+          new SubmissionError({
+            [location]: message
+          })
+        );
+      }
+    });
+};
+
 export const editTag = tag => (dispatch, getState) => {
   const authToken = getState().auth.authToken;
   const url = new URL(`${API_BASE_URL}/tags/${tag.id}`);

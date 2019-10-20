@@ -70,6 +70,7 @@ export class App extends Component {
             <Route exact path="/users" component={Users} />
             <Route exact path="/admin/games" component={AdminGames} />
             <Route exact path="/admin/tags" component={AdminTags} />
+            <Route exact path="/admin/tags/add" component={withRouter(AdminTagForm)} />
             <Route
               exact
               path="/admin/tags/:id/edit"
