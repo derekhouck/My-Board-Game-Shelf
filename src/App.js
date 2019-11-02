@@ -13,10 +13,11 @@ import Users from "./components/users";
 import Account from "./components/account/account";
 import NotFound from "./components/404";
 import { refreshAuthToken } from "./actions/auth";
-import GamesPage from "./components/games/games-page";
+import GamesPage from "./components/pages/games-page";
 import AdminGames from "./components/pages/admin/admin-games";
 import AdminTags from "./components/pages/admin/admin-tags";
 import AdminTagForm from "./components/pages/admin/admin-tag-form";
+import GamePage from "./components/pages/game-page";
 
 export class App extends Component {
   componentDidUpdate(prevProps) {
@@ -61,6 +62,7 @@ export class App extends Component {
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/games" component={GamesPage} />
             <Route exact path="/games/add" component={withRouter(GameForm)} />
+            <Route exact path="/games/:id" component={GamePage} />
             <Route
               exact
               path="/games/:id/edit"

@@ -40,13 +40,26 @@
 }
 
 .game__title {
-  border-bottom: 2px solid #f9fafa;
   font-size: 2em;
   font-variant: small-caps;
   font-weight: 400;
+  margin: 0;
+  text-align: center;
+}
+
+.game__title-link {
+  border-bottom: 2px solid #f9fafa;
+  color: #f9fafa;
+  display: block;
   margin: 0 0 0.25em;
   padding-bottom: 0.25em;
-  text-align: center;
+  text-decoration: none;
+  transition: 0.4s;
+}
+
+.game__title-link:active, .game__title-link:focus, .game__title-link:hover {
+  color: #e18258;
+  border-bottom-color: #e18258;
 }
 
 .game__details {

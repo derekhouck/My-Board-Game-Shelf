@@ -8,7 +8,7 @@ import StatusIndicator from '../atoms/status-indicator';
 
 export function Game(props) {
   const {
-    controls, dispatch, isAdmin, removeButton, game
+    controls, dispatch, removeButton, game
   } = props;
   const tags = game.tags.map(tag =>
     <StatusIndicator
@@ -21,7 +21,14 @@ export function Game(props) {
   );
   return (
     <li className="game" id={game.id}>
-      <h3 className="game__title">{game.title}</h3>
+      <h3 className="game__title">
+        <Link
+          className="game__title-link"
+          to={`/games/${game.id}`}
+        >
+          {game.title}
+        </Link>
+      </h3>
       <ul className="game__details">
         <li><strong>Players:</strong> {game.players.min} - {game.players.max}</li>
         {game.tags.length > 0 &&
@@ -33,12 +40,6 @@ export function Game(props) {
       </ul>
       {controls && (
         <section className="game__buttons">
-          <Link
-            className={isAdmin ? '' : 'game__buttons--hidden'}
-            to={`/games/${game.id}/edit`}
-          >
-            <Button game secondary label="Edit" />
-          </Link>
           <Button
             centered
             className={removeButton ? "btn--remove" : "btn--add"}
@@ -59,10 +60,4 @@ Game.defaultProps = {
   game: {},
 };
 
-const mapStateToProps = state => ({
-  isAdmin: state.auth.currentUser
-    ? state.auth.currentUser.admin
-    : false
-});
-
-export default connect(mapStateToProps)(Game);
+export default connect()(Game);

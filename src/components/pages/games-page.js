@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchGames } from '../../actions/games';
 import { fetchUserGames } from '../../actions/users';
-import Games from './games';
+import Games from '../games/games';
 import Loading from '../loading';
 
 export class GamesPage extends React.Component {
