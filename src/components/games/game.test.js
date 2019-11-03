@@ -8,13 +8,19 @@ describe('<Game />', function () {
     shallow(<Game game={{ tags: [], players: {} }} />);
   });
 
-  it('renders the game title', () => {
+  it('renders the game correctly', () => {
     const wrapper = shallow(
       <Game
-        game={{ tags: [], players: {}, title: 'Example Title' }}
+        game={{
+          tags: [],
+          players: { min: 1, max: 5 },
+          title: 'Example Title'
+        }}
       />
     );
     expect(wrapper.contains('Example Title')).toBe(true);
+    expect(wrapper.find(".game__players").text())
+      .toEqual('Players: 1 - 5');
   });
 
   it('does not render buttons by default', () => {

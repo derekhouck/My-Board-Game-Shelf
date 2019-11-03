@@ -30,13 +30,7 @@ export function Game(props) {
         </Link>
       </h3>
       <ul className="game__details">
-        <li><strong>Players:</strong> {game.players.min} - {game.players.max}</li>
-        {game.tags.length > 0 &&
-          <li>
-            <strong>Tags:</strong>
-            {tags}
-          </li>
-        }
+        <li className="game__players"><strong>Players:</strong> {game.players.min} - {game.players.max}</li>
       </ul>
       {controls && (
         <section className="game__buttons">

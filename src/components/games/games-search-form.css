@@ -3,6 +3,8 @@
 }
 
 .games__search-fields legend {
+  margin: 0 auto;
+  text-align: center;
   text-transform: uppercase;
 }
 
