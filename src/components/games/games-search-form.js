@@ -7,25 +7,44 @@ import './games-search-form.css';
 import Button from '../button';
 import Input from '../atoms/input';
 import Select from '../select';
+import { separateTags } from '../helpers';
 
 export class GamesSearchForm extends React.Component {
+  state = {
+    mechanics: [],
+    themes: []
+  };
+
+  componentDidUpdate(prevProps) {
+    const { tags } = this.props;
+    if (prevProps.tags !== tags) {
+      const tagsObj = separateTags(tags);
+      this.setState({
+        mechanics: tagsObj.mechanics,
+        themes: tagsObj.themes,
+      })
+    }
+  }
+
   componentWillUnmount() {
     const { dispatch } = this.props;
     return dispatch(resetFilters());
   }
   onSubmit(values) {
-    const { searchTerm, players, tag } = values;
+    const { mechanics, players, searchTerm, themes } = values;
     const filters = {
       title: searchTerm,
+      mechanics,
       players,
-      tagId: tag
+      tagId: mechanics && mechanics !== 'null' ? mechanics : themes,
+      themes,
     };
     return this.props.dispatch(filterGames(filters));
   }
 
   render() {
-    const { dispatch, handleSubmit, initialValues, tags } = this.props;
-    const mappedTags = tags.map(tag => ({ value: tag.id, text: tag.name }));
+    const { dispatch, handleSubmit, initialValues } = this.props;
+    const { mechanics, themes } = this.state;
 
     return (
       <section className="games__search">
@@ -52,15 +71,30 @@ export class GamesSearchForm extends React.Component {
               placeholder={initialValues.players}
               type="number"
             />
-            <div className="form-input games__search-tags">
-              <label htmlFor="tag">Tag</label>
+            <div className="form-input games__search-mechanics">
+              <label htmlFor="mechanics">Mechanics</label>
               <Field
                 component={Select}
-                id="tag"
-                name="tag"
-                noSelectionLabel='Select a tag'
-                options={mappedTags}
-                initialValue={initialValues.tagId}
+                id="mechanics"
+                initialValue={initialValues.mechanics}
+                name="mechanics"
+                noSelectionLabel='Select a mechanic'
+                options={
+                  mechanics.map(mechanic => ({ value: mechanic.id, text: mechanic.name }))
+                }
+              />
+            </div>
+            <div className="form-input games__search-themes">
+              <label htmlFor="themes">Themes</label>
+              <Field
+                component={Select}
+                id="themes"
+                initialValue={initialValues.themes}
+                name="themes"
+                noSelectionLabel='Select a theme'
+                options={
+                  themes.map(theme => ({ value: theme.id, text: theme.name }))
+                }
               />
             </div>
           </fieldset>
@@ -79,16 +113,12 @@ GamesSearchForm.defaultProps = {
 };
 
 function getUnique(arr, comp) {
-
   const unique = arr
     .map(e => e[comp])
-
     // store the keys of the unique objects
     .map((e, i, final) => final.indexOf(e) === i && i)
-
     // eliminate the dead keys & store unique objects
     .filter(e => arr[e]).map(e => arr[e]);
-
   return unique;
 }
 
@@ -96,7 +126,6 @@ const getTags = (games) => {
   const tagArrays = games.map(game => game.tags);
   const mergedArray = [].concat.apply([], tagArrays);
   const tags = getUnique(mergedArray, 'id');
-
   return tags;
 };
 

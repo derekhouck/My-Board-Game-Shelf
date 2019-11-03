@@ -2,23 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { removeGameFromShelf, addGameToShelf } from '../../actions/users';
-
 import Button from '../button';
-import StatusIndicator from '../atoms/status-indicator';
 
 export function Game(props) {
   const {
     controls, dispatch, removeButton, game
   } = props;
-  const tags = game.tags.map(tag =>
-    <StatusIndicator
-      color="pink"
-      key={game.id + '_' + tag.id}
-      id={game.id + '_' + tag.id}
-    >
-      {tag.name}
-    </StatusIndicator>
-  );
+
   return (
     <li className="game" id={game.id}>
       <h3 className="game__title">

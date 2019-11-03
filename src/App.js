@@ -4,7 +4,7 @@ import { Route, Switch, withRouter } from "react-router-dom";
 import "./App.css";
 
 import HeaderBar from "./components/header-bar/header-bar";
-import LandingPage from "./components/landing-page";
+import LandingPage from "./components/pages/landing-page";
 import SignInPage from "./components/sign-in-page/sign-in-page";
 import RegistrationPage from "./components/registration-page/registration-page";
 import Dashboard from "./components/dashboard";

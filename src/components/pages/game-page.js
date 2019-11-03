@@ -9,6 +9,7 @@ import NotFound from '../404';
 import { API_BASE_URL } from '../../config';
 import { normalizeResponseErrors } from '../../actions/utils';
 import { fetchUserGames, removeGameFromShelf, addGameToShelf } from '../../actions/users';
+import { separateTags } from '../helpers';
 
 export const GamePage = (props) => {
   const {
@@ -32,7 +33,9 @@ export const GamePage = (props) => {
     fetchGame(match.params.id)
       .then(game => {
         setGame(game);
-        separateTags(game.tags);
+        const tags = separateTags(game.tags);
+        setMechanics(tags.mechanics);
+        setThemes(tags.themes);
         setLoading(false);
       })
       .catch(err => {
@@ -119,25 +122,6 @@ export const GamePage = (props) => {
     }
     return <NotFound />;
   }
-
-  const separateTags = tags => {
-    const mechanicsArr = [];
-    const themesArr = [];
-    tags.forEach(tag => {
-      switch (tag.category) {
-        case 'Mechanics':
-          mechanicsArr.push(tag);
-          break;
-        case 'Themes':
-          themesArr.push(tag);
-          break;
-        default:
-          break;
-      }
-    })
-    setMechanics(mechanicsArr);
-    setThemes(themesArr);
-  };
 
   return (
     <article className="game-page">

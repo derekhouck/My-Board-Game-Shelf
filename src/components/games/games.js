@@ -24,13 +24,15 @@ export class Games extends React.Component {
     if (games.length === 0) { return games }
     const { filters } = this.props;
     const re = new RegExp(filters.title, 'i');
-    const titleTest = game => filters.title ? re.test(game.title) : true;
+    const mechanicsTest = game => filters.mechanics ? tagIdTest(game, filters.mechanics) : true;
     const playersTest = game =>
       filters.players ? (game.players.min <= filters.players && game.players.max >= filters.players) : true;
-    const tagIdTest = game =>
-      !filters.tagId ? true : filters.tagId === 'null' ? true : (game.tags.filter(tag => tag.id === filters.tagId).length > 0);
+    const themesTest = game => filters.themes ? tagIdTest(game, filters.themes) : true;
+    const titleTest = game => filters.title ? re.test(game.title) : true;
+    const tagIdTest = (game, tagId) =>
+      tagId === 'null' ? true : (game.tags.filter(tag => tag.id === tagId).length > 0);
 
-    return games.filter(game => titleTest(game) && playersTest(game) && tagIdTest(game));
+    return games.filter(game => mechanicsTest(game) && playersTest(game) && themesTest(game) && titleTest(game));
   }
 
   renderGames() {
