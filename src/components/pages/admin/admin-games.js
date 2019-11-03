@@ -47,7 +47,11 @@ export class AdminGames extends React.Component {
         <tbody>
           {filteredGames.map(game => (
             <tr key={game.id}>
-              <td>{game.title}</td>
+              <td>
+                <Link to={`/games/${game.id}`}>
+                  {game.title}
+                </Link>
+              </td>
               <td>
                 <StatusIndicator
                   color={addColor(game.status)}
