@@ -14,7 +14,7 @@ describe('<Game />', function () {
         game={{ tags: [], players: {}, title: 'Example Title' }}
       />
     );
-    expect(wrapper.find('.game__title-link').props().children).toEqual('Example Title');
+    expect(wrapper.contains('Example Title')).toBe(true);
   });
 
   it('does not render buttons by default', () => {
