@@ -13,6 +13,8 @@ export const GamePage = (props) => {
   const [error, setError] = useState(null);
   const [game, setGame] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [mechanics, setMechanics] = useState([]);
+  const [themes, setThemes] = useState([]);
 
   useEffect(() => {
     setLoading(true);
@@ -21,6 +23,7 @@ export const GamePage = (props) => {
       .then(res => res.json())
       .then(game => {
         setGame(game);
+        separateTags(game.tags);
         setLoading(false);
       })
       .catch(err => {
@@ -59,13 +62,11 @@ export const GamePage = (props) => {
             </div>
             <h2>Themes</h2>
             <ul>
-              <li>Tag 1</li>
-              <li>Tag 2</li>
+              {themes.map(theme => <li key={theme.id}>{theme.name}</li>)}
             </ul>
             <h2>Mechanics</h2>
             <ul>
-              <li>Tag 1</li>
-              <li>Tag 2</li>
+              {mechanics.map(mechanic => <li key={mechanic.id}>{mechanic.name}</li>)}
             </ul>
           </div>
         </section>
@@ -73,6 +74,27 @@ export const GamePage = (props) => {
     }
     return <NotFound />;
   }
+
+  const separateTags = tags => {
+    const mechanicsArr = [];
+    const themesArr = [];
+    tags.forEach(tag => {
+      switch (tag.category) {
+        case 'Mechanics':
+          mechanicsArr.push(tag);
+          break;
+        case 'Themes':
+          themesArr.push(tag);
+          break;
+        default:
+          break;
+      }
+    })
+    console.log(mechanicsArr);
+    console.log(themesArr);
+    setMechanics(mechanicsArr);
+    setThemes(themesArr);
+  };
 
   return (
     <article className="game-page">
