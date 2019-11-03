@@ -7,33 +7,69 @@ import Loading from '../loading';
 import NotFound from '../404';
 import { API_BASE_URL } from '../../config';
 import { normalizeResponseErrors } from '../../actions/utils';
+import { fetchUserGames, removeGameFromShelf, addGameToShelf } from '../../actions/users';
 
 export const GamePage = (props) => {
-  const { loggedIn, match } = props;
+  const {
+    currentUser, dispatch, dispatchLoading, loggedIn, match, userGames
+  } = props;
   const [error, setError] = useState(null);
   const [game, setGame] = useState(null);
   const [loading, setLoading] = useState(false);
   const [mechanics, setMechanics] = useState([]);
+  const [removeButton, setRemoveButton] = useState(false);
   const [themes, setThemes] = useState([]);
 
   useEffect(() => {
     setLoading(true);
-    fetch(`${API_BASE_URL}/games/${match.params.id}`)
-      .then(res => normalizeResponseErrors(res))
-      .then(res => res.json())
+    fetchGame(match.params.id)
       .then(game => {
         setGame(game);
         separateTags(game.tags);
         setLoading(false);
       })
       .catch(err => {
-        setError(err)
+        setError(err);
         setLoading(false);
       });
   }, [match.params.id]);
 
+  useEffect(() => {
+    if (currentUser) {
+      setLoading(true);
+      dispatch(fetchUserGames(currentUser.id))
+        .then(() => setLoading(false));
+    }
+  }, [currentUser, dispatch]);
+
+  useEffect(() => {
+    if (userGames.length && game) {
+      userGames.filter(userGame => userGame.id === game.id).length ?
+        setRemoveButton(true) :
+        setRemoveButton(false);
+    }
+  }, [game, userGames]);
+
+  const fetchGame = gameId =>
+    fetch(`${API_BASE_URL}/games/${gameId}`)
+      .then(res => normalizeResponseErrors(res))
+      .then(res => res.json());
+
+  const renderButton = () =>
+    removeButton ?
+      <Button
+        className="btn--remove game-page__btn"
+        label="Remove"
+        onClick={() => dispatch(removeGameFromShelf(game))}
+      /> :
+      <Button
+        className="btn--add game-page__btn"
+        label="Add"
+        onClick={() => dispatch(addGameToShelf(game))}
+      />;
+
   const renderPage = () => {
-    if (loading) {
+    if (loading || dispatchLoading) {
       return <Loading />;
     } else if (error) {
       return error.status === 404 ?
@@ -48,12 +84,7 @@ export const GamePage = (props) => {
         <section>
           <header className="game-page__header">
             <h1>{game.title}</h1>
-            {loggedIn &&
-              <Button
-                className="btn--add game-page__btn"
-                label="Add"
-              />
-            }
+            {loggedIn && renderButton()}
           </header>
           <div className="game-page__details">
             <h2>Players</h2>
@@ -90,8 +121,6 @@ export const GamePage = (props) => {
           break;
       }
     })
-    console.log(mechanicsArr);
-    console.log(themesArr);
     setMechanics(mechanicsArr);
     setThemes(themesArr);
   };
@@ -104,7 +133,10 @@ export const GamePage = (props) => {
 };
 
 const mapStateToProps = state => ({
+  currentUser: state.auth.currentUser,
+  dispatchLoading: state.loading.loading,
   loggedIn: state.auth.currentUser !== null,
+  userGames: state.users.games,
 });
 
 export default connect(mapStateToProps)(GamePage);
