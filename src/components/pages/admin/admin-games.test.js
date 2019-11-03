@@ -26,7 +26,7 @@ describe('<AdminGames />', function () {
     );
     wrapper.setState({ isLoading: false });
     games.forEach(game =>
-      expect(wrapper.contains(<td>{game.title}</td>)).toBe(true)
+      expect(wrapper.contains(game.title)).toBe(true)
     );
   });
 
@@ -52,7 +52,7 @@ describe('<AdminGames />', function () {
 
     wrapper.setState({ isLoading: false });
     wrapper.find('select').simulate('change', { target: { value: 'approved' } });
-    expect(wrapper.contains(<td>{games[0].title}</td>)).toBe(false);
-    expect(wrapper.contains(<td>{games[1].title}</td>)).toBe(true);
+    expect(wrapper.contains(games[0].title)).toBe(false);
+    expect(wrapper.contains(games[1].title)).toBe(true);
   });
 });
