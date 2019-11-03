@@ -25,7 +25,17 @@ describe('<GameForm />', function () {
         handleSubmit={handleSubmit}
       />
     );
-    expect(wrapper).toMatchSnapshot();
     expect(wrapper.contains(<Redirect to="/" />)).toBe(true);
+  });
+
+  it('displays errors', function () {
+    const wrapper = shallow(
+      <GameForm
+        dispatch={dispatch}
+        error={{ message: 'Test error message' }}
+        handleSubmit={handleSubmit}
+      />
+    );
+    expect(wrapper.contains('Test error message')).toBe(true);
   });
 });

@@ -16,7 +16,9 @@ import "./game-form.css";
 
 import Button from "../button";
 import Input from "../atoms/input";
+import Loading from '../loading';
 import Select from "../select";
+import { separateTags } from '../helpers';
 
 const playersMin = minNum(1);
 const playersMax = maxNum(99);
@@ -42,6 +44,11 @@ const multiSelectOptionMarkup = text => (
 );
 
 export class GameForm extends React.Component {
+  state = {
+    mechanics: [],
+    themes: [],
+  };
+
   componentDidMount() {
     const { dispatch, editing, isAdmin, games } = this.props;
     dispatch(fetchTags()).then(() => {
@@ -54,14 +61,27 @@ export class GameForm extends React.Component {
     });
   }
 
+  componentDidUpdate(prevProps) {
+    const { tags } = this.props;
+    if (tags !== prevProps.tags) {
+      const { mechanics, themes } = separateTags(tags);
+      this.setState({
+        mechanics,
+        themes,
+      });
+    }
+  }
+
   handleInitialize() {
     const { currentGame } = this.props;
     const initData = {
       title: currentGame.title,
       minPlayers: currentGame.players.min,
       maxPlayers: currentGame.players.max,
+      mechanics: currentGame.tags,
       status: currentGame.status,
-      tags: currentGame.tags
+      tags: currentGame.tags,
+      themes: currentGame.tags,
     };
 
     this.props.initialize(initData);
@@ -69,14 +89,16 @@ export class GameForm extends React.Component {
 
   onSubmit(values) {
     const { dispatch, editing, history, match } = this.props;
-    const { title, minPlayers, maxPlayers, status, tags } = values;
+    const { title, minPlayers, maxPlayers, mechanics, status, themes } = values;
+    const tags = [...(mechanics || []), ...(themes || [])];
     const game = {
       minPlayers: Number(minPlayers),
       maxPlayers: Number(maxPlayers),
       status,
-      tags: tags[0] === "" ? [] : tags,
+      tags: tags.filter(tag => tag !== ""),
       title,
     };
+    console.log(game.tags);
     const whichAction = game => {
       if (editing) {
         game.id = match.params.id;
@@ -94,7 +116,7 @@ export class GameForm extends React.Component {
     const tagOptions = [
       {
         id: "",
-        name: "No tags -- this cannot be used after tags have been set"
+        name: "Clear selected tags"
       },
       ...sortedTags
     ];
@@ -108,6 +130,7 @@ export class GameForm extends React.Component {
 
   renderForm() {
     const { editing, error, handleSubmit, loading } = this.props;
+    const { mechanics, themes } = this.state;
     let form = <div />;
 
     if (error) {
@@ -115,9 +138,7 @@ export class GameForm extends React.Component {
         <div className="message message-error">{error.message}</div>
       );
     } else if (loading) {
-      form = (
-        <div className="message message-default">Submitting your game...</div>
-      );
+      form = <Loading />;
     } else {
       form = (
         <form
@@ -165,17 +186,33 @@ export class GameForm extends React.Component {
               </div>
             }
             <div className="form-input">
-              <label htmlFor="tags">Tags</label>
+              <label htmlFor="mechanics">Mechanics</label>
               <Field
                 component={Select}
                 customLabelRenderer={values =>
                   values.options.map(value => value.text).join(", ")
                 }
-                id="tags"
+                id="mechanics"
+                initialValue={[""]}
                 multiselect
-                name="tags"
+                name="mechanics"
                 type="select-multiple"
-                options={this.getTagOptions(this.props.tags)}
+                options={this.getTagOptions(mechanics)}
+              />
+            </div>
+            <div className="form-input">
+              <label htmlFor="tags">Themes</label>
+              <Field
+                component={Select}
+                customLabelRenderer={values =>
+                  values.options.map(value => value.text).join(", ")
+                }
+                id="themes"
+                initialValue={[""]}
+                multiselect
+                name="themes"
+                type="select-multiple"
+                options={this.getTagOptions(themes)}
               />
             </div>
           </fieldset>
