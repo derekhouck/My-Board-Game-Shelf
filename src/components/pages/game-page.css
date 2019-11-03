@@ -1,0 +1,35 @@
+.game-page__btn {
+  display: block;
+  margin: 0 auto;
+}
+
+.game-page__details {
+  text-align: center;
+}
+
+.game-page__details ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media only screen and (min-width: 768px) {
+  .game-page h1 {
+    border-bottom: 0;
+    margin: 1rem 0;
+    padding: 0;
+  }
+  .game-page__btn {
+    display: inline-block;
+    margin: 1rem 0;
+  }
+  .game-page__details {
+    text-align: left;
+  }
+  .game-page__header {
+    align-items: flex-end;
+    border-bottom: 2px solid #19000b;
+    display: flex;
+    justify-content: space-between;
+  }
+}
