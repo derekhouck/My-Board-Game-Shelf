@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Button from '../button';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import './game-page.css';
 import StatusIndicator from '../atoms/status-indicator';
 import Loading from '../loading';
@@ -11,7 +12,13 @@ import { fetchUserGames, removeGameFromShelf, addGameToShelf } from '../../actio
 
 export const GamePage = (props) => {
   const {
-    currentUser, dispatch, dispatchLoading, loggedIn, match, userGames
+    currentUser,
+    dispatch,
+    dispatchLoading,
+    isAdmin,
+    loggedIn,
+    match,
+    userGames
   } = props;
   const [error, setError] = useState(null);
   const [game, setGame] = useState(null);
@@ -99,6 +106,13 @@ export const GamePage = (props) => {
             <ul>
               {mechanics.map(mechanic => <li key={mechanic.id}>{mechanic.name}</li>)}
             </ul>
+            {isAdmin &&
+              <p>
+                <Link to={`/games/${game.id}/edit`}>
+                  Edit game
+                </Link>
+              </p>
+            }
           </div>
         </section>
       );
@@ -135,6 +149,9 @@ export const GamePage = (props) => {
 const mapStateToProps = state => ({
   currentUser: state.auth.currentUser,
   dispatchLoading: state.loading.loading,
+  isAdmin: state.auth.currentUser ?
+    state.auth.currentUser.admin :
+    false,
   loggedIn: state.auth.currentUser !== null,
   userGames: state.users.games,
 });
