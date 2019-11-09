@@ -5,10 +5,11 @@ import { Link } from 'react-router-dom';
 import { fetchAdminGames } from '../../../actions/admin';
 import { deleteGame } from '../../../actions/games';
 
-import Button from '../../button';
+import Button from '../../atoms/button';
 import Loading from '../../loading';
 import StatusIndicator from '../../atoms/status-indicator';
 import Table from '../../table';
+import { TableFilters } from '../../molecules/table-filters';
 
 export class AdminGames extends React.Component {
   state = {
@@ -80,15 +81,9 @@ export class AdminGames extends React.Component {
       <section>
         <h2>Games</h2>
         {error && <StatusIndicator color="red">{`${error.status} ${error.name}: ${error.message}`}</StatusIndicator>}
-        <div>
-          Status:
-            <select onChange={e => this.setState({ filters: { status: e.target.value } })}>
-            <option value="">any</option>
-            <option>pending</option>
-            <option>approved</option>
-            <option>rejected</option>
-          </select>
-        </div>
+        <TableFilters
+          onSubmit={filters => this.setState({ filters: filters })}
+        />
         {isLoading || loading ? <Loading /> : gamesTable}
       </section>
     );

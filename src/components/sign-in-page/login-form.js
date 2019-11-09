@@ -5,7 +5,7 @@ import { login } from '../../actions/auth';
 import { required, nonEmpty } from '../../validators';
 
 import Input from '../atoms/input';
-import Button from '../button';
+import Button from '../atoms/button';
 
 export class LoginForm extends React.Component {
     onSubmit(values) {

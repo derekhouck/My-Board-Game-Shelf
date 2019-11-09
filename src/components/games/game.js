@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { removeGameFromShelf, addGameToShelf } from '../../actions/users';
-import Button from '../button';
+import Button from '../atoms/button';
 
 export function Game(props) {
   const {

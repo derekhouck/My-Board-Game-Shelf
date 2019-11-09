@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "formik": "^2.0.3",
     "jwt-decode": "^2.2.0",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
@@ -17,7 +18,8 @@
     "redux-burger-menu": "^0.2.8",
     "redux-form": "^8.2.0",
     "redux-thunk": "^2.3.0",
-    "sinon": "^7.3.2"
+    "sinon": "^7.3.2",
+    "typescript": "^3.7.2"
   },
   "scripts": {
     "start": "react-scripts start",

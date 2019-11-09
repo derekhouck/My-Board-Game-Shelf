@@ -10,8 +10,9 @@ describe('<AdminGames />', function () {
       <AdminGames dispatch={dispatch} />
     );
     expect(wrapper).toMatchSnapshot();
+    expect(dispatch).toHaveBeenCalled();
     expect(wrapper.find('h2').text()).toEqual('Games');
-  })
+  });
 
   it('renders each game title', () => {
     const games = [
@@ -50,8 +51,10 @@ describe('<AdminGames />', function () {
       />
     );
 
-    wrapper.setState({ isLoading: false });
-    wrapper.find('select').simulate('change', { target: { value: 'approved' } });
+    wrapper.setState({
+      filters: { status: 'approved' },
+      isLoading: false,
+    })
     expect(wrapper.contains(games[0].title)).toBe(false);
     expect(wrapper.contains(games[1].title)).toBe(true);
   });

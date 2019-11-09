@@ -9,7 +9,7 @@ export default class Input extends React.Component {
     }
 
     render() {
-        const { element, placeholder } = this.props;
+        const { element, inline, placeholder } = this.props;
         const Element = element || 'input';
 
         let error;
@@ -25,7 +25,7 @@ export default class Input extends React.Component {
         }
 
         return (
-            <div className={`form-input ${this.props.className}`}>
+            <div className={`form-input ${this.props.className} ${inline && 'inline'}`}>
                 <label htmlFor={this.props.input.name}>
                     {this.props.label}
                     {error}
@@ -44,5 +44,8 @@ export default class Input extends React.Component {
 }
 
 Input.defaultProps = {
+    inline: false,
+    input: {},
+    meta: {},
     placeholder: ''
 };

@@ -4,7 +4,7 @@ import { reduxForm, Field, focus } from 'redux-form';
 import { filterGames, resetFilters } from '../../actions/games';
 import './games-search-form.css';
 
-import Button from '../button';
+import Button from '../atoms/button';
 import Input from '../atoms/input';
 import Select from '../select';
 import { separateTags } from '../helpers';
@@ -141,6 +141,6 @@ export default connect(mapStateToProps)(
   reduxForm({
     enableReinitialize: true,
     form: 'games-search-form',
-    onSubmitFail: (errors, dispatch) => dispatch(focus('registration', Object.keys(errors)[0]))
+    onSubmitFail: (errors, dispatch) => dispatch(focus('games-search-form', Object.keys(errors)[0]))
   })(GamesSearchForm)
 );

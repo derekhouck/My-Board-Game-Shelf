@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Game } from './game';
-import Button from '../button';
+import Button from '../atoms/button';
 
 describe('<Game />', function () {
   it('renders without crashing', () => {

@@ -6,6 +6,11 @@
   display: block;
 }
 
+.form-input.inline label {
+  display: inline-block;
+  margin-right: 1em;
+}
+
 .form-input input {
   background-color: #f9fafa;
   border: 1px solid #4f2119;

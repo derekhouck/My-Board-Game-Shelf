@@ -4,7 +4,7 @@ import { Redirect, Link } from 'react-router-dom';
 import styles from './registration-page.module.css';
 
 import RegistrationForm from './registration-form';
-import Button from '../button';
+import Button from '../atoms/button';
 
 export function RegistrationPage(props) {
   if (props.loggedIn) {

@@ -1,5 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<GameForm /> redirects when editing and not admin 1`] = `ShallowWrapper {}`;
-
 exports[`<GameForm /> renders without crashing 1`] = `ShallowWrapper {}`;

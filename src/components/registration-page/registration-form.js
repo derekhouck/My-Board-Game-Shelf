@@ -5,7 +5,7 @@ import { login } from '../../actions/auth';
 import { nonEmpty, matches, length, isTrimmed, required, validateEmail } from '../../validators';
 
 import Input from '../atoms/input';
-import Button from '../button';
+import Button from '../atoms/button';
 
 const passwordLength = length({ min: 8, max: 72 });
 const matchesPassword = matches('password');

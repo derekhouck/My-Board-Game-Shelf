@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { resetFilters } from '../../actions/games';
 import './games.css';
 
-import Button from '../button';
+import Button from '../atoms/button';
 import GameList from './game-list';
 import GamesSearchForm from './games-search-form';
 import StatusIndicator from '../atoms/status-indicator';

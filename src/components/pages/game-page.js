@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Button from '../button';
+import Button from '../atoms/button';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './game-page.css';

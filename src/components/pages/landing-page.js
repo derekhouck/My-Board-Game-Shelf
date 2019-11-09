@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import './landing-page.css';
 
-import Button from '../button';
+import Button from '../atoms/button';
 
 export function LandingPage(props) {
     if (props.loggedIn) {

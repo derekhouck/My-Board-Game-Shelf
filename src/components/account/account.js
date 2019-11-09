@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import requiresLogin from '../helpers/requires-login';
 import { toggleDeleting } from '../../actions/users';
 
-import Button from '../button';
+import Button from '../atoms/button';
 import EditAccount from './edit-account';
 import DeleteAccount from './delete-account';
 import ChangePassword from './change-password';

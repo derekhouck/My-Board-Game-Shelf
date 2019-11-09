@@ -4,7 +4,7 @@ import { Link, Redirect } from 'react-router-dom';
 import styles from './sign-in-page.module.css';
 
 import LoginForm from './login-form';
-import Button from '../button';
+import Button from '../atoms/button';
 
 
 export function SignInPage(props) {

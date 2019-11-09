@@ -5,7 +5,7 @@ import { isTrimmed, required, validateEmail } from '../../validators';
 import { editUser } from '../../actions/users';
 import { refreshAuthToken } from '../../actions/auth';
 
-import Button from '../button';
+import Button from '../atoms/button';
 import Input from '../atoms/input';
 
 export class EditAccount extends React.Component {

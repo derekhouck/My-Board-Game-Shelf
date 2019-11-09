@@ -14,7 +14,7 @@ import {
 } from "../../validators";
 import "./game-form.css";
 
-import Button from "../button";
+import Button from "../atoms/button";
 import Input from "../atoms/input";
 import Loading from '../loading';
 import Select from "../select";

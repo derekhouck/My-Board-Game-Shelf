@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import requiresLogin from './helpers/requires-login';
 import { fetchUserGames } from '../actions/users';
 
-import Button from './button';
+import Button from './atoms/button';
 import Games from './games/games';
 import Loading from './loading';
 

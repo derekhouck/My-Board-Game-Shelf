@@ -4,7 +4,7 @@ import { focus, reduxForm, Field } from 'redux-form';
 import Input from '../../atoms/input';
 import { required, nonEmpty } from '../../../validators';
 import Select from '../../select';
-import Button from '../../button';
+import Button from '../../atoms/button';
 import { connect } from 'react-redux';
 import { fetchTag, editTag, addTag } from '../../../actions/tags';
 import Loading from '../../loading';

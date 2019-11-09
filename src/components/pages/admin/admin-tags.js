@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { fetchTags } from '../../../actions/games';
 import Loading from '../../loading';
 import StatusIndicator from '../../atoms/status-indicator';
-import Button from '../../button';
+import Button from '../../atoms/button';
 
 export class AdminTags extends Component {
   componentDidMount() {

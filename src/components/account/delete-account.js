@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { toggleDeleting, deleteUser } from '../../actions/users';
 import { required, nonEmpty, matches } from '../../validators';
 
-import Button from '../button';
+import Button from '../atoms/button';
 import Input from '../atoms/input';
 
 const matchesUsername = matches('username');
