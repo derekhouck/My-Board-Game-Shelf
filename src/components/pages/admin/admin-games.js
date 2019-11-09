@@ -6,7 +6,7 @@ import { fetchAdminGames } from '../../../actions/admin';
 import { deleteGame } from '../../../actions/games';
 
 import Button from '../../atoms/button';
-import Loading from '../../loading';
+import Loading from '../../atoms/loading';
 import StatusIndicator from '../../atoms/status-indicator';
 import Table from '../../table';
 import { TableFilters } from '../../molecules/table-filters';

@@ -16,7 +16,7 @@ import "./game-form.css";
 
 import Button from "../atoms/button";
 import Input from "../atoms/input";
-import Loading from '../loading';
+import Loading from '../atoms/loading';
 import Select from "../select";
 import { separateTags } from '../helpers';
 

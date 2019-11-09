@@ -7,7 +7,7 @@ import Select from '../../select';
 import Button from '../../atoms/button';
 import { connect } from 'react-redux';
 import { fetchTag, editTag, addTag } from '../../../actions/tags';
-import Loading from '../../loading';
+import Loading from '../../atoms/loading';
 import StatusIndicator from '../../atoms/status-indicator';
 
 export class AdminTagForm extends Component {

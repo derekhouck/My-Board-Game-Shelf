@@ -4,7 +4,7 @@ import { requiresAdmin } from '../../helpers/requiresAdmin';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchTags } from '../../../actions/games';
-import Loading from '../../loading';
+import Loading from '../../atoms/loading';
 import StatusIndicator from '../../atoms/status-indicator';
 import Button from '../../atoms/button';
 

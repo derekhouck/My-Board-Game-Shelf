@@ -1,9 +1,10 @@
 import React from "react";
-import { requiresAdmin } from './helpers/requiresAdmin';
+import { requiresAdmin } from '../helpers/requiresAdmin';
 import { connect } from "react-redux";
-import { editUser, fetchUsers } from "../actions/users";
-import ToggleSwitch from "./toggle-switch";
-import Table from './table';
+import { editUser, fetchUsers } from "../../actions/users";
+import ToggleSwitch from "../toggle-switch";
+import Table from '../table';
+import Loading from '../atoms/loading';
 
 export class Users extends React.Component {
   componentDidMount() {
@@ -28,7 +29,7 @@ export class Users extends React.Component {
         <div className="message message-error">{this.props.error.message}</div>
       );
     } else if (this.props.loading) {
-      body = <div className="message message-default">Loading users...</div>;
+      body = <Loading />;
     } else {
       const users = this.props.users.map(user => (
         <tr className="user" key={user.id} id={user.id}>
@@ -38,6 +39,7 @@ export class Users extends React.Component {
           <td>
             {user.name}
           </td>
+          <td>{user.email}</td>
           <td>
             <ToggleSwitch
               enabled={user.admin}
@@ -50,7 +52,7 @@ export class Users extends React.Component {
       body = (
         <Table
           className="users"
-          headings={['Username', 'Name', 'Admin']}
+          headings={['Username', 'Name', 'Email', 'Admin']}
         >
           <tbody>
             {users}

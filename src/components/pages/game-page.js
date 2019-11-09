@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './game-page.css';
 import StatusIndicator from '../atoms/status-indicator';
-import Loading from '../loading';
+import Loading from '../atoms/loading';
 import NotFound from '../404';
 import { API_BASE_URL } from '../../config';
 import { normalizeResponseErrors } from '../../actions/utils';

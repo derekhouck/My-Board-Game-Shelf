@@ -6,7 +6,7 @@ import { fetchUserGames } from '../actions/users';
 
 import Button from './atoms/button';
 import Games from './games/games';
-import Loading from './loading';
+import Loading from './atoms/loading';
 
 export class Dashboard extends React.Component {
   componentDidMount() {

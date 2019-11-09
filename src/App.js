@@ -9,7 +9,7 @@ import SignInPage from "./components/sign-in-page/sign-in-page";
 import RegistrationPage from "./components/registration-page/registration-page";
 import Dashboard from "./components/dashboard";
 import GameForm from "./components/pages/game-form";
-import Users from "./components/users";
+import Users from "./components/pages/users";
 import Account from "./components/account/account";
 import NotFound from "./components/404";
 import { refreshAuthToken } from "./actions/auth";
