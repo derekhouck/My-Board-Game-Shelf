@@ -4,18 +4,26 @@ import './table-filters.css';
 
 export const TableFilters = props => {
   const { onSubmit } = props;
+  const initialValues = {
+    name: '',
+    status: ''
+  }
   return (
     <Formik
-      initialValues={{
-        name: '',
-        status: ''
+      initialValues={initialValues}
+      onReset={(values, { setSubmitting }) => {
+        onSubmit(initialValues);
+        setSubmitting(false);
       }}
       onSubmit={(values, { setSubmitting }) => {
         onSubmit(values);
         setSubmitting(false);
       }}
     >
-      {({ isSubmitting }) =>
+      {({
+        handleReset,
+        isSubmitting
+      }) =>
         <Form
           className="table-filters"
         >
@@ -42,6 +50,11 @@ export const TableFilters = props => {
           </div>
           <button type="submit" disabled={isSubmitting}>
             Filter
+          </button>
+          <button
+            onClick={handleReset}
+            type="reset" disabled={isSubmitting}>
+            Reset
           </button>
         </Form>
       }

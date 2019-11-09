@@ -14,6 +14,7 @@ import { TableFilters } from '../../molecules/table-filters';
 export class AdminGames extends React.Component {
   state = {
     filters: {
+      name: '',
       status: ''
     },
     isLoading: false
@@ -24,6 +25,21 @@ export class AdminGames extends React.Component {
     dispatch(fetchAdminGames());
   }
 
+  filterGames() {
+    const { games } = this.props;
+    const { filters } = this.state;
+    const re = new RegExp(filters.name, 'i');
+    const nameTest = game =>
+      filters.name ?
+        re.test(game.title) :
+        true;
+    const statusTest = game =>
+      filters.status ?
+        game.status === filters.status :
+        true;
+    return games.filter(game => nameTest(game) && statusTest(game));
+  }
+
   handleDeleteButtonBlick(game) {
     const { dispatch } = this.props;
     this.setState({ isLoading: true });
@@ -31,17 +47,15 @@ export class AdminGames extends React.Component {
   }
 
   render() {
-    const { error, games, loading } = this.props;
-    const { filters, isLoading } = this.state;
+    const { error, loading } = this.props;
+    const { isLoading } = this.state;
     const addColor = status =>
       status === 'approved'
         ? 'green'
         : status === 'rejected'
           ? 'red'
           : 'yellow';
-    const filteredGames = filters.status
-      ? games.filter(game => game.status === filters.status)
-      : games;
+    const filteredGames = this.filterGames();
 
     const gamesTable = (
       <Table headings={['Title', 'Status', 'Actions']}>

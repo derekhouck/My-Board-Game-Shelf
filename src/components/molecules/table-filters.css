@@ -2,6 +2,6 @@
   align-items: center;
   column-gap: 1em;
   display: grid;
-  grid-template-columns: repeat(3, minmax(min-content, max-content));
+  grid-template-columns: repeat(4, minmax(min-content, max-content));
   justify-items: start;
 }
