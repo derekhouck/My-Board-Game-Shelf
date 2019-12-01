@@ -58,4 +58,23 @@ describe('<AdminGames />', function () {
     expect(wrapper.contains(games[0].title)).toBe(false);
     expect(wrapper.contains(games[1].title)).toBe(true);
   });
+
+  it('filters by name', () => {
+    const games = [
+      { id: 1, title: 'Game One' },
+      { id: 2, title: 'Game Two' }
+    ];
+    const wrapper = shallow(
+      <AdminGames
+        dispatch={dispatch}
+        games={games}
+      />
+    );
+    wrapper.setState({
+      filters: { name: 'one' },
+      isLoading: false,
+    });
+    expect(wrapper.contains(games[0].title)).toBe(true);
+    expect(wrapper.contains(games[1].title)).toBe(false);
+  });
 });

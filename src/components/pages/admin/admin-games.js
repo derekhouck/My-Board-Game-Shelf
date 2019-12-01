@@ -58,7 +58,7 @@ export class AdminGames extends React.Component {
     const filteredGames = this.filterGames();
 
     const gamesTable = (
-      <Table headings={['Title', 'Status', 'Actions']}>
+      <Table headings={['Title', 'Status', 'Shelves', 'Actions']}>
         <tbody>
           {filteredGames.map(game => (
             <tr key={game.id}>
@@ -73,6 +73,9 @@ export class AdminGames extends React.Component {
                 >
                   {game.status}
                 </StatusIndicator>
+              </td>
+              <td>
+                {game.shelves ? game.shelves.length : '0'}
               </td>
               <td className="btn-group">
                 <Link to={`/games/${game.id}/edit`}>
