@@ -18,7 +18,7 @@
     "redux-burger-menu": "^0.2.8",
     "redux-form": "^8.2.0",
     "redux-thunk": "^2.3.0",
-    "sinon": "^7.3.2",
+    "sinon": "^21.0.1",
     "typescript": "^3.7.2"
   },
   "scripts": {
